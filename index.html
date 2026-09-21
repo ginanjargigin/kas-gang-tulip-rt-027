@@ -1846,51 +1846,133 @@ async function addWarga() {
 }
 
 
-    /* =========================
-       HAPUS WARGA
-    ========================== */
+  /* =========================
+   HAPUS WARGA
+   DILINDUNGI DARI PENGHAPUSAN
+   JIKA SUDAH MEMILIKI RIWAYAT KAS
+========================= */
 
-    async function delWarga(i) {
+async function delWarga(i) {
 
-      if (
-        !confirm(
-          "Hapus warga?"
-        )
-      ) {
-
-        return;
-      }
+  const warga =
+    state.warga[i];
 
 
-      const nextWarga =
-        state.warga.filter(
-          (_, index) =>
-            index !== i
-        );
+  /*
+   * Pastikan data warga ditemukan.
+   */
+
+  if (!warga) {
+
+    return alert(
+      "Data warga tidak ditemukan."
+    );
+  }
 
 
-      const nextState = {
-
-        ...state,
-
-        warga: nextWarga
-      };
+  const namaWarga =
+    String(
+      warga.nama || ""
+    ).trim();
 
 
-      try {
+  /*
+   * Periksa apakah warga ini
+   * memiliki riwayat pembayaran kas.
+   */
 
-        await save(
-          nextState
-        );
+  const memilikiTransaksi =
+    state.kas.some(item => {
 
-      } catch (e) {
+      const namaTransaksi =
+        String(
+          item.nama || ""
+        ).trim()
+        .toLowerCase();
 
-        alert(
-          "Gagal menghapus warga: " +
-          e.message
-        );
-      }
-    }
+      return (
+        namaTransaksi ===
+        namaWarga.toLowerCase()
+      );
+
+    });
+
+
+  /*
+   * Jika sudah memiliki transaksi,
+   * warga tidak boleh dihapus.
+   */
+
+  if (memilikiTransaksi) {
+
+    return alert(
+      "Warga tidak dapat dihapus.\n\n" +
+      `Nama: ${namaWarga}\n\n` +
+      "Warga ini memiliki riwayat " +
+      "pembayaran kas.\n\n" +
+      "Jika warga sudah tidak tinggal " +
+      "di RT, ubah Status menjadi " +
+      "\"Tidak Aktif\"."
+    );
+  }
+
+
+  /*
+   * Konfirmasi sebelum menghapus.
+   */
+
+  const yakin =
+    confirm(
+      `Hapus data warga "${namaWarga}"?`
+    );
+
+
+  if (!yakin) {
+
+    return;
+  }
+
+
+  /*
+   * Buat state baru.
+   */
+
+  const nextWarga =
+    state.warga.filter(
+      (_, index) =>
+        index !== i
+    );
+
+
+  const nextState = {
+
+    ...state,
+
+    warga:
+      nextWarga
+
+  };
+
+
+  /*
+   * Simpan hanya jika proses
+   * penghapusan memang diperbolehkan.
+   */
+
+  try {
+
+    await save(
+      nextState
+    );
+
+  } catch (e) {
+
+    alert(
+      "Gagal menghapus warga: " +
+      e.message
+    );
+  }
+}
 
 
               /* =========================
