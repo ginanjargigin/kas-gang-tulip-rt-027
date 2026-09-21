@@ -579,11 +579,10 @@
 
             <div>
               Periode
-
-              <input
-                id="kPeriode"
-                placeholder="September 2026"
-              >
+            
+              <select id="kPeriode">
+                <option value="">Pilih periode</option>
+              </select>
             </div>
 
             <div>
@@ -849,9 +848,33 @@
       >
 
         <div class="card">
-
           <h3>Rekap Transaksi</h3>
-
+          
+          <div class="grid" style="margin-bottom: 15px;">
+          
+            <div class="card stat">
+              Total Pemasukan
+              <b id="rekapPemasukan">
+                Rp 0
+              </b>
+            </div>
+          
+            <div class="card stat">
+              Total Pengeluaran
+              <b id="rekapPengeluaran">
+                Rp 0
+              </b>
+            </div>
+          
+            <div class="card stat">
+              Sisa Kas
+              <b id="rekapSaldo">
+                Rp 0
+              </b>
+            </div>
+          
+          </div>
+          
           <div class="tablewrap">
 
             <table>
@@ -931,6 +954,55 @@
 
     let saving = false;
 
+               /* =========================================================
+           INPUT OLEH TERAKHIR
+           Nama terakhir tetap tersedia walaupun admin logout.
+           ========================================================= */
+        
+        const LAST_INPUT_BY_KEY =
+          "kas_rt_last_input_by";
+        
+        function loadLastInputBy() {
+          return (
+            localStorage.getItem(
+              LAST_INPUT_BY_KEY
+            ) || ""
+          );
+        }
+        
+        function saveLastInputBy(value) {
+          const nama =
+            String(value || "").trim();
+        
+          if (nama) {
+            localStorage.setItem(
+              LAST_INPUT_BY_KEY,
+              nama
+            );
+          }
+        }
+        
+        function setupLastInputBy() {
+          const inputOleh =
+            document.getElementById(
+              "pOleh"
+            );
+        
+          if (!inputOleh) {
+            return;
+          }
+        
+          const lastInputBy =
+            loadLastInputBy();
+        
+          if (
+            lastInputBy &&
+            !inputOleh.value.trim()
+          ) {
+            inputOleh.value =
+              lastInputBy;
+          }
+        }
 
     /* =========================
        HELPER
@@ -1562,51 +1634,118 @@
     }
 
 
-    /* =========================
-       TAMBAH PEMBAYARAN KAS
-    ========================== */
-
-    async function addKas() {
-
-      try {
-
-        const kas =
-          Number(
-            kKas.value
-          ) || 0;
-
-
-        const denda =
-          Number(
-            kDenda.value
-          ) || 0;
-
-
-        if (!kNama.value) {
-
-          return alert(
-            "Tambahkan warga dulu."
+              /* =========================
+             TAMBAH PEMBAYARAN KAS
+          ========================= */
+          
+          async function addKas() {
+            try {
+              const kas =
+                Number(kKas.value) || 0;
+          
+              const denda =
+                Number(kDenda.value) || 0;
+          
+              if (!kNama.value) {
+                return alert(
+                  "Tambahkan warga dulu."
+                );
+              }
+          
+              if (kas <= 0) {
+                return alert(
+                  "Nominal kas harus lebih dari 0."
+                );
+              }
+          
+              if (!kPeriode.value) {
+                return alert(
+                  "Pilih periode pembayaran."
+                );
+              }
+          
+              const newKas = {
+                id: uid(),
+          
+                tanggal:
+                  kTanggal.value ||
+                  new Date()
+                    .toISOString()
+                    .slice(0, 10),
+          
+                nama:
+                  kNama.value,
+          
+                periode:
+                  kPeriode.value.trim(),
+          
+                kas,
+          
+                denda,
+          
+                total:
+                  kas + denda,
+          
+                metode:
+                  kMetode.value,
+          
+                keterangan:
+                  kKet.value.trim()
+              };
+          
+              const nextState = {
+                ...state,
+          
+                kas: [
+                  ...state.kas,
+                  newKas
+                ]
+              };
+          
+              await save(
+                nextState,
+                "kMsg"
+              );
+          
+              /*
+               * Reset form hanya setelah
+               * penyimpanan berhasil.
+               */
+          
+              kPeriode.value = "";
+          
+              kKet.value = "";
+          
+              kDenda.value = "0";
+          
+            } catch (e) {
+              kMsg.className = "err";
+          
+              kMsg.textContent =
+                " Gagal: " +
+                e.message;
+            }
+          }
+          /* =========================
+             FORMAT INPUT PENGELUARAN
+          ========================= */
+          
+          pJumlah.addEventListener(
+            "input",
+            () => {
+              pJumlah.value =
+                formatNominalInput(
+                  pJumlah.value
+                );
+            }
           );
-        }
-
-
-        if (kas <= 0) {
-
-          return alert(
-            "Nominal kas harus lebih dari 0."
-          );
-        }
-
-
-        const newKas = {
-
-          id: uid(),
-
-          tanggal:
-            kTanggal.value ||
-            new Date()
-              .toISOString()
-              .slice(0, 10),
+          
+          
+          /* =========================
+             INPUT OLEH TERAKHIR
+          ========================= */
+          
+          setupLastInputBy();
 
           nama:
             kNama.value,
@@ -1670,97 +1809,150 @@
     }
 
 
-    /* =========================
-       TAMBAH PENGELUARAN
-    ========================== */
-
-    async function addPengeluaran() {
-
-      try {
-
-        const pJumlah = document.getElementById("pJumlah");
-          
-          if (pJumlah) {
-            pJumlah.addEventListener("input", () => {
-              pJumlah.value = formatNominalInput(pJumlah.value);
-            });
+        /* =========================
+           TAMBAH PENGELUARAN
+        ========================= */
+        
+        async function addPengeluaran() {
+          try {
+            const jumlah =
+              getNominalValue(
+                pJumlah.value
+              );
+        
+            if (jumlah <= 0) {
+              return alert(
+                "Jumlah pengeluaran harus lebih dari 0."
+              );
             }
-
-
-        if (jumlah <= 0) {
-
-          return alert(
-            "Jumlah pengeluaran harus lebih dari 0."
-          );
+        
+            const newPengeluaran = {
+              id: uid(),
+        
+              tanggal:
+                pTanggal.value ||
+                new Date()
+                  .toISOString()
+                  .slice(0, 10),
+        
+              kategori:
+                pKategori.value.trim(),
+        
+              jumlah,
+        
+              oleh:
+                pOleh.value.trim(),
+        
+              keterangan:
+                pKet.value.trim()
+            };
+        
+            const nextState = {
+              ...state,
+        
+              pengeluaran: [
+                ...state.pengeluaran,
+                newPengeluaran
+              ]
+            };
+        
+            await save(
+              nextState,
+              "pMsg"
+            );
+        
+            /*
+             * Simpan nama terakhir
+             * setelah SAVE berhasil.
+             */
+        
+            saveLastInputBy(
+              pOleh.value
+            );
+        
+            /*
+             * Reset form.
+             */
+        
+            pKategori.value = "";
+        
+            pJumlah.value = "";
+        
+            pKet.value = "";
+        
+            /*
+             * Input Oleh sengaja
+             * tidak dikosongkan.
+             */
+        
+            pOleh.value =
+              loadLastInputBy();
+        
+          } catch (e) {
+            pMsg.className = "err";
+        
+            pMsg.textContent =
+              " Gagal: " +
+              e.message;
+          }
         }
 
-
-        const newPengeluaran = {
-
-          id: uid(),
-
-          tanggal:
-            pTanggal.value ||
-            new Date()
-              .toISOString()
-              .slice(0, 10),
-
-          kategori:
-            pKategori.value.trim(),
-
-          jumlah,
-
-          oleh:
-            pOleh.value.trim(),
-
-          keterangan:
-            pKet.value.trim()
-        };
-
-
-        const nextState = {
-
-          ...state,
-
-          pengeluaran: [
-            ...state.pengeluaran,
-            newPengeluaran
-          ]
-        };
-
-
-        await save(
-          nextState,
-          "pMsg"
-        );
-
-
-        /*
-         * RESET FORM HANYA
-         * SETELAH SAVE BERHASIL.
-         */
-
-        pKategori.value = "";
-
-        pJumlah.value = "";
-
-        pOleh.value = "";
-
-        pKet.value = "";
-
-
-      } catch (e) {
-
-        pMsg.className =
-          "err";
-
-        pMsg.textContent =
-          " Gagal: " +
-          e.message;
-      }
-    }
-
-
+               /* =========================
+           PERIODE PEMBAYARAN KAS
+        ========================= */
+        
+        function setupPeriodeKas() {
+          const periode =
+            document.getElementById(
+              "kPeriode"
+            );
+        
+          if (!periode) {
+            return;
+          }
+        
+          const tahun =
+            new Date().getFullYear();
+        
+          const bulan = [
+            "Januari",
+            "Februari",
+            "Maret",
+            "April",
+            "Mei",
+            "Juni",
+            "Juli",
+            "Agustus",
+            "September",
+            "Oktober",
+            "November",
+            "Desember"
+          ];
+        
+          periode.innerHTML = `
+            <option value="">
+              Pilih periode
+            </option>
+        
+            ${bulan
+              .map(
+                (namaBulan, index) => {
+                  const nomorBulan =
+                    String(index + 1)
+                      .padStart(2, "0");
+        
+                  return `
+                    <option
+                      value="${tahun}-${nomorBulan}"
+                    >
+                      ${namaBulan} ${tahun}
+                    </option>
+                  `;
+                }
+              )
+              .join("")}
+          `;
+        }
     /* =========================
        PENCARIAN PEMBAYARAN
     ========================== */
@@ -1894,89 +2086,151 @@
     }
 
 
-    /* =========================
-       REKAP TRANSAKSI
-    ========================== */
-
-    function renderRekap() {
-
-      const rekap = [
-
-        ...state.kas.map(
-          x => ({
-            tanggal:
-              x.tanggal,
-
-            jenis:
-              "Kas",
-
-            nama:
-              x.nama,
-
-            jumlah:
-              x.total,
-
-            ket:
-              x.keterangan
-          })
-        ),
-
-        ...state.pengeluaran.map(
-          x => ({
-            tanggal:
-              x.tanggal,
-
-            jenis:
-              "Pengeluaran",
-
-            nama:
-              x.kategori,
-
-            jumlah:
-              x.jumlah,
-
-            ket:
-              x.keterangan
-          })
-        )
-
-      ].sort(
-        (a, b) =>
-          b.tanggal.localeCompare(
-            a.tanggal
+       /* =========================
+         REKAP TRANSAKSI
+      ========================= */
+      
+      function renderRekap() {
+        /*
+         * TOTAL PEMASUKAN
+         */
+        const totalPemasukan =
+          state.kas.reduce(
+            (total, item) =>
+              total +
+              Number(item.total || 0),
+            0
+          );
+      
+        /*
+         * TOTAL PENGELUARAN
+         */
+        const totalPengeluaran =
+          state.pengeluaran.reduce(
+            (total, item) =>
+              total +
+              Number(item.jumlah || 0),
+            0
+          );
+      
+        /*
+         * SISA KAS
+         */
+        const sisaKas =
+          totalPemasukan -
+          totalPengeluaran;
+      
+        /*
+         * TAMPILKAN TOTAL
+         */
+        const rekapPemasukan =
+          document.getElementById(
+            "rekapPemasukan"
+          );
+      
+        const rekapPengeluaran =
+          document.getElementById(
+            "rekapPengeluaran"
+          );
+      
+        const rekapSaldo =
+          document.getElementById(
+            "rekapSaldo"
+          );
+      
+        if (rekapPemasukan) {
+          rekapPemasukan.textContent =
+            rp(totalPemasukan);
+        }
+      
+        if (rekapPengeluaran) {
+          rekapPengeluaran.textContent =
+            rp(totalPengeluaran);
+        }
+      
+        if (rekapSaldo) {
+          rekapSaldo.textContent =
+            rp(sisaKas);
+        }
+      
+        /*
+         * TABEL REKAP
+         */
+        const rekap = [
+          ...state.kas.map(
+            x => ({
+              tanggal:
+                x.tanggal,
+      
+              jenis:
+                "Kas",
+      
+              nama:
+                x.nama,
+      
+              jumlah:
+                x.total,
+      
+              ket:
+                x.keterangan
+            })
+          ),
+      
+          ...state.pengeluaran.map(
+            x => ({
+              tanggal:
+                x.tanggal,
+      
+              jenis:
+                "Pengeluaran",
+      
+              nama:
+                x.kategori,
+      
+              jumlah:
+                x.jumlah,
+      
+              ket:
+                x.keterangan
+            })
           )
-      );
-
-
-      rTable.innerHTML =
-        rekap
-          .map(
-            x => `
-              <tr>
-                <td>
-                  ${x.tanggal}
-                </td>
-
-                <td>
-                  ${x.jenis}
-                </td>
-
-                <td>
-                  ${esc(x.nama)}
-                </td>
-
-                <td>
-                  ${rp(x.jumlah)}
-                </td>
-
-                <td>
-                  ${esc(x.ket)}
-                </td>
-              </tr>
-            `
-          )
-          .join("");
-    }
+      
+        ].sort(
+          (a, b) =>
+            b.tanggal.localeCompare(
+              a.tanggal
+            )
+        );
+      
+        rTable.innerHTML =
+          rekap
+            .map(
+              x => `
+                <tr>
+                  <td>
+                    ${x.tanggal}
+                  </td>
+      
+                  <td>
+                    ${x.jenis}
+                  </td>
+      
+                  <td>
+                    ${esc(x.nama)}
+                  </td>
+      
+                  <td>
+                    ${rp(x.jumlah)}
+                  </td>
+      
+                  <td>
+                    ${esc(x.ket)}
+                  </td>
+                </tr>
+              `
+            )
+            .join("");
+      }
 
 
     /* =========================
@@ -2031,31 +2285,85 @@
       });
 
 
-    /* =========================
-       INISIALISASI
-    ========================== */
+   /* =========================
+   INISIALISASI
+========================= */
 
-    kTanggal.value =
-      pTanggal.value =
-        new Date()
-          .toISOString()
-          .slice(0, 10);
+/*
+ * Tanggal default hari ini.
+ */
 
-      if (token) {
-        show();
-      
-        showDataLoading();
-      
-        load()
-          .then(() => {
-            hideDataLoading();
-          })
-          .catch((error) => {
-            console.error("Gagal memuat data:", error);
-      
-            showDataLoadingError(error);
-          });
-      }
+const today =
+  new Date()
+    .toISOString()
+    .slice(0, 10);
+
+kTanggal.value = today;
+pTanggal.value = today;
+
+
+/*
+ * Format nominal pengeluaran
+ * ketika pengguna mengetik.
+ *
+ * Contoh:
+ * 2500000
+ * menjadi
+ * 2.500.000
+ */
+
+pJumlah.addEventListener(
+  "input",
+  () => {
+    pJumlah.value =
+      formatNominalInput(
+        pJumlah.value
+      );
+  }
+);
+
+
+/*
+ * Isi nama Input Oleh
+ * dari nama terakhir.
+ */
+
+setupLastInputBy();
+
+
+/*
+ * Isi dropdown periode
+ * Januari - Desember tahun berjalan.
+ */
+
+setupPeriodeKas();
+
+
+/*
+ * Jika token login masih ada,
+ * tampilkan aplikasi dan ambil data.
+ */
+
+if (token) {
+  show();
+
+  showDataLoading();
+
+  load()
+    .then(() => {
+      hideDataLoading();
+    })
+    .catch((error) => {
+      console.error(
+        "Gagal memuat data:",
+        error
+      );
+
+      showDataLoadingError(
+        error
+      );
+    });
+}
   </script>
 
 </body>
