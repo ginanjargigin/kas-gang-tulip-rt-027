@@ -1913,36 +1913,101 @@ async function delPengeluaran(id) {
 
 /* =========================
    TAMBAH PEMBAYARAN KAS
+   DENGAN PENCEGAHAN DUPLIKAT
 ========================= */
 
 async function addKas() {
+
   try {
+
     const kas =
       Number(kKas.value) || 0;
 
     const denda =
       Number(kDenda.value) || 0;
 
+
+    /* =========================
+       VALIDASI DASAR
+    ========================= */
+
     if (!kNama.value) {
+
       return alert(
         "Tambahkan warga dulu."
       );
     }
 
+
     if (kas <= 0) {
+
       return alert(
         "Nominal kas harus lebih dari 0."
       );
     }
 
+
     if (!kPeriode.value) {
+
       return alert(
         "Pilih periode pembayaran."
       );
     }
 
+
+    /*
+     * Normalisasi nilai agar perbandingan
+     * tidak terganggu oleh spasi.
+     */
+
+    const nama =
+      String(kNama.value).trim();
+
+    const periode =
+      String(kPeriode.value).trim();
+
+
+    /* =========================
+       CEGAH PEMBAYARAN GANDA
+    ========================= */
+
+    const sudahAda =
+      state.kas.some(item => {
+
+        const namaLama =
+          String(item.nama || "").trim();
+
+        const periodeLama =
+          String(item.periode || "").trim();
+
+        return (
+          namaLama === nama &&
+          periodeLama === periode
+        );
+
+      });
+
+
+    if (sudahAda) {
+
+      return alert(
+        "Pembayaran kas sudah tercatat.\n\n" +
+        `Nama: ${nama}\n` +
+        `Periode: ${periode}\n\n` +
+        "Pembayaran untuk warga dan periode " +
+        "tersebut tidak dapat dicatat dua kali."
+      );
+    }
+
+
+    /* =========================
+       BUAT TRANSAKSI BARU
+    ========================= */
+
     const newKas = {
-      id: uid(),
+
+      id:
+        uid(),
 
       tanggal:
         kTanggal.value ||
@@ -1951,38 +2016,61 @@ async function addKas() {
           .slice(0, 10),
 
       nama:
-        kNama.value,
+
+        nama,
 
       periode:
-        kPeriode.value.trim(),
 
-      kas,
+        periode,
 
-      denda,
+      kas:
+
+        kas,
+
+      denda:
+
+        denda,
 
       total:
+
         kas + denda,
 
       metode:
+
         kMetode.value,
 
       keterangan:
+
         kKet.value.trim()
+
     };
 
+
+    /* =========================
+       STATE BERIKUTNYA
+    ========================= */
+
     const nextState = {
+
       ...state,
 
       kas: [
         ...state.kas,
         newKas
       ]
+
     };
+
+
+    /* =========================
+       SIMPAN
+    ========================= */
 
     await save(
       nextState,
       "kMsg"
     );
+
 
     /*
      * Reset form hanya setelah
@@ -1990,11 +2078,16 @@ async function addKas() {
      */
 
     kPeriode.value = "";
+
     kKet.value = "";
+
     kDenda.value = "0";
 
+
   } catch (e) {
-    kMsg.className = "err";
+
+    kMsg.className =
+      "err";
 
     kMsg.textContent =
       " Gagal: " +
