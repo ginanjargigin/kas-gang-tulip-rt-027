@@ -940,67 +940,132 @@
        API
     ========================== */
 
-    async function api(url, opt = {}) {
-
-      opt.headers = {
-        ...(opt.headers || {}),
-
-        "Content-Type":
-          "application/json",
-
-        ...(token
-          ? {
-              "Authorization":
-                "Bearer " + token
+           async function api(url, opt = {}) {
+          const method = (opt.method || "GET").toUpperCase();
+        
+          const maxRetries = method === "GET" ? 2 : 0;
+          const timeoutMs = 15000;
+        
+          opt.headers = {
+            ...(opt.headers || {}),
+            "Content-Type": "application/json",
+            ...(token
+              ? { "Authorization": "Bearer " + token }
+              : {})
+          };
+        
+          /*
+           * GET boleh dicoba ulang karena kita hanya membaca data.
+           *
+           * PUT tidak otomatis diulang di sini karena PUT digunakan
+           * untuk menyimpan data dan kita ingin menghindari mekanisme
+           * retry yang tidak perlu pada proses penyimpanan.
+           */
+          for (let attempt = 0; attempt <= maxRetries; attempt++) {
+            const controller = new AbortController();
+        
+            const timeout = setTimeout(() => {
+              controller.abort();
+            }, timeoutMs);
+        
+            try {
+              const requestOptions = {
+                ...opt,
+                signal: controller.signal,
+                cache: method === "GET" ? "no-store" : opt.cache
+              };
+        
+              const response = await fetch(url, requestOptions);
+        
+              clearTimeout(timeout);
+        
+              const data = await response.json().catch(() => ({}));
+        
+              if (!response.ok) {
+                const error = new Error(
+                  data.error ||
+                  "Gagal menghubungi server."
+                );
+        
+                error.status = response.status;
+                error.code = data.code || "API_ERROR";
+        
+                /*
+                 * Untuk GET, error server masih boleh dicoba lagi.
+                 * Percobaan berikutnya dilakukan setelah jeda singkat.
+                 */
+                if (method === "GET" && attempt < maxRetries) {
+                  console.warn(
+                    `GET ${url} gagal (${response.status}). ` +
+                    `Percobaan ulang ${attempt + 1}/${maxRetries}...`
+                  );
+        
+                  await new Promise(resolve => {
+                    setTimeout(resolve, 1500);
+                  });
+        
+                  continue;
+                }
+        
+                throw error;
+              }
+        
+              return data;
+        
+            } catch (error) {
+              clearTimeout(timeout);
+        
+              const isTimeout =
+                error?.name === "AbortError";
+        
+              const networkError =
+                !error?.status &&
+                !error?.code;
+        
+              /*
+               * Timeout atau network error pada GET
+               * akan dicoba kembali.
+               */
+              if (
+                method === "GET" &&
+                attempt < maxRetries &&
+                (isTimeout || networkError)
+              ) {
+                console.warn(
+                  `GET ${url} gagal.`,
+                  `Percobaan ulang ${attempt + 1}/${maxRetries}...`,
+                  error
+                );
+        
+                await new Promise(resolve => {
+                  setTimeout(resolve, 1500);
+                });
+        
+                continue;
+              }
+        
+              if (isTimeout) {
+                throw new Error(
+                  "Server terlalu lama merespons. " +
+                  "Silakan coba lagi."
+                );
+              }
+        
+              if (networkError) {
+                throw new Error(
+                  "Tidak dapat terhubung ke server. " +
+                  "Periksa koneksi internet lalu coba lagi."
+                );
+              }
+        
+              throw error;
             }
-          : {})
-      };
-
-
-      let r;
-
-      try {
-
-        r = await fetch(
-          url,
-          opt
-        );
-
-      } catch (e) {
-
-        throw Error(
-          "Tidak dapat terhubung ke server. " +
-          "Periksa koneksi internet lalu coba lagi."
-        );
-      }
-
-
-      const d =
-        await r
-          .json()
-          .catch(() => ({}));
-
-
-      if (!r.ok) {
-
-        const err =
-          new Error(
-            d.error ||
-            "Gagal menghubungi server."
+          }
+        
+          throw new Error(
+            "Data belum berhasil dimuat setelah beberapa percobaan."
           );
-
-        err.status = r.status;
-
-        err.code =
-          d.code ||
-          "API_ERROR";
-
-        throw err;
-      }
-
-
-      return d;
-    }
+        }
 
 
     /* =========================
