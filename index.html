@@ -1753,19 +1753,24 @@
           .toISOString()
           .slice(0, 10);
 
-
-    if (token) {
-
-      show();
-
-      load()
-        .catch(() => {
-
-          sessionStorage.clear();
-
-          location.reload();
+      if (token) {
+        show();
+      
+        load().catch((error) => {
+          console.error("Gagal memuat data:", error);
+      
+          const message =
+            error?.message ||
+            "Data belum dapat dimuat dari server.";
+      
+          alert(
+            "Data belum berhasil dimuat.\n\n" +
+            message +
+            "\n\nLogin tetap dipertahankan. " +
+            "Silakan coba refresh kembali beberapa saat lagi."
+          );
         });
-    }
+      }
 
   </script>
 
