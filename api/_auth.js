@@ -1,1 +1,1 @@
-11
+const crypto=require("crypto");function sign(o,s){let p=Buffer.from(JSON.stringify(o)).toString("base64url");return p+"."+crypto.createHmac("sha256",s).update(p).digest("base64url")}function verify(t,s){try{let[a,b]=t.split(".");let x=crypto.createHmac("sha256",s).update(a).digest("base64url");return b===x&&JSON.parse(Buffer.from(a,"base64url")).exp>Date.now()}catch(e){return false}}module.exports={sign,verify};
