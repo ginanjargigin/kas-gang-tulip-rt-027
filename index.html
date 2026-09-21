@@ -11,6 +11,104 @@
   <title>Kas Gang RT 027</title>
 
   <style>
+    /* =========================================================
+   LOADING DATA
+   Menutup tampilan sementara data sedang diambil dari server.
+   ========================================================= */
+    
+    .data-loading-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+    
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(4px);
+    
+      text-align: center;
+      padding: 24px;
+    }
+    
+    .data-loading-box {
+      width: min(420px, 90vw);
+      padding: 30px 24px;
+    
+      background: #ffffff;
+      border-radius: 16px;
+    
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    }
+    
+    .data-loading-spinner {
+      width: 42px;
+      height: 42px;
+    
+      margin: 0 auto 18px;
+    
+      border: 4px solid #e5e7eb;
+      border-top-color: #2563eb;
+      border-radius: 50%;
+    
+      animation: dataLoadingSpin 0.8s linear infinite;
+    }
+    
+    .data-loading-title {
+      margin: 0 0 8px;
+    
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+    }
+    
+    .data-loading-text {
+      margin: 0;
+    
+      font-size: 14px;
+      line-height: 1.6;
+      color: #6b7280;
+    }
+    
+    .data-loading-error {
+      margin-top: 16px;
+      padding: 12px;
+    
+      border-radius: 10px;
+    
+      background: #fef2f2;
+      color: #991b1b;
+    
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .data-loading-retry {
+      margin-top: 18px;
+      padding: 10px 18px;
+    
+      border: 0;
+      border-radius: 8px;
+    
+      background: #2563eb;
+      color: #ffffff;
+    
+      font-size: 14px;
+      font-weight: 600;
+    
+      cursor: pointer;
+    }
+    
+    .data-loading-retry:hover {
+      background: #1d4ed8;
+    }
+    
+    @keyframes dataLoadingSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -1084,7 +1182,98 @@
 
       renderRekap();
     }
-
+      /* =========================================================
+         DATA LOADING STATE
+         ========================================================= */
+      
+      function showDataLoading() {
+        let overlay = document.getElementById("dataLoadingOverlay");
+      
+        if (overlay) {
+          return;
+        }
+      
+        overlay = document.createElement("div");
+        overlay.id = "dataLoadingOverlay";
+        overlay.className = "data-loading-overlay";
+      
+        overlay.innerHTML = `
+          <div class="data-loading-box">
+            <div class="data-loading-spinner"></div>
+      
+            <h3 class="data-loading-title">
+              Memuat data...
+            </h3>
+      
+            <p class="data-loading-text">
+              Mengambil data terbaru dari server.<br>
+              Mohon tunggu sebentar.
+            </p>
+          </div>
+        `;
+      
+        document.body.appendChild(overlay);
+      }
+      
+      function hideDataLoading() {
+        const overlay = document.getElementById("dataLoadingOverlay");
+      
+        if (overlay) {
+          overlay.remove();
+        }
+      }
+      
+      function showDataLoadingError(error) {
+        let overlay = document.getElementById("dataLoadingOverlay");
+      
+        if (!overlay) {
+          showDataLoading();
+          overlay = document.getElementById("dataLoadingOverlay");
+        }
+      
+        const box = overlay.querySelector(".data-loading-box");
+      
+        if (!box) {
+          return;
+        }
+      
+        box.innerHTML = `
+          <h3 class="data-loading-title">
+            Data belum dapat dimuat
+          </h3>
+      
+          <p class="data-loading-text">
+            Data dari server belum berhasil diambil.
+            Login tetap dipertahankan.
+          </p>
+      
+          <div class="data-loading-error">
+            ${error?.message || "Terjadi gangguan saat mengambil data."}
+          </div>
+      
+          <button
+            type="button"
+            class="data-loading-retry"
+            onclick="retryLoadData()"
+          >
+            Coba Lagi
+          </button>
+        `;
+      }
+      
+      async function retryLoadData() {
+        showDataLoading();
+      
+        try {
+          await load();
+      
+          hideDataLoading();
+        } catch (error) {
+          console.error("Retry load data gagal:", error);
+      
+          showDataLoadingError(error);
+        }
+      }
 
     /* =========================
        SIMPAN DATA
@@ -1756,22 +1945,18 @@
       if (token) {
         show();
       
-        load().catch((error) => {
-          console.error("Gagal memuat data:", error);
+        showDataLoading();
       
-          const message =
-            error?.message ||
-            "Data belum dapat dimuat dari server.";
+        load()
+          .then(() => {
+            hideDataLoading();
+          })
+          .catch((error) => {
+            console.error("Gagal memuat data:", error);
       
-          alert(
-            "Data belum berhasil dimuat.\n\n" +
-            message +
-            "\n\nLogin tetap dipertahankan. " +
-            "Silakan coba refresh kembali beberapa saat lagi."
-          );
-        });
+            showDataLoadingError(error);
+          });
       }
-
   </script>
 
 </body>
