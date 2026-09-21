@@ -1696,80 +1696,154 @@ function setupAutoLogout() {
     }
 
 
+  /* =========================
+   TAMBAH WARGA
+   DENGAN VALIDASI DUPLIKAT
+========================= */
+
+async function addWarga() {
+
+  try {
+
+    const nama =
+      wNama.value.trim();
+
+
     /* =========================
-       TAMBAH WARGA
-    ========================== */
+       VALIDASI NAMA
+    ========================= */
 
-    async function addWarga() {
+    if (!nama) {
 
-      const nama =
-        wNama.value.trim();
-
-
-      if (!nama) {
-
-        return;
-      }
+      return alert(
+        "Nama warga wajib diisi."
+      );
+    }
 
 
-      const newWarga = {
+    /*
+     * Normalisasi nama untuk pemeriksaan duplikat.
+     *
+     * Contoh:
+     * "Budi"
+     * " budi "
+     * "BUDI"
+     *
+     * semuanya dianggap sama.
+     */
 
-        id: uid(),
+    const namaNormal =
+      nama.toLowerCase();
+
+
+    /* =========================
+       CEGAH DATA WARGA GANDA
+    ========================= */
+
+    const sudahAda =
+      state.warga.some(item => {
+
+        const namaLama =
+          String(
+            item.nama || ""
+          )
+            .trim()
+            .toLowerCase();
+
+        return (
+          namaLama ===
+          namaNormal
+        );
+
+      });
+
+
+    if (sudahAda) {
+
+      return alert(
+        "Data warga sudah terdaftar.\n\n" +
+        `Nama: ${nama}\n\n` +
+        "Gunakan nama warga yang berbeda."
+      );
+    }
+
+
+    /* =========================
+       BUAT DATA WARGA BARU
+    ========================= */
+
+    const newWarga = {
+
+      id:
+        uid(),
+
+      nama:
 
         nama,
 
-        blok:
-          wBlok.value.trim(),
+      blok:
 
-        hp:
-          wHp.value.trim(),
+        wBlok.value.trim(),
 
-        status:
-          wStatus.value
-      };
+      hp:
 
+        wHp.value.trim(),
 
-      const nextState = {
+      status:
 
-        ...state,
+        wStatus.value
 
-        warga: [
-          ...state.warga,
-          newWarga
-        ]
-      };
+    };
 
 
-      try {
+    /* =========================
+       STATE BERIKUTNYA
+    ========================= */
 
-        await save(
-          nextState,
-          "wMsg"
-        );
+    const nextState = {
 
+      ...state,
 
-        /*
-         * FORM DIKOSONGKAN
-         * HANYA SETELAH SAVE BERHASIL.
-         */
+      warga: [
+        ...state.warga,
+        newWarga
+      ]
 
-        wNama.value = "";
-
-        wBlok.value = "";
-
-        wHp.value = "";
+    };
 
 
-      } catch (e) {
+    /* =========================
+       SIMPAN
+    ========================= */
 
-        wMsg.className =
-          "err";
+    await save(
+      nextState,
+      "wMsg"
+    );
 
-        wMsg.textContent =
-          " Gagal: " +
-          e.message;
-      }
-    }
+
+    /*
+     * FORM HANYA DIKOSONGKAN
+     * SETELAH SAVE BERHASIL.
+     */
+
+    wNama.value = "";
+
+    wBlok.value = "";
+
+    wHp.value = "";
+
+
+  } catch (e) {
+
+    wMsg.className =
+      "err";
+
+    wMsg.textContent =
+      " Gagal: " +
+      e.message;
+  }
+}
 
 
     /* =========================
