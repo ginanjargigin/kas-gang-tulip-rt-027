@@ -1,3 +1,4 @@
+```
 <!doctype html>
 <html lang="id">
 
@@ -1635,269 +1636,186 @@
 
 
               /* =========================
-             TAMBAH PEMBAYARAN KAS
-          ========================= */
-          
-          async function addKas() {
-            try {
-              const kas =
-                Number(kKas.value) || 0;
-          
-              const denda =
-                Number(kDenda.value) || 0;
-          
-              if (!kNama.value) {
-                return alert(
-                  "Tambahkan warga dulu."
-                );
-              }
-          
-              if (kas <= 0) {
-                return alert(
-                  "Nominal kas harus lebih dari 0."
-                );
-              }
-          
-              if (!kPeriode.value) {
-                return alert(
-                  "Pilih periode pembayaran."
-                );
-              }
-          
-              const newKas = {
-                id: uid(),
-          
-                tanggal:
-                  kTanggal.value ||
-                  new Date()
-                    .toISOString()
-                    .slice(0, 10),
-          
-                nama:
-                  kNama.value,
-          
-                periode:
-                  kPeriode.value.trim(),
-          
-                kas,
-          
-                denda,
-          
-                total:
-                  kas + denda,
-          
-                metode:
-                  kMetode.value,
-          
-                keterangan:
-                  kKet.value.trim()
-              };
-          
-              const nextState = {
-                ...state,
-          
-                kas: [
-                  ...state.kas,
-                  newKas
-                ]
-              };
-          
-              await save(
-                nextState,
-                "kMsg"
-              );
-          
-              /*
-               * Reset form hanya setelah
-               * penyimpanan berhasil.
-               */
-          
-              kPeriode.value = "";
-          
-              kKet.value = "";
-          
-              kDenda.value = "0";
-          
-            } catch (e) {
-              kMsg.className = "err";
-          
-              kMsg.textContent =
-                " Gagal: " +
-                e.message;
-            }
-          }
-          /* =========================
-             FORMAT INPUT PENGELUARAN
-          ========================= */
-          
-          pJumlah.addEventListener(
-            "input",
-            () => {
-              pJumlah.value =
-                formatNominalInput(
-                  pJumlah.value
-                );
-            }
-          );
-          
-          
-          /* =========================
-             INPUT OLEH TERAKHIR
-          ========================= */
-          
-          setupLastInputBy();
+   TAMBAH PEMBAYARAN KAS
+========================= */
 
-          nama:
-            kNama.value,
+async function addKas() {
+  try {
+    const kas =
+      Number(kKas.value) || 0;
 
-          periode:
-            kPeriode.value.trim(),
+    const denda =
+      Number(kDenda.value) || 0;
 
-          kas,
-
-          denda,
-
-          total:
-            kas + denda,
-
-          metode:
-            kMetode.value,
-
-          keterangan:
-            kKet.value.trim()
-        };
-
-
-        const nextState = {
-
-          ...state,
-
-          kas: [
-            ...state.kas,
-            newKas
-          ]
-        };
-
-
-        await save(
-          nextState,
-          "kMsg"
-        );
-
-
-        /*
-         * RESET FORM HANYA
-         * SETELAH SAVE BERHASIL.
-         */
-
-        kPeriode.value = "";
-
-        kKet.value = "";
-
-        kDenda.value = "0";
-
-
-      } catch (e) {
-
-        kMsg.className =
-          "err";
-
-        kMsg.textContent =
-          " Gagal: " +
-          e.message;
-      }
+    if (!kNama.value) {
+      return alert(
+        "Tambahkan warga dulu."
+      );
     }
 
+    if (kas <= 0) {
+      return alert(
+        "Nominal kas harus lebih dari 0."
+      );
+    }
 
-        /* =========================
-           TAMBAH PENGELUARAN
-        ========================= */
-        
-        async function addPengeluaran() {
-          try {
-            const jumlah =
-              getNominalValue(
-                pJumlah.value
-              );
-        
-            if (jumlah <= 0) {
-              return alert(
-                "Jumlah pengeluaran harus lebih dari 0."
-              );
-            }
-        
-            const newPengeluaran = {
-              id: uid(),
-        
-              tanggal:
-                pTanggal.value ||
-                new Date()
-                  .toISOString()
-                  .slice(0, 10),
-        
-              kategori:
-                pKategori.value.trim(),
-        
-              jumlah,
-        
-              oleh:
-                pOleh.value.trim(),
-        
-              keterangan:
-                pKet.value.trim()
-            };
-        
-            const nextState = {
-              ...state,
-        
-              pengeluaran: [
-                ...state.pengeluaran,
-                newPengeluaran
-              ]
-            };
-        
-            await save(
-              nextState,
-              "pMsg"
-            );
-        
-            /*
-             * Simpan nama terakhir
-             * setelah SAVE berhasil.
-             */
-        
-            saveLastInputBy(
-              pOleh.value
-            );
-        
-            /*
-             * Reset form.
-             */
-        
-            pKategori.value = "";
-        
-            pJumlah.value = "";
-        
-            pKet.value = "";
-        
-            /*
-             * Input Oleh sengaja
-             * tidak dikosongkan.
-             */
-        
-            pOleh.value =
-              loadLastInputBy();
-        
-          } catch (e) {
-            pMsg.className = "err";
-        
-            pMsg.textContent =
-              " Gagal: " +
-              e.message;
-          }
-        }
+    if (!kPeriode.value) {
+      return alert(
+        "Pilih periode pembayaran."
+      );
+    }
 
-               /* =========================
+    const newKas = {
+      id: uid(),
+
+      tanggal:
+        kTanggal.value ||
+        new Date()
+          .toISOString()
+          .slice(0, 10),
+
+      nama:
+        kNama.value,
+
+      periode:
+        kPeriode.value.trim(),
+
+      kas,
+
+      denda,
+
+      total:
+        kas + denda,
+
+      metode:
+        kMetode.value,
+
+      keterangan:
+        kKet.value.trim()
+    };
+
+    const nextState = {
+      ...state,
+
+      kas: [
+        ...state.kas,
+        newKas
+      ]
+    };
+
+    await save(
+      nextState,
+      "kMsg"
+    );
+
+    /*
+     * Reset form hanya setelah
+     * penyimpanan berhasil.
+     */
+
+    kPeriode.value = "";
+    kKet.value = "";
+    kDenda.value = "0";
+
+  } catch (e) {
+    kMsg.className = "err";
+
+    kMsg.textContent =
+      " Gagal: " +
+      e.message;
+  }
+}
+
+
+/* =========================
+   TAMBAH PENGELUARAN
+========================= */
+
+async function addPengeluaran() {
+  try {
+    const jumlah =
+      getNominalValue(
+        pJumlah.value
+      );
+
+    if (jumlah <= 0) {
+      return alert(
+        "Jumlah pengeluaran harus lebih dari 0."
+      );
+    }
+
+    const newPengeluaran = {
+      id: uid(),
+
+      tanggal:
+        pTanggal.value ||
+        new Date()
+          .toISOString()
+          .slice(0, 10),
+
+      kategori:
+        pKategori.value.trim(),
+
+      jumlah,
+
+      oleh:
+        pOleh.value.trim(),
+
+      keterangan:
+        pKet.value.trim()
+    };
+
+    const nextState = {
+      ...state,
+
+      pengeluaran: [
+        ...state.pengeluaran,
+        newPengeluaran
+      ]
+    };
+
+    await save(
+      nextState,
+      "pMsg"
+    );
+
+    /*
+     * Simpan nama terakhir
+     * setelah SAVE berhasil.
+     */
+
+    saveLastInputBy(
+      pOleh.value
+    );
+
+    /*
+     * Reset form
+     * setelah SAVE berhasil.
+     */
+
+    pKategori.value = "";
+    pJumlah.value = "";
+    pKet.value = "";
+
+    /*
+     * Input Oleh sengaja
+     * tidak dikosongkan.
+     */
+
+    pOleh.value =
+      loadLastInputBy();
+
+  } catch (e) {
+    pMsg.className = "err";
+
+    pMsg.textContent =
+      " Gagal: " +
+      e.message;
+  }
+}
+
+
+/* =========================
            PERIODE PEMBAYARAN KAS
         ========================= */
         
@@ -2369,3 +2287,4 @@ if (token) {
 </body>
 
 </html>
+```
