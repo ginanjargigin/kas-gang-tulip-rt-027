@@ -956,6 +956,185 @@
     };
 
     let saving = false;
+    /* =========================================================
+   AUTO LOGOUT KARENA TIDAK ADA AKTIVITAS
+   ========================================================= */
+
+const AUTO_LOGOUT_MS = 3 * 60 * 60 * 1000;
+const ACTIVITY_CHECK_MS = 30 * 1000;
+
+const LAST_ACTIVITY_KEY =
+  "rt_last_activity";
+
+let activityCheckTimer = null;
+let activityWriteTimer = null;
+
+
+/*
+ * Catat aktivitas terakhir admin.
+ *
+ * Timestamp disimpan di sessionStorage agar tetap tersedia
+ * ketika halaman di-refresh dalam tab yang sama.
+ */
+function updateLastActivity() {
+
+  const now =
+    Date.now();
+
+  sessionStorage.setItem(
+    LAST_ACTIVITY_KEY,
+    String(now)
+  );
+}
+
+
+/*
+ * Ambil waktu aktivitas terakhir.
+ *
+ * Jika belum ada, gunakan waktu sekarang.
+ */
+function getLastActivity() {
+
+  const saved =
+    Number(
+      sessionStorage.getItem(
+        LAST_ACTIVITY_KEY
+      )
+    );
+
+  if (
+    Number.isFinite(saved) &&
+    saved > 0
+  ) {
+    return saved;
+  }
+
+  updateLastActivity();
+
+  return Date.now();
+}
+
+
+/*
+ * Aktivitas pengguna tidak perlu ditulis ke
+ * sessionStorage setiap milidetik.
+ *
+ * Kita batasi penulisan maksimal sekali
+ * setiap 30 detik.
+ */
+function registerActivity() {
+
+  if (!token) {
+    return;
+  }
+
+  if (activityWriteTimer) {
+    return;
+  }
+
+  updateLastActivity();
+
+  activityWriteTimer =
+    setTimeout(() => {
+
+      activityWriteTimer = null;
+
+    }, ACTIVITY_CHECK_MS);
+}
+
+
+/*
+ * Logout otomatis jika tidak ada aktivitas
+ * selama 2 jam.
+ */
+function checkAutoLogout() {
+
+  if (!token) {
+    return;
+  }
+
+  const lastActivity =
+    getLastActivity();
+
+  const inactiveFor =
+    Date.now() - lastActivity;
+
+  if (
+    inactiveFor >=
+    AUTO_LOGOUT_MS
+  ) {
+
+    alert(
+      "Sesi login berakhir karena tidak ada aktivitas selama 2 jam."
+    );
+
+    logout();
+  }
+}
+
+
+/*
+ * Pantau aktivitas pengguna.
+ *
+ * passive:true digunakan agar event seperti scroll
+ * tidak mengganggu performa halaman.
+ */
+function setupAutoLogout() {
+
+  const activityEvents = [
+    "click",
+    "keydown",
+    "mousedown",
+    "touchstart",
+    "scroll"
+  ];
+
+  activityEvents.forEach(
+    eventName => {
+
+      document.addEventListener(
+        eventName,
+        registerActivity,
+        {
+          passive: true
+        }
+      );
+
+    }
+  );
+
+
+  /*
+   * Gerakan mouse tidak dicatat setiap pixel.
+   * Cukup dianggap aktivitas jika event terjadi.
+   */
+  document.addEventListener(
+    "mousemove",
+    registerActivity,
+    {
+      passive: true
+    }
+  );
+
+
+  /*
+   * Periksa status sesi setiap 30 detik.
+   */
+  activityCheckTimer =
+    setInterval(
+      checkAutoLogout,
+      ACTIVITY_CHECK_MS
+    );
+
+
+  /*
+   * Pastikan sesi tidak langsung dianggap
+   * tidak aktif ketika pertama kali login.
+   */
+  if (token) {
+    updateLastActivity();
+  }
+}
 
                /* =========================================================
            INPUT OLEH TERAKHIR
@@ -1197,16 +1376,19 @@
           );
 
 
-        token = d.token;
+       token = d.token;
 
         sessionStorage.setItem(
           "rt_token",
           token
         );
-
-
+        
+        updateLastActivity();
+        
         show();
-
+        
+        setupAutoLogout();
+        
         await load();
 
       } catch (e) {
@@ -2383,24 +2565,55 @@ setupPeriodeKas();
  */
 
 if (token) {
-  show();
 
-  showDataLoading();
+  /*
+   * Periksa terlebih dahulu apakah sesi
+   * sudah tidak aktif selama 2 jam.
+   */
+  const lastActivity =
+    getLastActivity();
 
-  load()
-    .then(() => {
-      hideDataLoading();
-    })
-    .catch((error) => {
-      console.error(
-        "Gagal memuat data:",
-        error
-      );
+  const inactiveFor =
+    Date.now() - lastActivity;
 
-      showDataLoadingError(
-        error
-      );
-    });
+
+  if (
+    inactiveFor >=
+    AUTO_LOGOUT_MS
+  ) {
+
+    logout();
+
+  } else {
+
+    show();
+
+    setupAutoLogout();
+
+    showDataLoading();
+
+    load()
+      .then(() => {
+        hideDataLoading();
+      })
+      .catch((error) => {
+        console.error(
+          "Gagal memuat data:",
+          error
+        );
+
+        showDataLoadingError(
+          error
+        );
+      });
+  }
+
+} else {
+
+  /*
+   * Belum login.
+   * Tidak perlu menjalankan timer auto logout.
+   */
 }
   </script>
 
