@@ -16,7 +16,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}head
 <nav><button class="btn2 active" data-tab="home">HOME</button><button class="btn2" data-tab="warga">DATA WARGA</button><button class="btn2" data-tab="kas">PEMBAYARAN KAS</button><button class="btn2" data-tab="pengeluaran">PENGELUARAN</button><button class="btn2" data-tab="search">CARI DATA</button><button class="btn2" data-tab="rekap">REKAP</button></nav>
 <section id="home" class="section active"><div class="grid"><div class="card stat">Saldo<b id="saldo">Rp 0</b></div><div class="card stat">Pemasukan<b id="masuk">Rp 0</b></div><div class="card stat">Pengeluaran<b id="keluar">Rp 0</b></div><div class="card stat">Warga<b id="jmlWarga">0</b></div></div></section>
 <section id="warga" class="section"><div class="card"><h3>Tambah Data Warga</h3><div class="formgrid"><div>Nama<input id="wNama"></div><div>Blok/Rumah<input id="wBlok"></div><div>No. HP<input id="wHp"></div><div>Status<select id="wStatus"><option>Aktif</option><option>Tidak Aktif</option></select></div><div class="full"><button class="btn" onclick="addWarga()">Simpan</button> <span id="wMsg"></span></div></div></div><div class="card" style="margin-top:15px"><h3>Daftar Warga</h3><div class="tablewrap"><table><thead><tr><th>Nama</th><th>Blok</th><th>HP</th><th>Status</th><th></th></tr></thead><tbody id="wTable"></tbody></table></div></div></section>
-<section id="kas" class="section"><div class="card"><h3>Pembayaran Kas</h3><div class="formgrid"><div>Tanggal<input id="kTanggal" type="date"></div><div>Nama Warga<select id="kNama"></select></div><div>Periode<input id="kPeriode" placeholder="September 2026"></div><div>Kas<input id="kKas" type="number" value="50000"></div><div>Denda<input id="kDenda" type="number" value="0"></div><div>Metode<select id="kMetode"><option>Cash</option><option>Transfer</option><option>QRIS</option></select></div><div class="full>Keterangan<input id="kKet"></div><div class="full"><button class="btn" onclick="addKas()">Simpan</button> <span id="kMsg"></span></div></div></div></section>
+<section id="kas" class="section"><div class="card"><h3>Pembayaran Kas</h3><div class="formgrid"><div>Tanggal<input id="kTanggal" type="date"></div><div>Nama Warga<select id="kNama"></select></div><div>Periode<input id="kPeriode" placeholder="September 2026"></div><div>Kas<input id="kKas" type="number" value="50000"></div><div>Denda<input id="kDenda" type="number" value="0"></div><div>Metode<select id="kMetode"><option>Cash</option><option>Transfer</option><option>QRIS</option></select></div><div class="full">Keterangan<input id="kKet"></div><div class="full"><button class="btn" onclick="addKas()">Simpan</button> <span id="kMsg"></span></div></div></div></section>
 <section id="pengeluaran" class="section"><div class="card"><h3>Pengeluaran</h3><div class="formgrid"><div>Tanggal<input id="pTanggal" type="date"></div><div>Kategori<input id="pKategori"></div><div>Jumlah<input id="pJumlah" type="number"></div><div>Input Oleh<input id="pOleh"></div><div class="full">Keterangan<input id="pKet"></div><div class="full"><button class="btn" onclick="addPengeluaran()">Simpan</button> <span id="pMsg"></span></div></div></div></section>
 <section id="search" class="section"><div class="card"><h3>Cari Pembayaran</h3><div class="formgrid"><div>Nama<input id="sNama" oninput="renderSearch()"></div><div>Blok<input id="sBlok" oninput="renderSearch()"></div><div>Metode<select id="sMetode" onchange="renderSearch()"><option value="">Semua</option><option>Cash</option><option>Transfer</option><option>QRIS</option></select></div><div>Tanggal<input id="sTanggal" type="date" onchange="renderSearch()"></div><div>Min. Jumlah<input id="sMin" type="number" oninput="renderSearch()"></div><div>Max. Jumlah<input id="sMax" type="number" oninput="renderSearch()"></div></div></div><div class="card" style="margin-top:15px"><div class="tablewrap"><table><thead><tr><th>Tanggal</th><th>Nama</th><th>Blok</th><th>Kas</th><th>Denda</th><th>Total</th><th>Metode</th></tr></thead><tbody id="sTable"></tbody></table></div></div></section>
 <section id="rekap" class="section"><div class="card"><h3>Rekap Transaksi</h3><div class="tablewrap"><table><thead><tr><th>Tanggal</th><th>Jenis</th><th>Nama/Kategori</th><th>Jumlah</th><th>Keterangan</th></tr></thead><tbody id="rTable"></tbody></table></div></div></section>
@@ -31,8 +31,54 @@ function refresh(){let a=state.kas.reduce((x,y)=>x+Number(y.total||0),0),b=state
 async function save(msg){await api("/api/data",{method:"PUT",body:JSON.stringify(state)});refresh();if(msg){document.getElementById(msg).className="ok";document.getElementById(msg).textContent=" ✓ Tersimpan"}}
 async function addWarga(){if(!wNama.value.trim())return;state.warga.push({id:uid(),nama:wNama.value.trim(),blok:wBlok.value.trim(),hp:wHp.value.trim(),status:wStatus.value});await save("wMsg");wNama.value=wBlok.value=wHp.value=""}
 async function delWarga(i){if(confirm("Hapus warga?")){state.warga.splice(i,1);await save()}}
-async function addKas(){let kas=+kKas.value||0,d=+kDenda.value||0;if(!kNama.value)return alert("Tambahkan warga dulu.");state.kas.push({id:uid(),tanggal:kTanggal.value||new Date().toISOString().slice(0,10),nama:kNama.value,periode:kPeriode.value,kas,denda:d,total:kas+d,metode:kMetode.value,keterangan:kKet.value});await save("kMsg")}
-async function addPengeluaran(){let j=+pJumlah.value||0;if(!j)return;state.pengeluaran.push({id:uid(),tanggal:pTanggal.value||new Date().toISOString().slice(0,10),kategori:pKategori.value,jumlah:j,oleh:pOleh.value,keterangan:pKet.value});await save("pMsg")}
+async function addKas(){
+  try{
+    let kas=+kKas.value||0;
+    let d=+kDenda.value||0;
+    if(!kNama.value)return alert("Tambahkan warga dulu.");
+    if(kas<=0)return alert("Nominal kas harus lebih dari 0.");
+    state.kas.push({
+      id:uid(),
+      tanggal:kTanggal.value||new Date().toISOString().slice(0,10),
+      nama:kNama.value,
+      periode:kPeriode.value.trim(),
+      kas,
+      denda:d,
+      total:kas+d,
+      metode:kMetode.value,
+      keterangan:kKet.value.trim()
+    });
+    await save("kMsg");
+    kPeriode.value="";
+    kKet.value="";
+    kDenda.value="0";
+  }catch(e){
+    kMsg.className="err";
+    kMsg.textContent=" Gagal: "+e.message;
+  }
+}
+async function addPengeluaran(){
+  try{
+    let j=+pJumlah.value||0;
+    if(j<=0)return alert("Jumlah pengeluaran harus lebih dari 0.");
+    state.pengeluaran.push({
+      id:uid(),
+      tanggal:pTanggal.value||new Date().toISOString().slice(0,10),
+      kategori:pKategori.value.trim(),
+      jumlah:j,
+      oleh:pOleh.value.trim(),
+      keterangan:pKet.value.trim()
+    });
+    await save("pMsg");
+    pKategori.value="";
+    pJumlah.value="";
+    pOleh.value="";
+    pKet.value="";
+  }catch(e){
+    pMsg.className="err";
+    pMsg.textContent=" Gagal: "+e.message;
+  }
+}
 function renderSearch(){let n=sNama.value.toLowerCase(),b=sBlok.value.toLowerCase(),m=sMetode.value,t=sTanggal.value,min=+sMin.value||0,max=+sMax.value||Infinity;let rows=state.kas.filter(x=>{let w=state.warga.find(y=>y.nama===x.nama)||{};return x.nama.toLowerCase().includes(n)&&String(w.blok||"").toLowerCase().includes(b)&&(!m||x.metode===m)&&(!t||x.tanggal===t)&&x.total>=min&&x.total<=max});sTable.innerHTML=rows.map(x=>{let w=state.warga.find(y=>y.nama===x.nama)||{};return `<tr><td>${x.tanggal}</td><td>${esc(x.nama)}</td><td>${esc(w.blok)}</td><td>${rp(x.kas)}</td><td>${rp(x.denda)}</td><td>${rp(x.total)}</td><td>${esc(x.metode)}</td></tr>`}).join("")}
 function renderRekap(){let r=[...state.kas.map(x=>({tanggal:x.tanggal,jenis:"Kas",nama:x.nama,jumlah:x.total,ket:x.keterangan})),...state.pengeluaran.map(x=>({tanggal:x.tanggal,jenis:"Pengeluaran",nama:x.kategori,jumlah:x.jumlah,ket:x.keterangan}))].sort((a,b)=>b.tanggal.localeCompare(a.tanggal));rTable.innerHTML=r.map(x=>`<tr><td>${x.tanggal}</td><td>${x.jenis}</td><td>${esc(x.nama)}</td><td>${rp(x.jumlah)}</td><td>${esc(x.ket)}</td></tr>`).join("")}
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));document.getElementById(b.dataset.tab).classList.add("active")});
