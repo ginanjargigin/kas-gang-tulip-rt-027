@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>
+    Transparansi Kas Gang RT 027
+  </title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      background: #f4f7fb;
+
+      color: #172033;
+    }
+
+    header {
+      background: #0f3d91;
+
+      color: white;
+
+      padding: 24px 20px;
+    }
+
+    .wrap {
+      width: min(
+        1100px,
+        calc(100% - 30px)
+      );
+
+      margin: auto;
+    }
+
+    .header-title {
+      margin: 0;
+
+      font-size: 24px;
+
+      font-weight: 800;
+    }
+
+    .header-subtitle {
+      margin-top: 6px;
+
+      font-size: 14px;
+
+      opacity: 0.85;
+    }
+
+    main {
+      padding: 24px 0 40px;
+    }
+
+    .toolbar {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 12px;
+
+      margin-bottom: 18px;
+
+      flex-wrap: wrap;
+    }
+
+    .status {
+      font-size: 13px;
+
+      color: #64748b;
+    }
+
+    button {
+      border: 0;
+
+      border-radius: 9px;
+
+      padding: 10px 16px;
+
+      cursor: pointer;
+
+      font-weight: 700;
+    }
+
+    .refresh-btn {
+      background: #1769d1;
+
+      color: white;
+    }
+
+    .refresh-btn:hover {
+      background: #0f57b7;
+    }
+
+    .grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 14px;
+
+      margin-bottom: 18px;
+    }
+
+    .card {
+      background: white;
+
+      border-radius: 15px;
+
+      padding: 18px;
+
+      box-shadow:
+        0 7px 22px
+        rgba(24, 59, 93, 0.08);
+    }
+
+    .stat-title {
+      color: #64748b;
+
+      font-size: 14px;
+    }
+
+    .stat-value {
+      display: block;
+
+      margin-top: 7px;
+
+      font-size: 24px;
+
+      font-weight: 800;
+
+      color: #172033;
+    }
+
+    .section-title {
+      margin-top: 0;
+
+      margin-bottom: 14px;
+
+      font-size: 18px;
+    }
+
+    .tablewrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+
+      border-collapse: collapse;
+
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 10px;
+
+      border-bottom:
+        1px solid #e6eaf0;
+
+      text-align: left;
+
+      white-space: nowrap;
+    }
+
+    th {
+      background: #f3f6fa;
+    }
+
+    .amount {
+      font-weight: 700;
+    }
+
+    .income {
+      color: #18794e;
+    }
+
+    .expense {
+      color: #c62828;
+    }
+
+    .empty {
+      padding: 18px;
+
+      text-align: center;
+
+      color: #64748b;
+    }
+
+    .error {
+      background: #fef2f2;
+
+      color: #991b1b;
+
+      border-radius: 10px;
+
+      padding: 14px;
+
+      margin-bottom: 18px;
+
+      display: none;
+
+      line-height: 1.5;
+    }
+
+    .loading {
+      text-align: center;
+
+      padding: 30px;
+
+      color: #64748b;
+    }
+
+    .note {
+      margin-top: 20px;
+
+      padding: 14px 16px;
+
+      background: #eef4ff;
+
+      border-radius: 10px;
+
+      color: #475569;
+
+      font-size: 13px;
+
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+
+      padding: 20px;
+
+      color: #64748b;
+
+      font-size: 12px;
+    }
+
+    @media (max-width: 800px) {
+
+      .grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+    }
+
+    @media (max-width: 520px) {
+
+      .grid {
+        grid-template-columns:
+          1fr;
+      }
+
+      .header-title {
+        font-size: 20px;
+      }
+
+      .stat-value {
+        font-size: 21px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="wrap">
+
+      <h1 class="header-title">
+        KAS GANG RT 027 — GANG TULIP
+      </h1>
+
+      <div class="header-subtitle">
+        Transparansi Kas Warga
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       CONTENT
+  ========================== -->
+
+  <main>
+
+    <div class="wrap">
+
+
+      <!-- =========================
+           TOOLBAR
+      ========================== -->
+
+      <div class="toolbar">
+
+        <div
+          id="status"
+          class="status"
+        >
+          Memuat data...
+        </div>
+
+        <button
+          type="button"
+          class="refresh-btn"
+          onclick="loadPublicData()"
+        >
+          ↻ Perbarui Data
+        </button>
+
+      </div>
+
+
+      <!-- =========================
+           ERROR
+      ========================== -->
+
+      <div
+        id="error"
+        class="error"
+      ></div>
+
+
+      <!-- =========================
+           RINGKASAN
+      ========================== -->
+
+      <div class="grid">
+
+        <div class="card">
+
+          <div class="stat-title">
+            Jumlah Warga
+          </div>
+
+          <span
+            id="jumlahWarga"
+            class="stat-value"
+          >
+            -
+          </span>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="stat-title">
+            Total Pemasukan
+          </div>
+
+          <span
+            id="totalPemasukan"
+            class="stat-value income"
+          >
+            -
+          </span>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="stat-title">
+            Total Pengeluaran
+          </div>
+
+          <span
+            id="totalPengeluaran"
+            class="stat-value expense"
+          >
+            -
+          </span>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="stat-title">
+            Saldo Kas
+          </div>
+
+          <span
+            id="saldo"
+            class="stat-value"
+          >
+            -
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           PEMASUKAN
+      ========================== -->
+
+      <div class="card">
+
+        <h2 class="section-title">
+          Riwayat Pemasukan Kas
+        </h2>
+
+        <div
+          id="kasLoading"
+          class="loading"
+        >
+          Memuat data...
+        </div>
+
+        <div class="tablewrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Tanggal
+                </th>
+
+                <th>
+                  Periode
+                </th>
+
+                <th>
+                  Jumlah
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody id="kasTable"></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <br>
+
+
+      <!-- =========================
+           PENGELUARAN
+      ========================== -->
+
+      <div class="card">
+
+        <h2 class="section-title">
+          Riwayat Pengeluaran
+        </h2>
+
+        <div
+          id="pengeluaranLoading"
+          class="loading"
+        >
+          Memuat data...
+        </div>
+
+        <div class="tablewrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Tanggal
+                </th>
+
+                <th>
+                  Kategori
+                </th>
+
+                <th>
+                  Jumlah
+                </th>
+
+                <th>
+                  Keterangan
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody
+              id="pengeluaranTable"
+            ></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           CATATAN
+      ========================== -->
+
+      <div class="note">
+
+        <strong>
+          Catatan transparansi:
+        </strong>
+
+        <br>
+
+        Halaman ini hanya menampilkan
+        informasi kas yang diperuntukkan
+        untuk transparansi umum.
+
+        Data pribadi warga seperti nama,
+        nomor HP, blok/rumah, metode
+        pembayaran, dan identitas internal
+        tidak ditampilkan.
+
+      </div>
+
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    KAS GANG RT 027 — GANG TULIP
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    /* =========================
+       FORMAT RUPIAH
+    ========================== */
+
+    const rupiahFormatter =
+      new Intl.NumberFormat(
+        "id-ID",
+        {
+          style: "currency",
+          currency: "IDR",
+          maximumFractionDigits: 0
+        }
+      );
+
+
+    function rupiah(value) {
+
+      return rupiahFormatter.format(
+        Number(value || 0)
+      );
+
+    }
+
+
+    /* =========================
+       ESCAPE HTML
+    ========================== */
+
+    function esc(value) {
+
+      return String(
+        value ?? ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* =========================
+       FORMAT TANGGAL
+    ========================== */
+
+    function formatTanggal(
+      value
+    ) {
+
+      if (!value) {
+        return "-";
+      }
+
+      const parts =
+        String(value).split("-");
+
+      if (parts.length !== 3) {
+        return esc(value);
+      }
+
+      return (
+        parts[2] +
+        "/" +
+        parts[1] +
+        "/" +
+        parts[0]
+      );
+
+    }
+
+
+    /* =========================
+       LOAD PUBLIC DATA
+    ========================== */
+
+    async function loadPublicData() {
+
+      const status =
+        document.getElementById(
+          "status"
+        );
+
+      const error =
+        document.getElementById(
+          "error"
+        );
+
+      const kasLoading =
+        document.getElementById(
+          "kasLoading"
+        );
+
+      const pengeluaranLoading =
+        document.getElementById(
+          "pengeluaranLoading"
+        );
+
+
+      error.style.display =
+        "none";
+
+
+      kasLoading.style.display =
+        "block";
+
+
+      pengeluaranLoading.style.display =
+        "block";
+
+
+      status.textContent =
+        "Memuat data...";
+
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/public-data",
+            {
+              method: "GET",
+              cache: "no-store"
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Gagal mengambil data."
+          );
+
+        }
+
+
+        renderSummary(
+          data.summary
+        );
+
+
+        renderKas(
+          data.kas || []
+        );
+
+
+        renderPengeluaran(
+          data.pengeluaran || []
+        );
+
+
+        status.textContent =
+          "Data berhasil diperbarui • " +
+          new Date()
+            .toLocaleString(
+              "id-ID"
+            );
+
+
+      } catch (e) {
+
+        console.error(
+          "PUBLIC PAGE ERROR:",
+          e
+        );
+
+
+        error.textContent =
+          "Gagal memuat data transparansi. " +
+          "Silakan coba tombol Perbarui Data kembali.";
+
+
+        error.style.display =
+          "block";
+
+
+        status.textContent =
+          "Gagal memuat data";
+
+
+        kasLoading.style.display =
+          "none";
+
+
+        pengeluaranLoading.style.display =
+          "none";
+
+      }
+
+    }
+
+
+    /* =========================
+       RENDER SUMMARY
+    ========================== */
+
+    function renderSummary(
+      summary
+    ) {
+
+      document.getElementById(
+        "jumlahWarga"
+      ).textContent =
+        Number(
+          summary?.jumlahWarga || 0
+        );
+
+
+      document.getElementById(
+        "totalPemasukan"
+      ).textContent =
+        rupiah(
+          summary?.totalPemasukan
+        );
+
+
+      document.getElementById(
+        "totalPengeluaran"
+      ).textContent =
+        rupiah(
+          summary?.totalPengeluaran
+        );
+
+
+      document.getElementById(
+        "saldo"
+      ).textContent =
+        rupiah(
+          summary?.saldo
+        );
+
+    }
+
+
+    /* =========================
+       RENDER KAS
+    ========================== */
+
+    function renderKas(
+      rows
+    ) {
+
+      const loading =
+        document.getElementById(
+          "kasLoading"
+        );
+
+      const table =
+        document.getElementById(
+          "kasTable"
+        );
+
+
+      loading.style.display =
+        "none";
+
+
+      if (!rows.length) {
+
+        table.innerHTML = `
+          <tr>
+            <td
+              colspan="3"
+              class="empty"
+            >
+              Belum ada data pemasukan.
+            </td>
+          </tr>
+        `;
+
+        return;
+
+      }
+
+
+      table.innerHTML =
+        rows
+          .slice()
+          .sort(
+            (a, b) =>
+              String(
+                b.tanggal || ""
+              ).localeCompare(
+                String(
+                  a.tanggal || ""
+                )
+              )
+          )
+          .map(
+            item => `
+              <tr>
+
+                <td>
+                  ${formatTanggal(
+                    item.tanggal
+                  )}
+                </td>
+
+                <td>
+                  ${esc(
+                    item.periode
+                  )}
+                </td>
+
+                <td class="amount income">
+                  ${rupiah(
+                    item.jumlah
+                  )}
+                </td>
+
+              </tr>
+            `
+          )
+          .join("");
+
+    }
+
+
+    /* =========================
+       RENDER PENGELUARAN
+    ========================== */
+
+    function renderPengeluaran(
+      rows
+    ) {
+
+      const loading =
+        document.getElementById(
+          "pengeluaranLoading"
+        );
+
+      const table =
+        document.getElementById(
+          "pengeluaranTable"
+        );
+
+
+      loading.style.display =
+        "none";
+
+
+      if (!rows.length) {
+
+        table.innerHTML = `
+          <tr>
+            <td
+              colspan="4"
+              class="empty"
+            >
+              Belum ada data pengeluaran.
+            </td>
+          </tr>
+        `;
+
+        return;
+
+      }
+
+
+      table.innerHTML =
+        rows
+          .slice()
+          .sort(
+            (a, b) =>
+              String(
+                b.tanggal || ""
+              ).localeCompare(
+                String(
+                  a.tanggal || ""
+                )
+              )
+          )
+          .map(
+            item => `
+              <tr>
+
+                <td>
+                  ${formatTanggal(
+                    item.tanggal
+                  )}
+                </td>
+
+                <td>
+                  ${esc(
+                    item.kategori
+                  )}
+                </td>
+
+                <td class="amount expense">
+                  ${rupiah(
+                    item.jumlah
+                  )}
+                </td>
+
+                <td>
+                  ${esc(
+                    item.keterangan
+                  )}
+                </td>
+
+              </tr>
+            `
+          )
+          .join("");
+
+    }
+
+
+    /* =========================
+       MULAI
+    ========================== */
+
+    loadPublicData();
+
+  </script>
+
+
+</body>
+
+</html>
