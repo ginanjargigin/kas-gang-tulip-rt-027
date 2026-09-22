@@ -326,6 +326,7 @@
       <input
         id="email"
         type="email"
+       
       >
 
       <label>Password</label>
@@ -333,6 +334,7 @@
       <input
         id="password"
         type="password"
+        onkeydown="if (event.key === 'Enter') login()"
       >
 
       <button
