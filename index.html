@@ -356,55 +356,7 @@
 
 </div>
 
-  <!-- =========================
-     LOGIN
-========================= -->
-
-<div id="loginView" class="wrap">
-
-  <div class="login">
-
-    <h2>Kas Gang Tulip</h2>
-
-    <div class="muted">
-      Rt 027 • Login Admin
-    </div>
-
-    <label>Username/Email</label>
-
-    <input
-      id="email"
-      type="email"
-    >
-
-    <label>Password</label>
-
-    <input
-      id="password"
-      type="password"
-      onkeydown="if (event.key === 'Enter') login()"
-    >
-
-    <button
-      class="btn"
-      style="width: 100%"
-      onclick="login()"
-    >
-      Masuk
-    </button>
-
-    <a
-      href="/public.html"
-      class="public-link"
-    >
-      Lihat Transparansi Kas Warga
-    </a>
-
-    <p id="loginMsg"></p>
-
-  </div>
-
-</div>
+ 
   <!-- =========================
        APLIKASI UTAMA
   ========================== -->
@@ -1430,53 +1382,102 @@ function setupAutoLogout() {
         }
 
 
-    /* =========================
-       LOGIN
-    ========================== */
+   /* =========================
+   LOGIN
+========================= */
 
-    async function login() {
+async function login() {
 
-      try {
+  const loginButton =
+    document.querySelector(
+      '#loginView button[onclick="login()"]'
+    );
 
-        const d =
-          await api(
-            "/api/login",
-            {
-              method: "POST",
+  try {
 
-              body: JSON.stringify({
-                email: email.value,
-                password:
-                  password.value
-              })
-            }
-          );
+    if (loginButton) {
 
+      loginButton.disabled =
+        true;
 
-       token = d.token;
+      loginButton.style.background =
+        "#0b2f70";
 
-        sessionStorage.setItem(
-          "rt_token",
-          token
-        );
-        
-        updateLastActivity();
-        
-        show();
-        
-        setupAutoLogout();
-        
-        await load();
+      loginButton.style.cursor =
+        "wait";
 
-      } catch (e) {
+      loginButton.textContent =
+        "Memproses...";
 
-        loginMsg.className =
-          "err";
-
-        loginMsg.textContent =
-          e.message;
-      }
     }
+
+
+    const d =
+      await api(
+        "/api/login",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            email:
+              email.value,
+
+            password:
+              password.value
+          })
+        }
+      );
+
+
+    token =
+      d.token;
+
+
+    sessionStorage.setItem(
+      "rt_token",
+      token
+    );
+
+
+    updateLastActivity();
+
+    show();
+
+    setupAutoLogout();
+
+    await load();
+
+
+  } catch (e) {
+
+    loginMsg.className =
+      "err";
+
+    loginMsg.textContent =
+      e.message;
+
+
+  } finally {
+
+    if (loginButton) {
+
+      loginButton.disabled =
+        false;
+
+      loginButton.style.background =
+        "";
+
+      loginButton.style.cursor =
+        "";
+
+      loginButton.textContent =
+        "Masuk";
+
+    }
+
+  }
+
+}
 
 
     /* =========================
