@@ -318,17 +318,6 @@ module.exports =
         );
 
 
-         
-            /* =========================
-            CACHE PUBLIC DATA
-         ========================= */
-         
-         const forceRefresh =
-           req.query &&
-           req.query.refresh === "1";
-         
-         if (forceRefresh) {
-         
          /* =========================
    CACHE PUBLIC DATA
 ========================= */
@@ -336,7 +325,6 @@ module.exports =
 const forceRefresh =
   req.query &&
   req.query.refresh === "1";
-
 
 if (forceRefresh) {
 
@@ -353,17 +341,8 @@ if (forceRefresh) {
   );
 
 }
-         
-         } else {
-         
-           res.setHeader(
-             "Cache-Control",
-             "public, s-maxage=30, stale-while-revalidate=60"
-           );
-         
-         }
 
-
+ 
       return res.json({
 
         summary: {
