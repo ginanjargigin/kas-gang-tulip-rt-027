@@ -306,123 +306,105 @@
 </head>
 
 <body>
+<!-- =========================
+     LOGIN
+========================= -->
 
-/* =========================
-   LOGIN
-========================= */
+<div id="loginView" class="wrap">
 
-async function login() {
+  <div class="login">
 
-  const loginButton =
-    document.querySelector(
-      '#loginView button[onclick="login()"]'
-    );
+    <h2>Kas Gang Tulip</h2>
 
-  try {
+    <div class="muted">
+      Rt 027 • Login Admin
+    </div>
 
-    /* =========================
-       STATE TOMBOL
-    ========================= */
+    <label>Username/Email</label>
 
-    if (loginButton) {
+    <input
+      id="email"
+      type="email"
+    >
 
-      loginButton.disabled =
-        true;
+    <label>Password</label>
 
-      loginButton.style.background =
-        "#0b2f70";
+    <input
+      id="password"
+      type="password"
+      onkeydown="if (event.key === 'Enter') login()"
+    >
 
-      loginButton.style.cursor =
-        "wait";
+    <button
+      class="btn"
+      style="width: 100%"
+      onclick="login()"
+    >
+      Masuk
+    </button>
 
-      loginButton.textContent =
-        "Memproses...";
+    <a
+      href="/public.html"
+      class="public-link"
+    >
+      Lihat Transparansi Kas Warga
+    </a>
 
-    }
+    <p id="loginMsg"></p>
 
+  </div>
 
-    /* =========================
-       LOGIN API
-    ========================= */
+</div>
 
-    const d =
-      await api(
-        "/api/login",
-        {
-          method: "POST",
+  <!-- =========================
+     LOGIN
+========================= -->
 
-          body: JSON.stringify({
-            email:
-              email.value,
+<div id="loginView" class="wrap">
 
-            password:
-              password.value
-          })
-        }
-      );
+  <div class="login">
 
+    <h2>Kas Gang Tulip</h2>
 
-    /* =========================
-       SIMPAN TOKEN
-    ========================= */
+    <div class="muted">
+      Rt 027 • Login Admin
+    </div>
 
-    token =
-      d.token;
+    <label>Username/Email</label>
 
+    <input
+      id="email"
+      type="email"
+    >
 
-    sessionStorage.setItem(
-      "rt_token",
-      token
-    );
+    <label>Password</label>
 
+    <input
+      id="password"
+      type="password"
+      onkeydown="if (event.key === 'Enter') login()"
+    >
 
-    updateLastActivity();
+    <button
+      class="btn"
+      style="width: 100%"
+      onclick="login()"
+    >
+      Masuk
+    </button>
 
+    <a
+      href="/public.html"
+      class="public-link"
+    >
+      Lihat Transparansi Kas Warga
+    </a>
 
-    show();
+    <p id="loginMsg"></p>
 
+  </div>
 
-    setupAutoLogout();
-
-
-    await load();
-
-
-  } catch (e) {
-
-    loginMsg.className =
-      "err";
-
-    loginMsg.textContent =
-      e.message;
-
-
-  } finally {
-
-    /* =========================
-       KEMBALIKAN TOMBOL
-    ========================= */
-
-    if (loginButton) {
-
-      loginButton.disabled =
-        false;
-
-      loginButton.style.background =
-        "";
-
-      loginButton.style.cursor =
-        "";
-
-      loginButton.textContent =
-        "Masuk";
-
-    }
-
-  }
-
-}
-
+</div>
   <!-- =========================
        APLIKASI UTAMA
   ========================== -->
