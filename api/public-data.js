@@ -329,10 +329,30 @@ module.exports =
          
          if (forceRefresh) {
          
-           res.setHeader(
-             "Cache-Control",
-             "no-store"
-           );
+         /* =========================
+   CACHE PUBLIC DATA
+========================= */
+
+const forceRefresh =
+  req.query &&
+  req.query.refresh === "1";
+
+
+if (forceRefresh) {
+
+  res.setHeader(
+    "Cache-Control",
+    "no-store"
+  );
+
+} else {
+
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=30, stale-while-revalidate=60"
+  );
+
+}
          
          } else {
          
