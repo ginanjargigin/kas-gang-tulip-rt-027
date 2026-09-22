@@ -60,8 +60,10 @@ async function jb(method, body) {
         }
       );
 
+
     const text =
       await r.text();
+
 
     let data = {};
 
@@ -76,6 +78,7 @@ async function jb(method, body) {
 
     }
 
+
     if (!r.ok) {
 
       const error =
@@ -88,9 +91,12 @@ async function jb(method, body) {
         r.status;
 
       throw error;
+
     }
 
+
     return data;
+
 
   } catch (e) {
 
@@ -108,6 +114,7 @@ async function jb(method, body) {
         "JSONBIN_TIMEOUT";
 
       throw error;
+
     }
 
     throw e;
@@ -117,8 +124,8 @@ async function jb(method, body) {
     clearTimeout(timeout);
 
   }
-}
 
+}
 /* =========================
    VALIDASI DATA
 ========================= */
