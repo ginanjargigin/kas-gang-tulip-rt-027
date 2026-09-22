@@ -20,71 +20,101 @@ const empty = {
 
 /* =========================
    JSONBIN REQUEST
+   DENGAN TIMEOUT
 ========================= */
 
 async function jb() {
 
-  const r =
-    await fetch(
-      URL +
-        process.env.JSONBIN_BIN_ID +
-        "/latest",
-      {
+  const controller =
+    new AbortController();
 
-        method:
-          "GET",
-
-        headers: {
-
-          "Content-Type":
-            "application/json",
-
-          "X-Access-Key":
-            process.env.JSONBIN_ACCESS_KEY
-
-        }
-
-      }
-    );
-
-
-  const text =
-    await r.text();
-
-
-  let data = {};
-
+  const timeout =
+    setTimeout(() => {
+      controller.abort();
+    }, 12000);
 
   try {
 
-    data =
-      JSON.parse(text);
+    const r =
+      await fetch(
+        URL +
+          process.env.JSONBIN_BIN_ID +
+          "/latest",
+        {
+          method:
+            "GET",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+
+            "X-Access-Key":
+              process.env.JSONBIN_ACCESS_KEY
+          },
+
+          signal:
+            controller.signal
+        }
+      );
+
+    const text =
+      await r.text();
+
+    let data = {};
+
+    try {
+
+      data =
+        JSON.parse(text);
+
+    } catch (e) {
+
+      data = {};
+
+    }
+
+    if (!r.ok) {
+
+      const error =
+        new Error(
+          data.message ||
+          `JSONBin error (${r.status})`
+        );
+
+      error.status =
+        r.status;
+
+      throw error;
+    }
+
+    return data;
 
   } catch (e) {
 
-    data = {};
+    if (
+      e?.name ===
+      "AbortError"
+    ) {
+
+      const error =
+        new Error(
+          "JSONBin terlalu lama merespons."
+        );
+
+      error.code =
+        "JSONBIN_TIMEOUT";
+
+      throw error;
+    }
+
+    throw e;
+
+  } finally {
+
+    clearTimeout(timeout);
 
   }
-
-
-  if (!r.ok) {
-
-    const error =
-      new Error(
-        data.message ||
-        `JSONBin error (${r.status})`
-      );
-
-    error.status =
-      r.status;
-
-    throw error;
-  }
-
-
-  return data;
 }
-
 
 /* =========================
    VALIDASI DATA
@@ -281,14 +311,30 @@ module.exports =
         );
 
 
-      /* =========================
-         RESPONSE PUBLIC
-      ========================== */
-
-      res.setHeader(
-        "Cache-Control",
-        "no-store"
-      );
+         
+            /* =========================
+            CACHE PUBLIC DATA
+         ========================= */
+         
+         const forceRefresh =
+           req.query &&
+           req.query.refresh === "1";
+         
+         if (forceRefresh) {
+         
+           res.setHeader(
+             "Cache-Control",
+             "no-store"
+           );
+         
+         } else {
+         
+           res.setHeader(
+             "Cache-Control",
+             "public, s-maxage=30, stale-while-revalidate=60"
+           );
+         
+         }
 
 
       return res.json({
