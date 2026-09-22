@@ -667,35 +667,65 @@
     }
 
 
-    /* =========================
-       FORMAT TANGGAL
-    ========================== */
+  /* =========================
+   FORMAT TANGGAL
+========================= */
 
-    function formatTanggal(
-      value
-    ) {
+function formatTanggal(
+  value
+) {
 
-      if (!value) {
-        return "-";
-      }
+  if (!value) {
+    return "-";
+  }
 
-      const parts =
-        String(value).split("-");
+  const parts =
+    String(value).split("-");
 
-      if (parts.length !== 3) {
-        return esc(value);
-      }
+  if (parts.length !== 3) {
+    return esc(value);
+  }
 
-      return (
-        parts[2] +
-        "/" +
-        parts[1] +
-        "/" +
-        parts[0]
-      );
+  const bulan = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Mei",
+    "Jun",
+    "Jul",
+    "Agu",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Des"
+  ];
 
-    }
+  const tahun =
+    parts[0];
 
+  const nomorBulan =
+    Number(parts[1]);
+
+  const hari =
+    parts[2];
+
+  if (
+    nomorBulan < 1 ||
+    nomorBulan > 12
+  ) {
+    return esc(value);
+  }
+
+  return (
+    hari +
+    " " +
+    bulan[nomorBulan - 1] +
+    " " +
+    tahun
+  );
+
+}
 
   /* =========================
    LOAD PUBLIC DATA
