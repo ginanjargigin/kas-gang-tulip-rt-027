@@ -15,7 +15,11 @@
    LOADING DATA
    Menutup tampilan sementara data sedang diambil dari server.
    ========================================================= */
-    
+        /* KARTU SALDO */
+    .saldo-card {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
     .data-loading-overlay {
       position: fixed;
       inset: 0;
@@ -301,11 +305,7 @@
       .full {
         grid-column: auto;
       }
-      .saldo-card {
-        background: rgba(34, 197, 94, 0.15);
-        border: 1px solid rgba(34, 197, 94, 0.35);
-      }
-    }
+        }
   </style>
 </head>
 
@@ -468,7 +468,7 @@
             Saldo
             <b id="saldo">Rp 0</b>
           </div>
-
+          
           <div class="card stat">
             Pemasukan
             <b id="masuk">Rp 0</b>
