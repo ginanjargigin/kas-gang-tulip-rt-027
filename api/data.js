@@ -12,6 +12,7 @@ const empty = {
 
 /* =========================
    JSONBIN REQUEST
+   DENGAN TIMEOUT
 ========================= */
 
 async function jb(method, body) {
@@ -21,68 +22,102 @@ async function jb(method, body) {
       ? "/latest"
       : "";
 
+  const controller =
+    new AbortController();
 
-  const r = await fetch(
-    URL +
-      process.env.JSONBIN_BIN_ID +
-      path,
-    {
-      method,
-
-      headers: {
-        "Content-Type":
-          "application/json",
-
-        "X-Access-Key":
-          process.env.JSONBIN_ACCESS_KEY
-      },
-
-      ...(body
-        ? {
-            body:
-              JSON.stringify(body)
-          }
-        : {})
-    }
-  );
-
-
-  const text =
-    await r.text();
-
-
-  let data = {};
-
+  const timeout =
+    setTimeout(() => {
+      controller.abort();
+    }, 12000);
 
   try {
 
-    data =
-      JSON.parse(text);
+    const r =
+      await fetch(
+        URL +
+          process.env.JSONBIN_BIN_ID +
+          path,
+        {
+          method,
+
+          headers: {
+            "Content-Type":
+              "application/json",
+
+            "X-Access-Key":
+              process.env.JSONBIN_ACCESS_KEY
+          },
+
+          ...(body
+            ? {
+                body:
+                  JSON.stringify(body)
+              }
+            : {}),
+
+          signal:
+            controller.signal
+        }
+      );
+
+    const text =
+      await r.text();
+
+    let data = {};
+
+    try {
+
+      data =
+        JSON.parse(text);
+
+    } catch (e) {
+
+      data = {};
+
+    }
+
+    if (!r.ok) {
+
+      const error =
+        new Error(
+          data.message ||
+          `JSONBin error (${r.status})`
+        );
+
+      error.status =
+        r.status;
+
+      throw error;
+    }
+
+    return data;
 
   } catch (e) {
 
-    data = {};
+    if (
+      e?.name ===
+      "AbortError"
+    ) {
+
+      const error =
+        new Error(
+          "JSONBin terlalu lama merespons."
+        );
+
+      error.code =
+        "JSONBIN_TIMEOUT";
+
+      throw error;
+    }
+
+    throw e;
+
+  } finally {
+
+    clearTimeout(timeout);
+
   }
-
-
-  if (!r.ok) {
-
-    const error =
-      new Error(
-        data.message ||
-        `JSONBin error (${r.status})`
-      );
-
-    error.status =
-      r.status;
-
-    throw error;
-  }
-
-
-  return data;
 }
-
 
 /* =========================
    VALIDASI DATA
