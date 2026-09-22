@@ -617,14 +617,15 @@
 
             <div>
               Kas
-
+            
               <input
                 id="kKas"
-                type="number"
-                value="50000"
+                type="text"
+                inputmode="numeric"
+                value="50.000"
+                oninput="formatNominalInput(this)"
               >
             </div>
-
             <div>
               Denda
 
