@@ -1219,7 +1219,55 @@ function setupAutoLogout() {
     /* =========================
        HELPER
     ========================== */
+   /* =========================
+   FORMAT TANGGAL INDONESIA
+========================= */
 
+function formatTanggal(tanggal) {
+
+  if (!tanggal) {
+    return "-";
+  }
+
+  const bulan = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Mei",
+    "Jun",
+    "Jul",
+    "Agu",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Des"
+  ];
+
+  const bagian =
+    String(tanggal).split("-");
+
+  if (bagian.length !== 3) {
+    return tanggal;
+  }
+
+  const tahun = bagian[0];
+  const nomorBulan =
+    Number(bagian[1]);
+  const hari = bagian[2];
+
+  if (
+    !nomorBulan ||
+    nomorBulan < 1 ||
+    nomorBulan > 12
+  ) {
+    return tanggal;
+  }
+
+  return (
+    `${hari} ${bulan[nomorBulan - 1]} ${tahun}`
+  );
+}
     const rp = n =>
       new Intl.NumberFormat(
         "id-ID",
@@ -2574,7 +2622,7 @@ async function addPengeluaran() {
               return `
                 <tr>
                   <td>
-                    ${x.tanggal}
+                   ${formatTanggal(x.tanggal)}
                   </td>
 
                   <td>
@@ -2746,7 +2794,7 @@ async function addPengeluaran() {
               x => `
                 <tr>
                   <td>
-                    ${x.tanggal}
+                    ${formatTanggal(x.tanggal)}
                   </td>
       
                   <td>
