@@ -48,6 +48,22 @@
   box-shadow:
     0 10px 25px rgba(239, 68, 68, 0.10);
 }
+    /* KARTU PEMASUKAN */
+.pemasukan-card {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(147, 197, 253, 0.55) 0%,
+      rgba(191, 219, 254, 0.40) 38%,
+      rgba(186, 230, 253, 0.38) 68%,
+      rgba(224, 242, 254, 0.55) 100%
+    ) !important;
+
+  border: 1px solid rgba(96, 165, 250, 0.45);
+
+  box-shadow:
+    0 10px 25px rgba(59, 130, 246, 0.10);
+}
     }
     .data-loading-overlay {
       position: fixed;
@@ -498,10 +514,10 @@
             <b id="saldo">Rp 0</b>
           </div>
           
-          <div class="card stat">
-            Pemasukan
-            <b id="masuk">Rp 0</b>
-          </div>
+        <div class="card stat pemasukan-card">
+          Pemasukan
+          <b id="masuk">Rp 0</b>
+        </div>
 
           <div class="card stat pengeluaran-card">
             Pengeluaran
