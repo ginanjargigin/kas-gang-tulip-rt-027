@@ -363,7 +363,7 @@
     <button
       type="button"
       class="refresh-btn"
-      onclick="loadPublicData()"
+      onclick="loadPublicData(true)"
     >
       ↻ Perbarui Data
     </button>
@@ -697,129 +697,143 @@
     }
 
 
-    /* =========================
-       LOAD PUBLIC DATA
-    ========================== */
+  /* =========================
+   LOAD PUBLIC DATA
+========================== */
 
-    async function loadPublicData() {
+async function loadPublicData(forceRefresh = false) {
 
-      const status =
-        document.getElementById(
-          "status"
-        );
+  const status =
+    document.getElementById(
+      "status"
+    );
 
-      const error =
-        document.getElementById(
-          "error"
-        );
+  const error =
+    document.getElementById(
+      "error"
+    );
 
-      const kasLoading =
-        document.getElementById(
-          "kasLoading"
-        );
+  const kasLoading =
+    document.getElementById(
+      "kasLoading"
+    );
 
-      const pengeluaranLoading =
-        document.getElementById(
-          "pengeluaranLoading"
-        );
-
-
-      error.style.display =
-        "none";
+  const pengeluaranLoading =
+    document.getElementById(
+      "pengeluaranLoading"
+    );
 
 
-      kasLoading.style.display =
-        "block";
+  error.style.display =
+    "none";
 
 
-      pengeluaranLoading.style.display =
-        "block";
+  kasLoading.style.display =
+    "block";
 
 
-      status.textContent =
-        "Memuat data...";
+  pengeluaranLoading.style.display =
+    "block";
 
 
-      try {
-
-        const response =
-          await fetch(
-            "/api/public-data",
-            {
-              method: "GET",
-              cache: "no-store"
-            }
-          );
+  status.textContent =
+    "Memuat data...";
 
 
-        const data =
-          await response.json();
+  const url =
+    forceRefresh
+      ? "/api/public-data?refresh=1"
+      : "/api/public-data";
 
 
-        if (!response.ok) {
+  try {
 
-          throw new Error(
-            data.error ||
-            "Gagal mengambil data."
-          );
-
+    const response =
+      await fetch(
+        url,
+        {
+          method: "GET",
+          cache: "no-store"
         }
+      );
 
 
-        renderSummary(
-          data.summary
-        );
+    const data =
+      await response.json();
 
 
-        renderKas(
-          data.kas || []
-        );
+    if (!response.ok) {
 
-
-        renderPengeluaran(
-          data.pengeluaran || []
-        );
-
-
-        status.textContent =
-          "Data berhasil diperbarui • " +
-          new Date()
-            .toLocaleString(
-              "id-ID"
-            );
-
-
-      } catch (e) {
-
-        console.error(
-          "PUBLIC PAGE ERROR:",
-          e
-        );
-
-
-        error.textContent =
-          "Gagal memuat data transparansi. " +
-          "Silakan coba tombol Perbarui Data kembali.";
-
-
-        error.style.display =
-          "block";
-
-
-        status.textContent =
-          "Gagal memuat data";
-
-
-        kasLoading.style.display =
-          "none";
-
-
-        pengeluaranLoading.style.display =
-          "none";
-
-      }
+      throw new Error(
+        data.error ||
+        "Gagal mengambil data."
+      );
 
     }
+
+
+    renderSummary(
+      data.summary
+    );
+
+
+    renderKas(
+      data.kas || []
+    );
+
+
+    renderPengeluaran(
+      data.pengeluaran || []
+    );
+
+
+    kasLoading.style.display =
+      "none";
+
+
+    pengeluaranLoading.style.display =
+      "none";
+
+
+    status.textContent =
+      "Data berhasil diperbarui • " +
+      new Date()
+        .toLocaleString(
+          "id-ID"
+        );
+
+
+  } catch (e) {
+
+    console.error(
+      "PUBLIC PAGE ERROR:",
+      e
+    );
+
+
+    error.textContent =
+      "Gagal memuat data transparansi. " +
+      "Silakan coba tombol Perbarui Data kembali.";
+
+
+    error.style.display =
+      "block";
+
+
+    status.textContent =
+      "Gagal memuat data";
+
+
+    kasLoading.style.display =
+      "none";
+
+
+    pengeluaranLoading.style.display =
+      "none";
+
+  }
+
+}
 
 
     /* =========================
