@@ -646,6 +646,7 @@
 <script src="/js/helpers.js"></script>
 <script src="/js/state.js"></script>
 <script src="/js/session.js"></script>
+<script src="/js/auth.js"></script>
 
 <script>
 
@@ -879,149 +880,7 @@
   }
 
 
-  /* =========================
-     LOGIN
-  ========================== */
-
-  async function login() {
-
-    const loginButton =
-      document.querySelector(
-        '#loginView button[onclick="login()"]'
-      );
-
-
-    try {
-
-      if (loginButton) {
-
-        loginButton.disabled =
-          true;
-
-        loginButton.style.background =
-          "#0b2f70";
-
-        loginButton.style.cursor =
-          "wait";
-
-        loginButton.textContent =
-          "Sabar ya....";
-      }
-
-
-      const d =
-        await api(
-          "/api/login",
-          {
-            method: "POST",
-
-            body: JSON.stringify({
-              email:
-                email.value,
-
-              password:
-                password.value
-            })
-          }
-        );
-
-
-      token =
-        d.token;
-
-
-      sessionStorage.setItem(
-        "rt_token",
-        token
-      );
-
-
-      updateLastActivity();
-
-      show();
-
-      setupAutoLogout();
-
-      await load();
-
-
-    } catch (e) {
-
-      loginMsg.className =
-        "err";
-
-      loginMsg.textContent =
-        e.message;
-
-
-    } finally {
-
-      if (loginButton) {
-
-        loginButton.disabled =
-          false;
-
-        loginButton.style.background =
-          "";
-
-        loginButton.style.cursor =
-          "";
-
-        loginButton.textContent =
-          "Masuk";
-      }
-    }
-  }
-
-
-  /* =========================
-     LOGOUT
-  ========================== */
-
-  function logout() {
-
-    /*
-     * Hentikan timer auto logout
-     * agar tidak tertinggal ketika logout.
-     */
-    if (activityCheckTimer) {
-
-      clearInterval(
-        activityCheckTimer
-      );
-
-      activityCheckTimer = null;
-    }
-
-
-    if (activityWriteTimer) {
-
-      clearTimeout(
-        activityWriteTimer
-      );
-
-      activityWriteTimer = null;
-    }
-
-
-    sessionStorage.clear();
-
-    location.reload();
-  }
-
-
-  /* =========================
-     TAMPILKAN APLIKASI
-  ========================== */
-
-  function show() {
-
-    loginView.style.display =
-      "none";
-
-    appView.style.display =
-      "block";
-  }
+ 
 
 
   /* =========================
