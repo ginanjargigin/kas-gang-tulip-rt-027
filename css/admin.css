@@ -4,8 +4,11 @@
    Menutup tampilan sementara data sedang diambil dari server.
    ========================================================= */
   /* KARTU SALDO */
-  /* KARTU SALDO */
-  .saldo-card {
+ 
+ .saldo-card {
+  background: #e8f5e9;
+  border: 1px solid #81c784;
+}
     background:
       linear-gradient(
         135deg,
