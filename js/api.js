@@ -162,16 +162,25 @@ async function api(
 }
 
 /* =========================================================
-   SAVE DATA
+   SIMPAN DATA
+   TRANSACTIONAL STATE UPDATE
 ========================================================= */
 
-async function save() {
+async function save(
+  nextState,
+  msg
+) {
 
   if (saving) {
-    return;
+
+    throw Error(
+      "Penyimpanan sedang berlangsung. Tunggu sebentar lalu coba lagi."
+    );
   }
 
+
   saving = true;
+
 
   try {
 
@@ -180,25 +189,40 @@ async function save() {
       {
         method: "PUT",
 
-        body: JSON.stringify(
-          state
-        )
+        body:
+          JSON.stringify(
+            nextState
+          )
       }
     );
 
-    await refresh();
 
-  } catch (error) {
+    /*
+     * STATE BARU HANYA DITERAPKAN
+     * SETELAH SERVER BERHASIL.
+     */
 
-    console.error(
-      "Gagal menyimpan data:",
-      error
-    );
+    state =
+      nextState;
 
-    alert(
-      error.message ||
-      "Gagal menyimpan data."
-    );
+
+    refresh();
+
+
+    if (msg) {
+
+      const el =
+        document.getElementById(
+          msg
+        );
+
+      el.className =
+        "ok";
+
+      el.textContent =
+        " ✓ Tersimpan";
+    }
+
 
   } finally {
 
