@@ -194,10 +194,7 @@ module.exports =
           empty;
 
 
-        if (
-          !isValidData(data)
-        ) {
-
+       if (!isValidData(data)) {
           return res.status(500).json({
             error:
               "Struktur data penyimpanan tidak valid.",
@@ -205,8 +202,12 @@ module.exports =
               "INVALID_DATA_STRUCTURE"
           });
         }
-
-
+        
+        res.setHeader(
+          "Cache-Control",
+          "no-store"
+        );
+        
         return res.json(data);
 
       } catch (e) {
