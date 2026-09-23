@@ -4,11 +4,11 @@
 
 
 /* =========================================================
-   LAST INPUT
+   INPUT OLEH TERAKHIR
 ========================================================= */
 
 const LAST_INPUT_BY_KEY =
-  "rt_last_input_by";
+  "kas_rt_last_input_by";
 
 
 function loadLastInputBy() {
@@ -25,23 +25,46 @@ function saveLastInputBy(
   value
 ) {
 
-  localStorage.setItem(
-    LAST_INPUT_BY_KEY,
-    value || ""
-  );
+  const nama =
+    String(
+      value || ""
+    ).trim();
+
+
+  if (nama) {
+
+    localStorage.setItem(
+      LAST_INPUT_BY_KEY,
+      nama
+    );
+  }
 }
 
 
 function setupLastInputBy() {
 
-  const saved =
+  const inputOleh =
+    document.getElementById(
+      "pOleh"
+    );
+
+
+  if (!inputOleh) {
+    return;
+  }
+
+
+  const lastInputBy =
     loadLastInputBy();
 
 
-  if (saved) {
+  if (
+    lastInputBy &&
+    !inputOleh.value.trim()
+  ) {
 
-    pOleh.value =
-      saved;
+    inputOleh.value =
+      lastInputBy;
   }
 }
 
@@ -53,7 +76,6 @@ function setupLastInputBy() {
 async function load() {
 
   if (loadingData) {
-
     return;
   }
 
@@ -90,10 +112,10 @@ function refresh() {
 
   const pemasukan =
     state.kas.reduce(
-      (a, b) =>
-        a +
+      (total, item) =>
+        total +
         Number(
-          b.total || 0
+          item.total || 0
         ),
       0
     );
@@ -101,43 +123,37 @@ function refresh() {
 
   const pengeluaran =
     state.pengeluaran.reduce(
-      (a, b) =>
-        a +
+      (total, item) =>
+        total +
         Number(
-          b.jumlah || 0
+          item.jumlah || 0
         ),
       0
     );
 
 
-  const saldo =
-    pemasukan -
-    pengeluaran;
+  saldo.textContent =
+    rp(
+      pemasukan -
+      pengeluaran
+    );
 
 
-  document.getElementById(
-    "saldo"
-  ).textContent =
-    rp(saldo);
-
-
-  document.getElementById(
-    "masuk"
-  ).textContent =
+  masuk.textContent =
     rp(pemasukan);
 
 
-  document.getElementById(
-    "keluar"
-  ).textContent =
+  keluar.textContent =
     rp(pengeluaran);
 
 
-  document.getElementById(
-    "jmlWarga"
-  ).textContent =
+  jmlWarga.textContent =
     state.warga.length;
 
+
+  /* =========================
+     TABEL WARGA
+  ========================== */
 
   wTable.innerHTML =
     state.warga
@@ -159,9 +175,12 @@ function refresh() {
             </td>
 
             <td>
+              ${esc(x.status)}
+            </td>
+
+            <td>
 
               <button
-                type="button"
                 class="danger"
                 onclick="delWarga(${i})"
               >
@@ -177,12 +196,17 @@ function refresh() {
       .join("");
 
 
+  /* =========================
+     PILIHAN WARGA
+  ========================== */
+
   kNama.innerHTML =
-    '<option value="">Pilih warga</option>' +
     state.warga
       .map(
         x =>
-          `<option>${esc(x.nama)}</option>`
+          `<option>${esc(
+            x.nama
+          )}</option>`
       )
       .join("");
 
@@ -194,54 +218,57 @@ function refresh() {
 
 
 /* =========================================================
-   DATA LOADING OVERLAY
+   DATA LOADING STATE
 ========================================================= */
 
 function showDataLoading() {
 
   let overlay =
     document.getElementById(
-      "dataLoading"
+      "dataLoadingOverlay"
     );
 
 
-  if (!overlay) {
-
-    overlay =
-      document.createElement(
-        "div"
-      );
-
-    overlay.id =
-      "dataLoading";
-
-    overlay.className =
-      "data-loading-overlay";
-
-    overlay.innerHTML = `
-      <div class="data-loading-card">
-
-        <div class="data-loading-spinner"></div>
-
-        <div class="data-loading-title">
-          Memuat data...
-        </div>
-
-        <div class="data-loading-text">
-          Mengambil data kas warga.
-        </div>
-
-      </div>
-    `;
-
-    document.body.appendChild(
-      overlay
-    );
+  if (overlay) {
+    return;
   }
 
 
-  overlay.style.display =
-    "flex";
+  overlay =
+    document.createElement(
+      "div"
+    );
+
+
+  overlay.id =
+    "dataLoadingOverlay";
+
+
+  overlay.className =
+    "data-loading-overlay";
+
+
+  overlay.innerHTML = `
+    <div class="data-loading-box">
+
+      <div class="data-loading-spinner"></div>
+
+      <h3 class="data-loading-title">
+        Memuat data...
+      </h3>
+
+      <p class="data-loading-text">
+        Mengambil data terbaru dari server.<br>
+        Mohon tunggu sebentar.
+      </p>
+
+    </div>
+  `;
+
+
+  document.body.appendChild(
+    overlay
+  );
 }
 
 
@@ -249,81 +276,74 @@ function hideDataLoading() {
 
   const overlay =
     document.getElementById(
-      "dataLoading"
+      "dataLoadingOverlay"
     );
 
 
   if (overlay) {
 
-    overlay.style.display =
-      "none";
+    overlay.remove();
   }
 }
 
 
 function showDataLoadingError(
-  message
+  error
 ) {
 
   let overlay =
     document.getElementById(
-      "dataLoading"
+      "dataLoadingOverlay"
     );
 
 
   if (!overlay) {
 
+    showDataLoading();
+
     overlay =
-      document.createElement(
-        "div"
+      document.getElementById(
+        "dataLoadingOverlay"
       );
-
-    overlay.id =
-      "dataLoading";
-
-    overlay.className =
-      "data-loading-overlay";
-
-    document.body.appendChild(
-      overlay
-    );
   }
 
 
-  overlay.innerHTML = `
-    <div class="data-loading-card">
+  const box =
+    overlay.querySelector(
+      ".data-loading-box"
+    );
 
-      <div class="data-loading-icon">
-        ⚠
-      </div>
 
-      <div class="data-loading-title">
-        Data belum berhasil dimuat
-      </div>
+  if (!box) {
+    return;
+  }
 
-      <div class="data-loading-text">
-        ${
-          esc(
-            message ||
-            "Terjadi masalah saat mengambil data."
-          )
-        }
-      </div>
 
-      <button
-        type="button"
-        class="primary"
-        onclick="retryLoadData()"
-      >
-        Coba Lagi
-      </button>
+  box.innerHTML = `
+    <h3 class="data-loading-title">
+      Data belum dapat dimuat
+    </h3>
 
+    <p class="data-loading-text">
+      Data dari server belum berhasil diambil.
+      Login tetap dipertahankan.
+    </p>
+
+    <div class="data-loading-error">
+      ${
+        error?.message ||
+        "Terjadi gangguan saat mengambil data."
+      }
     </div>
+
+    <button
+      type="button"
+      class="data-loading-retry"
+      onclick="retryLoadData()"
+    >
+      Coba Lagi
+    </button>
   `;
-
-
-  overlay.style.display =
-    "flex";
 }
 
 
@@ -338,76 +358,78 @@ async function retryLoadData() {
 
     hideDataLoading();
 
-  } catch (e) {
+  } catch (error) {
+
+    console.error(
+      "Retry load data gagal:",
+      error
+    );
+
 
     showDataLoadingError(
-      e.message
+      error
     );
   }
 }
 
 
 /* =========================================================
-   NAVIGATION
+   NAVIGASI TAB
 ========================================================= */
 
 document
   .querySelectorAll(
-    ".nav button"
+    "nav button"
   )
   .forEach(
     button => {
 
-      button.addEventListener(
-        "click",
-        () => {
+      button.onclick = () => {
 
-          document
-            .querySelectorAll(
-              ".nav button"
-            )
-            .forEach(
-              item =>
-                item.classList.remove(
-                  "active"
-                )
-            );
-
-
-          button.classList.add(
-            "active"
+        document
+          .querySelectorAll(
+            "nav button"
+          )
+          .forEach(
+            x =>
+              x.classList.remove(
+                "active"
+              )
           );
 
 
-          document
-            .querySelectorAll(
-              ".view"
-            )
-            .forEach(
-              view =>
-                view.classList.remove(
-                  "active"
-                )
-            );
+        button.classList.add(
+          "active"
+        );
 
 
-          document
-            .getElementById(
-              button.dataset.view
-            )
-            .classList.add(
-              "active"
-            );
+        document
+          .querySelectorAll(
+            ".section"
+          )
+          .forEach(
+            x =>
+              x.classList.remove(
+                "active"
+              )
+          );
 
-        }
-      );
+
+        document
+          .getElementById(
+            button.dataset.tab
+          )
+          .classList.add(
+            "active"
+          );
+      };
 
     }
   );
 
 
 /* =========================================================
-   INITIALIZATION
+   INISIALISASI
 ========================================================= */
 
 const today =
@@ -442,8 +464,14 @@ pJumlah.addEventListener(
 
 setupLastInputBy();
 
+
 setupPeriodeKas();
 
+
+/*
+ * Jika token login masih ada,
+ * tampilkan aplikasi dan ambil data.
+ */
 
 if (token) {
 
@@ -473,21 +501,31 @@ if (token) {
 
 
     load()
-      .then(
-        () => {
+      .then(() => {
 
-          hideDataLoading();
+        hideDataLoading();
 
-        }
-      )
+      })
       .catch(
-        e => {
+        error => {
 
-          showDataLoadingError(
-            e.message
+          console.error(
+            "Gagal memuat data:",
+            error
           );
 
+
+          showDataLoadingError(
+            error
+          );
         }
       );
   }
+
+} else {
+
+  /*
+   * Belum login.
+   * Tidak perlu menjalankan timer auto logout.
+   */
 }
