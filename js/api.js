@@ -160,3 +160,48 @@ async function api(
     "Data belum berhasil dimuat."
   );
 }
+
+/* =========================================================
+   SAVE DATA
+========================================================= */
+
+async function save() {
+
+  if (saving) {
+    return;
+  }
+
+  saving = true;
+
+  try {
+
+    await api(
+      "/api/data",
+      {
+        method: "PUT",
+
+        body: JSON.stringify(
+          state
+        )
+      }
+    );
+
+    await refresh();
+
+  } catch (error) {
+
+    console.error(
+      "Gagal menyimpan data:",
+      error
+    );
+
+    alert(
+      error.message ||
+      "Gagal menyimpan data."
+    );
+
+  } finally {
+
+    saving = false;
+  }
+}
