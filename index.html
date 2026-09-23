@@ -16,345 +16,349 @@
    Menutup tampilan sementara data sedang diambil dari server.
    ========================================================= */
   /* KARTU SALDO */
-/* KARTU SALDO */
-.saldo-card {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(134, 239, 172, 0.55) 0%,
-      rgba(187, 247, 208, 0.38) 38%,
-      rgba(191, 219, 254, 0.38) 68%,
-      rgba(221, 214, 254, 0.55) 100%
-    ) !important;
+  /* KARTU SALDO */
+  .saldo-card {
+    background:
+      linear-gradient(
+        135deg,
+        rgba(134, 239, 172, 0.55) 0%,
+        rgba(187, 247, 208, 0.38) 38%,
+        rgba(191, 219, 254, 0.38) 68%,
+        rgba(221, 214, 254, 0.55) 100%
+      ) !important;
 
-  border: 1px solid rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.75);
 
-  box-shadow:
-    0 10px 25px rgba(34, 197, 94, 0.12);
-}
-    /* KARTU PENGELUARAN */
-.pengeluaran-card {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(254, 202, 202, 0.55) 0%,
-      rgba(254, 226, 226, 0.40) 38%,
-      rgba(254, 205, 211, 0.38) 68%,
-      rgba(255, 237, 213, 0.50) 100%
-    ) !important;
+    box-shadow:
+      0 10px 25px rgba(34, 197, 94, 0.12);
+  }
 
-  border: 1px solid rgba(248, 113, 113, 0.45);
+  /* KARTU PENGELUARAN */
+  .pengeluaran-card {
+    background:
+      linear-gradient(
+        135deg,
+        rgba(254, 202, 202, 0.55) 0%,
+        rgba(254, 226, 226, 0.40) 38%,
+        rgba(254, 205, 211, 0.38) 68%,
+        rgba(255, 237, 213, 0.50) 100%
+      ) !important;
 
-  box-shadow:
-    0 10px 25px rgba(239, 68, 68, 0.10);
-}
-    /* KARTU PEMASUKAN */
-.pemasukan-card {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(147, 197, 253, 0.55) 0%,
-      rgba(191, 219, 254, 0.40) 38%,
-      rgba(186, 230, 253, 0.38) 68%,
-      rgba(224, 242, 254, 0.55) 100%
-    ) !important;
+    border: 1px solid rgba(248, 113, 113, 0.45);
 
-  border: 1px solid rgba(96, 165, 250, 0.45);
+    box-shadow:
+      0 10px 25px rgba(239, 68, 68, 0.10);
+  }
 
-  box-shadow:
-    0 10px 25px rgba(59, 130, 246, 0.10);
-}
-    }
-    .data-loading-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-    
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(4px);
-    
-      text-align: center;
-      padding: 24px;
-    }
-    
-    .data-loading-box {
-      width: min(420px, 90vw);
-      padding: 30px 24px;
-    
-      background: #ffffff;
-      border-radius: 16px;
-    
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-    }
-    
-    .data-loading-spinner {
-      width: 42px;
-      height: 42px;
-    
-      margin: 0 auto 18px;
-    
-      border: 4px solid #e5e7eb;
-      border-top-color: #2563eb;
-      border-radius: 50%;
-    
-      animation: dataLoadingSpin 0.8s linear infinite;
-    }
-    
-    .data-loading-title {
-      margin: 0 0 8px;
-    
-      font-size: 18px;
-      font-weight: 700;
-      color: #111827;
-    }
-    
-    .data-loading-text {
-      margin: 0;
-    
-      font-size: 14px;
-      line-height: 1.6;
-      color: #6b7280;
-    }
-    
-    .data-loading-error {
-      margin-top: 16px;
-      padding: 12px;
-    
-      border-radius: 10px;
-    
-      background: #fef2f2;
-      color: #991b1b;
-    
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    
-    .data-loading-retry {
-      margin-top: 18px;
-      padding: 10px 18px;
-    
-      border: 0;
-      border-radius: 8px;
-    
-      background: #2563eb;
-      color: #ffffff;
-    
-      font-size: 14px;
-      font-weight: 600;
-    
-      cursor: pointer;
-    }
-    
-    .data-loading-retry:hover {
-      background: #1d4ed8;
-    }
-    
-    @keyframes dataLoadingSpin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #172033;
-    }
+  /* KARTU PEMASUKAN */
+  .pemasukan-card {
+    background:
+      linear-gradient(
+        135deg,
+        rgba(147, 197, 253, 0.55) 0%,
+        rgba(191, 219, 254, 0.40) 38%,
+        rgba(186, 230, 253, 0.38) 68%,
+        rgba(224, 242, 254, 0.55) 100%
+      ) !important;
 
-    header {
-      background: #0f3d91;
-      color: white;
-      padding: 20px;
-    }
+    border: 1px solid rgba(96, 165, 250, 0.45);
 
-    .wrap {
-      max-width: 1100px;
-      margin: auto;
-    }
+    box-shadow:
+      0 10px 25px rgba(59, 130, 246, 0.10);
+  }
 
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  .data-loading-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
 
-    .brand {
-      font-size: 20px;
-      font-weight: 800;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    .muted {
-      opacity: 0.8;
-      font-size: 13px;
-    }
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(4px);
 
-    button {
-      border: 0;
-      border-radius: 9px;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+    text-align: center;
+    padding: 24px;
+  }
 
-    .btn {
-      background: #1769d1;
-      color: #fff;
-    }
+  .data-loading-box {
+    width: min(420px, 90vw);
+    padding: 30px 24px;
 
-    .btn2 {
-      background: #e8eef8;
-      color: #17315e;
-    }
+    background: #ffffff;
+    border-radius: 16px;
 
-        .public-link {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-    
-      margin-top: 12px;
-      padding: 10px 14px;
-    
-      border-radius: 9px;
-    
-      background: #e8eef8;
-      color: #17315e;
-    
-      text-align: center;
-      text-decoration: none;
-    
-      font-weight: bold;
-    }
-    
-    .public-link:hover {
-      background: #dbe6f7;
-    }
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  }
 
-    .danger {
-      background: #d93434;
-      color: white;
-    }
+  .data-loading-spinner {
+    width: 42px;
+    height: 42px;
 
-    main {
-      padding: 20px 0;
-    }
+    margin: 0 auto 18px;
 
-    .login,
-    .card {
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 7px 22px #183b5d14;
-      padding: 18px;
-    }
+    border: 4px solid #e5e7eb;
+    border-top-color: #2563eb;
+    border-radius: 50%;
 
-    .login {
-      max-width: 400px;
-      margin: 55px auto;
-    }
+    animation: dataLoadingSpin 0.8s linear infinite;
+  }
 
-    input,
-    select {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #d5ddea;
-      border-radius: 9px;
-      margin: 5px 0 11px;
-      box-sizing: border-box;
-    }
+  .data-loading-title {
+    margin: 0 0 8px;
 
-    nav {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin: 15px 0;
-    }
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+  }
 
-    nav button.active {
-      background: #0f3d91 !important;
-      color: white !important;
-    }
+  .data-loading-text {
+    margin: 0;
 
-    .section {
-      display: none;
-    }
+    font-size: 14px;
+    line-height: 1.6;
+    color: #6b7280;
+  }
 
-    .section.active {
-      display: block;
-      color: #172033;
-      background: transparent;
-    }
+  .data-loading-error {
+    margin-top: 16px;
+    padding: 12px;
 
+    border-radius: 10px;
+
+    background: #fef2f2;
+    color: #991b1b;
+
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .data-loading-retry {
+    margin-top: 18px;
+    padding: 10px 18px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+  }
+
+  .data-loading-retry:hover {
+    background: #1d4ed8;
+  }
+
+  @keyframes dataLoadingSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
+  }
+
+  header {
+    background: #0f3d91;
+    color: white;
+    padding: 20px;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: auto;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand {
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .muted {
+    opacity: 0.8;
+    font-size: 13px;
+  }
+
+  button {
+    border: 0;
+    border-radius: 9px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .btn {
+    background: #1769d1;
+    color: #fff;
+  }
+
+  .btn2 {
+    background: #e8eef8;
+    color: #17315e;
+  }
+
+  .public-link {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+
+    margin-top: 12px;
+    padding: 10px 14px;
+
+    border-radius: 9px;
+
+    background: #e8eef8;
+    color: #17315e;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-weight: bold;
+  }
+
+  .public-link:hover {
+    background: #dbe6f7;
+  }
+
+  .danger {
+    background: #d93434;
+    color: white;
+  }
+
+  main {
+    padding: 20px 0;
+  }
+
+  .login,
+  .card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 7px 22px #183b5d14;
+    padding: 18px;
+  }
+
+  .login {
+    max-width: 400px;
+    margin: 55px auto;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d5ddea;
+    border-radius: 9px;
+    margin: 5px 0 11px;
+    box-sizing: border-box;
+  }
+
+  nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+  }
+
+  nav button.active {
+    background: #0f3d91 !important;
+    color: white !important;
+  }
+
+  .section {
+    display: none;
+  }
+
+  .section.active {
+    display: block;
+    color: #172033;
+    background: transparent;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+  }
+
+  .stat b {
+    display: block;
+    font-size: 24px;
+    margin-top: 6px;
+  }
+
+  .formgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .full {
+    grid-column: 1 / -1;
+  }
+
+  .tablewrap {
+    overflow: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th,
+  td {
+    padding: 9px;
+    border-bottom: 1px solid #e6eaf0;
+    text-align: left;
+  }
+
+  th {
+    background: #f3f6fa;
+  }
+
+  .err {
+    color: #c62828;
+  }
+
+  .ok {
+    color: #18794e;
+  }
+
+  @media (max-width: 800px) {
     .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 13px;
-    }
-
-    .stat b {
-      display: block;
-      font-size: 24px;
-      margin-top: 6px;
+      grid-template-columns: 1fr 1fr;
     }
 
     .formgrid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      grid-template-columns: 1fr;
     }
 
     .full {
-      grid-column: 1 / -1;
+      grid-column: auto;
     }
-
-    .tablewrap {
-      overflow: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    th,
-    td {
-      padding: 9px;
-      border-bottom: 1px solid #e6eaf0;
-      text-align: left;
-    }
-
-    th {
-      background: #f3f6fa;
-    }
-
-    .err {
-      color: #c62828;
-    }
-
-    .ok {
-      color: #18794e;
-    }
-
-    @media (max-width: 800px) {
-      .grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .formgrid {
-        grid-template-columns: 1fr;
-      }
-
-      .full {
-        grid-column: auto;
-      }
-        }
+  }
   </style>
 </head>
 
 <body>
+
 <!-- =========================
      LOGIN
 ========================= -->
@@ -405,2204 +409,2362 @@
 
 </div>
 
- 
-  <!-- =========================
-       APLIKASI UTAMA
-  ========================== -->
 
-  <div
-    id="appView"
-    style="display: none"
-  >
+<!-- =========================
+     APLIKASI UTAMA
+========================== -->
 
-    <!-- HEADER -->
+<div
+  id="appView"
+  style="display: none"
+>
 
-    <header>
+  <!-- HEADER -->
 
-      <div class="wrap top">
+  <header>
 
-        <div>
+    <div class="wrap top">
 
-          <div class="brand">
-            KAS GANG RT 027 — GANG TULIP
-          </div>
+      <div>
 
-          <div class="muted">
-            Administrasi kas warga
-          </div>
-
+        <div class="brand">
+          KAS GANG RT 027 — GANG TULIP
         </div>
 
-        <button
-          class="btn2"
-          onclick="logout()"
-        >
-          Keluar
-        </button>
+        <div class="muted">
+          Administrasi kas warga
+        </div>
 
       </div>
 
-    </header>
-
-
-    <main class="wrap">
-
-      <!-- =========================
-           NAVIGASI
-      ========================== -->
-
-      <nav>
-
-        <button
-          class="btn2 active"
-          data-tab="home"
-        >
-          HOME
-        </button>
-
-        <button
-          class="btn2"
-          data-tab="warga"
-        >
-          DATA WARGA
-        </button>
-
-        <button
-          class="btn2"
-          data-tab="kas"
-        >
-          PEMBAYARAN KAS
-        </button>
-
-        <button
-          class="btn2"
-          data-tab="pengeluaran"
-        >
-          PENGELUARAN
-        </button>
-
-        <button
-          class="btn2"
-          data-tab="search"
-        >
-          CARI DATA
-        </button>
-
-        <button
-          class="btn2"
-          data-tab="rekap"
-        >
-          REKAP
-        </button>
-
-      </nav>
-
-
-      <!-- =========================
-           HOME
-      ========================== -->
-
-      <section
-        id="home"
-        class="section active"
+      <button
+        class="btn2"
+        onclick="logout()"
       >
+        Keluar
+      </button>
 
-        <div class="grid">
+    </div>
 
-         <div class="card stat saldo-card">
-            Saldo
-            <b id="saldo">Rp 0</b>
-          </div>
-          
+  </header>
+
+
+  <main class="wrap">
+
+    <!-- NAVIGASI -->
+
+    <nav>
+
+      <button
+        class="btn2 active"
+        data-tab="home"
+      >
+        HOME
+      </button>
+
+      <button
+        class="btn2"
+        data-tab="warga"
+      >
+        DATA WARGA
+      </button>
+
+      <button
+        class="btn2"
+        data-tab="kas"
+      >
+        PEMBAYARAN KAS
+      </button>
+
+      <button
+        class="btn2"
+        data-tab="pengeluaran"
+      >
+        PENGELUARAN
+      </button>
+
+      <button
+        class="btn2"
+        data-tab="search"
+      >
+        CARI DATA
+      </button>
+
+      <button
+        class="btn2"
+        data-tab="rekap"
+      >
+        REKAP
+      </button>
+
+    </nav>
+
+
+    <!-- HOME -->
+
+    <section
+      id="home"
+      class="section active"
+    >
+
+      <div class="grid">
+
+        <div class="card stat saldo-card">
+          Saldo
+          <b id="saldo">Rp 0</b>
+        </div>
+
         <div class="card stat pemasukan-card">
           Pemasukan
           <b id="masuk">Rp 0</b>
         </div>
 
-          <div class="card stat pengeluaran-card">
-            Pengeluaran
-            <b id="keluar">Rp 0</b>
+        <div class="card stat pengeluaran-card">
+          Pengeluaran
+          <b id="keluar">Rp 0</b>
+        </div>
+
+        <div class="card stat">
+          Warga
+          <b id="jmlWarga">0</b>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DATA WARGA -->
+
+    <section
+      id="warga"
+      class="section"
+    >
+
+      <div class="card">
+
+        <h3>Tambah Data Warga</h3>
+
+        <div class="formgrid">
+
+          <div>
+            Nama
+            <input id="wNama">
+          </div>
+
+          <div>
+            Blok/Rumah
+            <input id="wBlok">
+          </div>
+
+          <div>
+            No. HP
+            <input id="wHp">
+          </div>
+
+          <div>
+            Status
+
+            <select id="wStatus">
+              <option>Aktif</option>
+              <option>Tidak Aktif</option>
+            </select>
+
+          </div>
+
+          <div class="full">
+
+            <button
+              class="btn"
+              onclick="addWarga()"
+            >
+              Simpan
+            </button>
+
+            <span id="wMsg"></span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="card"
+        style="margin-top: 15px"
+      >
+
+        <h3>Daftar Warga</h3>
+
+        <div class="tablewrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Nama</th>
+                <th>Blok</th>
+                <th>HP</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+
+            </thead>
+
+            <tbody id="wTable"></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PEMBAYARAN KAS -->
+
+    <section
+      id="kas"
+      class="section"
+    >
+
+      <div class="card">
+
+        <h3>Pembayaran Kas</h3>
+
+        <div class="formgrid">
+
+          <div>
+            Tanggal
+
+            <input
+              id="kTanggal"
+              type="date"
+            >
+          </div>
+
+          <div>
+            Nama Warga
+
+            <select id="kNama"></select>
+          </div>
+
+          <div>
+            Periode
+
+            <select id="kPeriode">
+              <option value="">Pilih periode</option>
+            </select>
+          </div>
+
+          <div>
+            Kas
+
+            <input
+              id="kKas"
+              type="text"
+              inputmode="numeric"
+              value="50.000"
+              oninput="formatNominalInput(this)"
+            >
+          </div>
+
+          <div>
+            Denda
+
+            <input
+              id="kDenda"
+              type="number"
+              value="0"
+            >
+          </div>
+
+          <div>
+            Metode
+
+            <select id="kMetode">
+              <option>Cash</option>
+              <option>Transfer</option>
+              <option>QRIS</option>
+            </select>
+
+          </div>
+
+          <div class="full">
+
+            Keterangan
+
+            <input id="kKet">
+
+          </div>
+
+          <div class="full">
+
+            <button
+              class="btn"
+              onclick="addKas()"
+            >
+              Simpan
+            </button>
+
+            <span id="kMsg"></span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PENGELUARAN -->
+
+    <section
+      id="pengeluaran"
+      class="section"
+    >
+
+      <div class="card">
+
+        <h3>Pengeluaran</h3>
+
+        <div class="formgrid">
+
+          <div>
+            Tanggal
+
+            <input
+              id="pTanggal"
+              type="date"
+            >
+          </div>
+
+          <div>
+            Kategori
+
+            <input id="pKategori">
+          </div>
+
+          <div>
+            Jumlah
+
+            <input
+              id="pJumlah"
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+              placeholder="Contoh: 2.500.000"
+            >
+
+          </div>
+
+          <div>
+            Input Oleh
+
+            <input id="pOleh">
+          </div>
+
+          <div class="full">
+
+            Keterangan
+
+            <input id="pKet">
+
+          </div>
+
+          <div class="full">
+
+            <button
+              class="btn"
+              onclick="addPengeluaran()"
+            >
+              Simpan
+            </button>
+
+            <span id="pMsg"></span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CARI DATA -->
+
+    <section
+      id="search"
+      class="section"
+    >
+
+      <div class="card">
+
+        <h3>Cari Pembayaran</h3>
+
+        <div class="formgrid">
+
+          <div>
+            Nama
+
+            <input
+              id="sNama"
+              oninput="renderSearch()"
+            >
+          </div>
+
+          <div>
+            Blok
+
+            <input
+              id="sBlok"
+              oninput="renderSearch()"
+            >
+          </div>
+
+          <div>
+            Metode
+
+            <select
+              id="sMetode"
+              onchange="renderSearch()"
+            >
+              <option value="">Semua</option>
+              <option>Cash</option>
+              <option>Transfer</option>
+              <option>QRIS</option>
+            </select>
+
+          </div>
+
+          <div>
+            Tanggal
+
+            <input
+              id="sTanggal"
+              type="date"
+              onchange="renderSearch()"
+            >
+          </div>
+
+          <div>
+            Min. Jumlah
+
+            <input
+              id="sMin"
+              type="number"
+              oninput="renderSearch()"
+            >
+          </div>
+
+          <div>
+            Max. Jumlah
+
+            <input
+              id="sMax"
+              type="number"
+              oninput="renderSearch()"
+            >
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="card"
+        style="margin-top: 15px"
+      >
+
+        <div class="tablewrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Tanggal</th>
+                <th>Nama</th>
+                <th>Blok</th>
+                <th>Kas</th>
+                <th>Denda</th>
+                <th>Total</th>
+                <th>Metode</th>
+                <th>Aksi</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="sTable"></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- REKAP -->
+
+    <section
+      id="rekap"
+      class="section"
+    >
+
+      <div class="card">
+
+        <h3>Rekap Transaksi</h3>
+
+        <div
+          class="grid"
+          style="margin-bottom: 15px;"
+        >
+
+          <div class="card stat">
+            Total Pemasukan
+            <b id="rekapPemasukan">
+              Rp 0
+            </b>
           </div>
 
           <div class="card stat">
-            Warga
-            <b id="jmlWarga">0</b>
+            Total Pengeluaran
+            <b id="rekapPengeluaran">
+              Rp 0
+            </b>
+          </div>
+
+          <div class="card stat">
+            Sisa Kas
+            <b id="rekapSaldo">
+              Rp 0
+            </b>
           </div>
 
         </div>
 
-      </section>
+        <div class="tablewrap">
 
+          <table>
 
-      <!-- =========================
-           DATA WARGA
-      ========================== -->
+            <thead>
 
-      <section
-        id="warga"
-        class="section"
-      >
+              <tr>
+                <th>Tanggal</th>
+                <th>Jenis</th>
+                <th>Nama/Kategori</th>
+                <th>Jumlah</th>
+                <th>Keterangan</th>
+                <th>Aksi</th>
+              </tr>
 
-        <div class="card">
+            </thead>
 
-          <h3>Tambah Data Warga</h3>
+            <tbody id="rTable"></tbody>
 
-          <div class="formgrid">
-
-            <div>
-              Nama
-              <input id="wNama">
-            </div>
-
-            <div>
-              Blok/Rumah
-              <input id="wBlok">
-            </div>
-
-            <div>
-              No. HP
-              <input id="wHp">
-            </div>
-
-            <div>
-              Status
-
-              <select id="wStatus">
-                <option>Aktif</option>
-                <option>Tidak Aktif</option>
-              </select>
-
-            </div>
-
-            <div class="full">
-
-              <button
-                class="btn"
-                onclick="addWarga()"
-              >
-                Simpan
-              </button>
-
-              <span id="wMsg"></span>
-
-            </div>
-
-          </div>
+          </table>
 
         </div>
 
+      </div>
 
-        <div
-          class="card"
-          style="margin-top: 15px"
-        >
+    </section>
 
-          <h3>Daftar Warga</h3>
+  </main>
 
-          <div class="tablewrap">
+</div>
 
-            <table>
 
-              <thead>
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
-                <tr>
-                  <th>Nama</th>
-                  <th>Blok</th>
-                  <th>HP</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
+<script>
 
-              </thead>
+  /* =========================================================
+     FORMAT NOMINAL RUPIAH
+  ========================================================= */
 
-              <tbody id="wTable"></tbody>
+  const rupiahNumberFormatter =
+    new Intl.NumberFormat("id-ID", {
+      maximumFractionDigits: 0
+    });
 
-            </table>
+  function formatNominalInput(value) {
 
-          </div>
+    const digits =
+      String(value || "")
+        .replace(/\D/g, "");
 
-        </div>
-
-      </section>
-
-
-      <!-- =========================
-           PEMBAYARAN KAS
-      ========================== -->
-
-      <section
-        id="kas"
-        class="section"
-      >
-
-        <div class="card">
-
-          <h3>Pembayaran Kas</h3>
-
-          <div class="formgrid">
-
-            <div>
-              Tanggal
-
-              <input
-                id="kTanggal"
-                type="date"
-              >
-            </div>
-
-            <div>
-              Nama Warga
-
-              <select id="kNama"></select>
-            </div>
-
-            <div>
-              Periode
-            
-              <select id="kPeriode">
-                <option value="">Pilih periode</option>
-              </select>
-            </div>
-
-            <div>
-              Kas
-            
-              <input
-                id="kKas"
-                type="text"
-                inputmode="numeric"
-                value="50.000"
-                oninput="formatNominalInput(this)"
-              >
-            </div>
-            <div>
-              Denda
-
-              <input
-                id="kDenda"
-                type="number"
-                value="0"
-              >
-            </div>
-
-            <div>
-              Metode
-
-              <select id="kMetode">
-                <option>Cash</option>
-                <option>Transfer</option>
-                <option>QRIS</option>
-              </select>
-
-            </div>
-
-            <div class="full">
-
-              Keterangan
-
-              <input id="kKet">
-
-            </div>
-
-            <div class="full">
-
-              <button
-                class="btn"
-                onclick="addKas()"
-              >
-                Simpan
-              </button>
-
-              <span id="kMsg"></span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =========================
-           PENGELUARAN
-      ========================== -->
-
-      <section
-        id="pengeluaran"
-        class="section"
-      >
-
-        <div class="card">
-
-          <h3>Pengeluaran</h3>
-
-          <div class="formgrid">
-
-            <div>
-              Tanggal
-
-              <input
-                id="pTanggal"
-                type="date"
-              >
-            </div>
-
-            <div>
-              Kategori
-
-              <input id="pKategori">
-            </div>
-
-            <div>
-              Jumlah
-
-              <input
-                id="pJumlah"
-                type="text"
-                inputmode="numeric"
-                autocomplete="off"
-                placeholder="Contoh: 2.500.000"
-              >
-              
-            </div>
-
-            <div>
-              Input Oleh
-
-              <input id="pOleh">
-            </div>
-
-            <div class="full">
-
-              Keterangan
-
-              <input id="pKet">
-
-            </div>
-
-            <div class="full">
-
-              <button
-                class="btn"
-                onclick="addPengeluaran()"
-              >
-                Simpan
-              </button>
-
-              <span id="pMsg"></span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =========================
-           CARI DATA
-      ========================== -->
-
-      <section
-        id="search"
-        class="section"
-      >
-
-        <div class="card">
-
-          <h3>Cari Pembayaran</h3>
-
-          <div class="formgrid">
-
-            <div>
-              Nama
-
-              <input
-                id="sNama"
-                oninput="renderSearch()"
-              >
-            </div>
-
-            <div>
-              Blok
-
-              <input
-                id="sBlok"
-                oninput="renderSearch()"
-              >
-            </div>
-
-            <div>
-              Metode
-
-              <select
-                id="sMetode"
-                onchange="renderSearch()"
-              >
-                <option value="">Semua</option>
-                <option>Cash</option>
-                <option>Transfer</option>
-                <option>QRIS</option>
-              </select>
-
-            </div>
-
-            <div>
-              Tanggal
-
-              <input
-                id="sTanggal"
-                type="date"
-                onchange="renderSearch()"
-              >
-            </div>
-
-            <div>
-              Min. Jumlah
-
-              <input
-                id="sMin"
-                type="number"
-                oninput="renderSearch()"
-              >
-            </div>
-
-            <div>
-              Max. Jumlah
-
-              <input
-                id="sMax"
-                type="number"
-                oninput="renderSearch()"
-              >
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div
-          class="card"
-          style="margin-top: 15px"
-        >
-
-          <div class="tablewrap">
-
-            <table>
-
-              <thead>
-
-                <tr>
-                  <th>Tanggal</th>
-                  <th>Nama</th>
-                  <th>Blok</th>
-                  <th>Kas</th>
-                  <th>Denda</th>
-                  <th>Total</th>
-                  <th>Metode</th>
-                  <th>Aksi</th>
-                </tr>
-
-              </thead>
-
-              <tbody id="sTable"></tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =========================
-           REKAP
-      ========================== -->
-
-      <section
-        id="rekap"
-        class="section"
-      >
-
-        <div class="card">
-          <h3>Rekap Transaksi</h3>
-          
-          <div class="grid" style="margin-bottom: 15px;">
-          
-            <div class="card stat">
-              Total Pemasukan
-              <b id="rekapPemasukan">
-                Rp 0
-              </b>
-            </div>
-          
-            <div class="card stat">
-              Total Pengeluaran
-              <b id="rekapPengeluaran">
-                Rp 0
-              </b>
-            </div>
-          
-            <div class="card stat">
-              Sisa Kas
-              <b id="rekapSaldo">
-                Rp 0
-              </b>
-            </div>
-          
-          </div>
-          
-          <div class="tablewrap">
-
-            <table>
-
-              <thead>
-
-                <tr>
-                  <th>Tanggal</th>
-                  <th>Jenis</th>
-                  <th>Nama/Kategori</th>
-                  <th>Jumlah</th>
-                  <th>Keterangan</th>
-                  <th>Aksi</th>
-                </tr>
-
-              </thead>
-
-              <tbody id="rTable"></tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </main>
-
-  </div>
-
-
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
-
-  <script>
-            /* =========================================================
-           FORMAT NOMINAL RUPIAH
-           ========================================================= */
-        
-        const rupiahNumberFormatter = new Intl.NumberFormat("id-ID", {
-          maximumFractionDigits: 0
-        });
-        
-        function formatNominalInput(value) {
-          const digits = String(value || "").replace(/\D/g, "");
-        
-          if (!digits) {
-            return "";
-          }
-        
-          return rupiahNumberFormatter.format(Number(digits));
-        }
-        
-        function getNominalValue(value) {
-          const digits = String(value || "").replace(/\D/g, "");
-        
-          if (!digits) {
-            return 0;
-          }
-        
-          return Number(digits);
-        }
-
-    /* =========================
-       STATE
-    ========================== */
-
-    let token =
-      sessionStorage.getItem("rt_token");
-
-    let state = {
-      warga: [],
-      kas: [],
-      pengeluaran: []
-    };
-
-    let saving = false;
-    /* =========================================================
-   AUTO LOGOUT KARENA TIDAK ADA AKTIVITAS
-   ========================================================= */
-
-const AUTO_LOGOUT_MS = 3 * 60 * 60 * 1000;
-const ACTIVITY_CHECK_MS = 30 * 1000;
-
-const LAST_ACTIVITY_KEY =
-  "rt_last_activity";
-
-let activityCheckTimer = null;
-let activityWriteTimer = null;
-
-
-/*
- * Catat aktivitas terakhir admin.
- *
- * Timestamp disimpan di sessionStorage agar tetap tersedia
- * ketika halaman di-refresh dalam tab yang sama.
- */
-function updateLastActivity() {
-
-  const now =
-    Date.now();
-
-  sessionStorage.setItem(
-    LAST_ACTIVITY_KEY,
-    String(now)
-  );
-}
-
-
-/*
- * Ambil waktu aktivitas terakhir.
- *
- * Jika belum ada, gunakan waktu sekarang.
- */
-function getLastActivity() {
-
-  const saved =
-    Number(
-      sessionStorage.getItem(
-        LAST_ACTIVITY_KEY
-      )
-    );
-
-  if (
-    Number.isFinite(saved) &&
-    saved > 0
-  ) {
-    return saved;
-  }
-
-  updateLastActivity();
-
-  return Date.now();
-}
-
-
-/*
- * Aktivitas pengguna tidak perlu ditulis ke
- * sessionStorage setiap milidetik.
- *
- * Kita batasi penulisan maksimal sekali
- * setiap 30 detik.
- */
-function registerActivity() {
-
-  if (!token) {
-    return;
-  }
-
-  if (activityWriteTimer) {
-    return;
-  }
-
-  updateLastActivity();
-
-  activityWriteTimer =
-    setTimeout(() => {
-
-      activityWriteTimer = null;
-
-    }, ACTIVITY_CHECK_MS);
-}
-
-
-/*
- * Logout otomatis jika tidak ada aktivitas
- * selama 2 jam.
- */
-function checkAutoLogout() {
-
-  if (!token) {
-    return;
-  }
-
-  const lastActivity =
-    getLastActivity();
-
-  const inactiveFor =
-    Date.now() - lastActivity;
-
-  if (
-    inactiveFor >=
-    AUTO_LOGOUT_MS
-  ) {
-
-    alert(
-      "Sesi login berakhir karena tidak ada aktivitas selama 2 jam."
-    );
-
-    logout();
-  }
-}
-
-
-/*
- * Pantau aktivitas pengguna.
- *
- * passive:true digunakan agar event seperti scroll
- * tidak mengganggu performa halaman.
- */
-function setupAutoLogout() {
-
-  const activityEvents = [
-    "click",
-    "keydown",
-    "mousedown",
-    "touchstart",
-    "scroll"
-  ];
-
-  activityEvents.forEach(
-    eventName => {
-
-      document.addEventListener(
-        eventName,
-        registerActivity,
-        {
-          passive: true
-        }
-      );
-
-    }
-  );
-
-
-  /*
-   * Gerakan mouse tidak dicatat setiap pixel.
-   * Cukup dianggap aktivitas jika event terjadi.
-   */
-  document.addEventListener(
-    "mousemove",
-    registerActivity,
-    {
-      passive: true
-    }
-  );
-
-
-  /*
-   * Periksa status sesi setiap 30 detik.
-   */
-  activityCheckTimer =
-    setInterval(
-      checkAutoLogout,
-      ACTIVITY_CHECK_MS
-    );
-
-
-  /*
-   * Pastikan sesi tidak langsung dianggap
-   * tidak aktif ketika pertama kali login.
-   */
-  if (token) {
-    updateLastActivity();
-  }
-}
-
-               /* =========================================================
-           INPUT OLEH TERAKHIR
-           Nama terakhir tetap tersedia walaupun admin logout.
-           ========================================================= */
-        
-        const LAST_INPUT_BY_KEY =
-          "kas_rt_last_input_by";
-        
-        function loadLastInputBy() {
-          return (
-            localStorage.getItem(
-              LAST_INPUT_BY_KEY
-            ) || ""
-          );
-        }
-        
-        function saveLastInputBy(value) {
-          const nama =
-            String(value || "").trim();
-        
-          if (nama) {
-            localStorage.setItem(
-              LAST_INPUT_BY_KEY,
-              nama
-            );
-          }
-        }
-        
-        function setupLastInputBy() {
-          const inputOleh =
-            document.getElementById(
-              "pOleh"
-            );
-        
-          if (!inputOleh) {
-            return;
-          }
-        
-          const lastInputBy =
-            loadLastInputBy();
-        
-          if (
-            lastInputBy &&
-            !inputOleh.value.trim()
-          ) {
-            inputOleh.value =
-              lastInputBy;
-          }
-        }
-
-    /* =========================
-       HELPER
-    ========================== */
-   /* =========================
-   FORMAT TANGGAL INDONESIA
-========================= */
-
-function formatTanggal(tanggal) {
-
-  if (!tanggal) {
-    return "-";
-  }
-
-  const bulan = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "Mei",
-    "Jun",
-    "Jul",
-    "Agu",
-    "Sep",
-    "Okt",
-    "Nov",
-    "Des"
-  ];
-
-  const bagian =
-    String(tanggal).split("-");
-
-  if (bagian.length !== 3) {
-    return tanggal;
-  }
-
-  const tahun = bagian[0];
-  const nomorBulan =
-    Number(bagian[1]);
-  const hari = bagian[2];
-
-  if (
-    !nomorBulan ||
-    nomorBulan < 1 ||
-    nomorBulan > 12
-  ) {
-    return tanggal;
-  }
-
-  return (
-    `${hari} ${bulan[nomorBulan - 1]} ${tahun}`
-  );
-}
-    const rp = n =>
-      new Intl.NumberFormat(
-        "id-ID",
-        {
-          style: "currency",
-          currency: "IDR",
-          maximumFractionDigits: 0
-        }
-      ).format(Number(n) || 0);
-
-
-    const uid = () =>
-      Date.now().toString(36) +
-      Math.random()
-        .toString(36)
-        .slice(2, 7);
-
-
-    const esc = s =>
-      String(s ?? "").replace(
-        /[&<>"']/g,
-        c => ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;"
-        }[c])
-      );
-
-
-    /* =========================
-       API
-    ========================== */
-
-           async function api(url, opt = {}) {
-          const method = (opt.method || "GET").toUpperCase();
-        
-          const maxRetries = method === "GET" ? 2 : 0;
-          const timeoutMs = 15000;
-        
-          opt.headers = {
-            ...(opt.headers || {}),
-            "Content-Type": "application/json",
-            ...(token
-              ? { "Authorization": "Bearer " + token }
-              : {})
-          };
-        
-          /*
-           * GET boleh dicoba ulang karena kita hanya membaca data.
-           *
-           * PUT tidak otomatis diulang di sini karena PUT digunakan
-           * untuk menyimpan data dan kita ingin menghindari mekanisme
-           * retry yang tidak perlu pada proses penyimpanan.
-           */
-          for (let attempt = 0; attempt <= maxRetries; attempt++) {
-            const controller = new AbortController();
-        
-            const timeout = setTimeout(() => {
-              controller.abort();
-            }, timeoutMs);
-        
-            try {
-              const requestOptions = {
-                ...opt,
-                signal: controller.signal,
-                cache: method === "GET" ? "no-store" : opt.cache
-              };
-        
-              const response = await fetch(url, requestOptions);
-        
-              clearTimeout(timeout);
-        
-              const data = await response.json().catch(() => ({}));
-        
-              if (!response.ok) {
-                const error = new Error(
-                  data.error ||
-                  "Gagal menghubungi server."
-                );
-        
-                error.status = response.status;
-                error.code = data.code || "API_ERROR";
-        
-                /*
-                 * Untuk GET, error server masih boleh dicoba lagi.
-                 * Percobaan berikutnya dilakukan setelah jeda singkat.
-                 */
-                if (method === "GET" && attempt < maxRetries) {
-                  console.warn(
-                    `GET ${url} gagal (${response.status}). ` +
-                    `Percobaan ulang ${attempt + 1}/${maxRetries}...`
-                  );
-        
-                  await new Promise(resolve => {
-                    setTimeout(resolve, 1500);
-                  });
-        
-                  continue;
-                }
-        
-                throw error;
-              }
-        
-              return data;
-        
-            } catch (error) {
-              clearTimeout(timeout);
-        
-              const isTimeout =
-                error?.name === "AbortError";
-        
-              const networkError =
-                !error?.status &&
-                !error?.code;
-        
-              /*
-               * Timeout atau network error pada GET
-               * akan dicoba kembali.
-               */
-              if (
-                method === "GET" &&
-                attempt < maxRetries &&
-                (isTimeout || networkError)
-              ) {
-                console.warn(
-                  `GET ${url} gagal.`,
-                  `Percobaan ulang ${attempt + 1}/${maxRetries}...`,
-                  error
-                );
-        
-                await new Promise(resolve => {
-                  setTimeout(resolve, 1500);
-                });
-        
-                continue;
-              }
-        
-              if (isTimeout) {
-                throw new Error(
-                  "Server terlalu lama merespons. " +
-                  "Silakan coba lagi."
-                );
-              }
-        
-              if (networkError) {
-                throw new Error(
-                  "Tidak dapat terhubung ke server. " +
-                  "Periksa koneksi internet lalu coba lagi."
-                );
-              }
-        
-              throw error;
-            }
-          }
-        
-          throw new Error(
-            "Data belum berhasil dimuat setelah beberapa percobaan."
-          );
-        }
-
-
-   /* =========================
-   LOGIN
-========================= */
-
-async function login() {
-
-  const loginButton =
-    document.querySelector(
-      '#loginView button[onclick="login()"]'
-    );
-
-  try {
-
-    if (loginButton) {
-
-      loginButton.disabled =
-        true;
-
-      loginButton.style.background =
-        "#0b2f70";
-
-      loginButton.style.cursor =
-        "wait";
-
-      loginButton.textContent =
-        "Sabar ya....";
-
+    if (!digits) {
+      return "";
     }
 
+    return rupiahNumberFormatter.format(
+      Number(digits)
+    );
+  }
 
-    const d =
-      await api(
-        "/api/login",
-        {
-          method: "POST",
+  function getNominalValue(value) {
 
-          body: JSON.stringify({
-            email:
-              email.value,
+    const digits =
+      String(value || "")
+        .replace(/\D/g, "");
 
-            password:
-              password.value
-          })
-        }
-      );
+    if (!digits) {
+      return 0;
+    }
+
+    return Number(digits);
+  }
 
 
-    token =
-      d.token;
+  /* =========================
+     STATE
+  ========================== */
 
+  let token =
+    sessionStorage.getItem("rt_token");
+
+  let state = {
+    warga: [],
+    kas: [],
+    pengeluaran: []
+  };
+
+  let saving = false;
+
+  /*
+   * PENCEGAH REQUEST DATA GANDA
+   *
+   * Jika load() dipanggil ketika request
+   * sebelumnya masih berjalan, request baru
+   * tidak akan dibuat.
+   */
+  let loadingData = false;
+
+
+  /* =========================================================
+     AUTO LOGOUT KARENA TIDAK ADA AKTIVITAS
+  ========================================================= */
+
+  /*
+   * 2 JAM
+   */
+  const AUTO_LOGOUT_MS =
+    2 * 60 * 60 * 1000;
+
+  const ACTIVITY_CHECK_MS =
+    30 * 1000;
+
+  const LAST_ACTIVITY_KEY =
+    "rt_last_activity";
+
+  let activityCheckTimer = null;
+  let activityWriteTimer = null;
+
+
+  function updateLastActivity() {
+
+    const now =
+      Date.now();
 
     sessionStorage.setItem(
-      "rt_token",
-      token
+      LAST_ACTIVITY_KEY,
+      String(now)
     );
+  }
 
+
+  function getLastActivity() {
+
+    const saved =
+      Number(
+        sessionStorage.getItem(
+          LAST_ACTIVITY_KEY
+        )
+      );
+
+    if (
+      Number.isFinite(saved) &&
+      saved > 0
+    ) {
+      return saved;
+    }
 
     updateLastActivity();
 
-    show();
-
-    setupAutoLogout();
-
-    await load();
-
-
-  } catch (e) {
-
-    loginMsg.className =
-      "err";
-
-    loginMsg.textContent =
-      e.message;
-
-
-  } finally {
-
-    if (loginButton) {
-
-      loginButton.disabled =
-        false;
-
-      loginButton.style.background =
-        "";
-
-      loginButton.style.cursor =
-        "";
-
-      loginButton.textContent =
-        "Masuk";
-
-    }
-
+    return Date.now();
   }
 
-}
 
+  function registerActivity() {
 
-    /* =========================
-       LOGOUT
-    ========================== */
-
-    function logout() {
-
-      sessionStorage.clear();
-
-      location.reload();
+    if (!token) {
+      return;
     }
 
-
-    /* =========================
-       TAMPILKAN APLIKASI
-    ========================== */
-
-    function show() {
-
-      loginView.style.display =
-        "none";
-
-      appView.style.display =
-        "block";
+    if (activityWriteTimer) {
+      return;
     }
 
+    updateLastActivity();
 
-    /* =========================
-       LOAD DATA
-    ========================== */
+    activityWriteTimer =
+      setTimeout(() => {
 
-    async function load() {
+        activityWriteTimer = null;
 
-      state =
-        await api("/api/data");
+      }, ACTIVITY_CHECK_MS);
+  }
 
-      refresh();
+
+  function checkAutoLogout() {
+
+    if (!token) {
+      return;
     }
 
+    const lastActivity =
+      getLastActivity();
 
-    /* =========================
-       REFRESH DASHBOARD
-    ========================== */
+    const inactiveFor =
+      Date.now() - lastActivity;
 
-    function refresh() {
-
-      const pemasukan =
-        state.kas.reduce(
-          (total, item) =>
-            total +
-            Number(
-              item.total || 0
-            ),
-          0
-        );
-
-
-      const pengeluaran =
-        state.pengeluaran.reduce(
-          (total, item) =>
-            total +
-            Number(
-              item.jumlah || 0
-            ),
-          0
-        );
-
-
-      saldo.textContent =
-        rp(
-          pemasukan -
-          pengeluaran
-        );
-
-
-      masuk.textContent =
-        rp(pemasukan);
-
-
-      keluar.textContent =
-        rp(pengeluaran);
-
-
-      jmlWarga.textContent =
-        state.warga.length;
-
-
-      /* =========================
-         TABEL WARGA
-      ========================== */
-
-      wTable.innerHTML =
-        state.warga
-          .map(
-            (x, i) => `
-              <tr>
-                <td>${esc(x.nama)}</td>
-                <td>${esc(x.blok)}</td>
-                <td>${esc(x.hp)}</td>
-                <td>${esc(x.status)}</td>
-
-                <td>
-                  <button
-                    class="danger"
-                    onclick="delWarga(${i})"
-                  >
-                    Hapus
-                  </button>
-                </td>
-              </tr>
-            `
-          )
-          .join("");
-
-
-      /* =========================
-         PILIHAN WARGA
-      ========================== */
-
-      kNama.innerHTML =
-        state.warga
-          .map(
-            x =>
-              `<option>${esc(
-                x.nama
-              )}</option>`
-          )
-          .join("");
-
-
-      renderSearch();
-
-      renderRekap();
-    }
-      /* =========================================================
-         DATA LOADING STATE
-         ========================================================= */
-      
-      function showDataLoading() {
-        let overlay = document.getElementById("dataLoadingOverlay");
-      
-        if (overlay) {
-          return;
-        }
-      
-        overlay = document.createElement("div");
-        overlay.id = "dataLoadingOverlay";
-        overlay.className = "data-loading-overlay";
-      
-        overlay.innerHTML = `
-          <div class="data-loading-box">
-            <div class="data-loading-spinner"></div>
-      
-            <h3 class="data-loading-title">
-              Memuat data...
-            </h3>
-      
-            <p class="data-loading-text">
-              Mengambil data terbaru dari server.<br>
-              Mohon tunggu sebentar.
-            </p>
-          </div>
-        `;
-      
-        document.body.appendChild(overlay);
-      }
-      
-      function hideDataLoading() {
-        const overlay = document.getElementById("dataLoadingOverlay");
-      
-        if (overlay) {
-          overlay.remove();
-        }
-      }
-      
-      function showDataLoadingError(error) {
-        let overlay = document.getElementById("dataLoadingOverlay");
-      
-        if (!overlay) {
-          showDataLoading();
-          overlay = document.getElementById("dataLoadingOverlay");
-        }
-      
-        const box = overlay.querySelector(".data-loading-box");
-      
-        if (!box) {
-          return;
-        }
-      
-        box.innerHTML = `
-          <h3 class="data-loading-title">
-            Data belum dapat dimuat
-          </h3>
-      
-          <p class="data-loading-text">
-            Data dari server belum berhasil diambil.
-            Login tetap dipertahankan.
-          </p>
-      
-          <div class="data-loading-error">
-            ${error?.message || "Terjadi gangguan saat mengambil data."}
-          </div>
-      
-          <button
-            type="button"
-            class="data-loading-retry"
-            onclick="retryLoadData()"
-          >
-            Coba Lagi
-          </button>
-        `;
-      }
-      
-      async function retryLoadData() {
-        showDataLoading();
-      
-        try {
-          await load();
-      
-          hideDataLoading();
-        } catch (error) {
-          console.error("Retry load data gagal:", error);
-      
-          showDataLoadingError(error);
-        }
-      }
-
-    /* =========================
-       SIMPAN DATA
-       TRANSACTIONAL STATE UPDATE
-    ========================== */
-
-    async function save(
-      nextState,
-      msg
+    if (
+      inactiveFor >=
+      AUTO_LOGOUT_MS
     ) {
 
-      if (saving) {
+      alert(
+        "Sesi login berakhir karena tidak ada aktivitas selama 2 jam."
+      );
 
-        throw Error(
-          "Penyimpanan sedang berlangsung. Tunggu sebentar lalu coba lagi."
+      logout();
+    }
+  }
+
+
+  function setupAutoLogout() {
+
+    const activityEvents = [
+      "click",
+      "keydown",
+      "mousedown",
+      "touchstart",
+      "scroll"
+    ];
+
+    activityEvents.forEach(
+      eventName => {
+
+        document.addEventListener(
+          eventName,
+          registerActivity,
+          {
+            passive: true
+          }
         );
+
       }
+    );
 
 
-      saving = true;
+    document.addEventListener(
+      "mousemove",
+      registerActivity,
+      {
+        passive: true
+      }
+    );
+
+
+    activityCheckTimer =
+      setInterval(
+        checkAutoLogout,
+        ACTIVITY_CHECK_MS
+      );
+
+
+    if (token) {
+      updateLastActivity();
+    }
+  }
+
+
+  /* =========================================================
+     INPUT OLEH TERAKHIR
+  ========================================================= */
+
+  const LAST_INPUT_BY_KEY =
+    "kas_rt_last_input_by";
+
+
+  function loadLastInputBy() {
+
+    return (
+      localStorage.getItem(
+        LAST_INPUT_BY_KEY
+      ) || ""
+    );
+  }
+
+
+  function saveLastInputBy(value) {
+
+    const nama =
+      String(value || "").trim();
+
+    if (nama) {
+
+      localStorage.setItem(
+        LAST_INPUT_BY_KEY,
+        nama
+      );
+    }
+  }
+
+
+  function setupLastInputBy() {
+
+    const inputOleh =
+      document.getElementById(
+        "pOleh"
+      );
+
+    if (!inputOleh) {
+      return;
+    }
+
+    const lastInputBy =
+      loadLastInputBy();
+
+    if (
+      lastInputBy &&
+      !inputOleh.value.trim()
+    ) {
+
+      inputOleh.value =
+        lastInputBy;
+    }
+  }
+
+
+  /* =========================
+     HELPER
+  ========================== */
+
+  function formatTanggal(tanggal) {
+
+    if (!tanggal) {
+      return "-";
+    }
+
+    const bulan = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "Mei",
+      "Jun",
+      "Jul",
+      "Agu",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Des"
+    ];
+
+    const bagian =
+      String(tanggal).split("-");
+
+    if (bagian.length !== 3) {
+      return tanggal;
+    }
+
+    const tahun =
+      bagian[0];
+
+    const nomorBulan =
+      Number(bagian[1]);
+
+    const hari =
+      bagian[2];
+
+    if (
+      !nomorBulan ||
+      nomorBulan < 1 ||
+      nomorBulan > 12
+    ) {
+      return tanggal;
+    }
+
+    return (
+      `${hari} ${bulan[nomorBulan - 1]} ${tahun}`
+    );
+  }
+
+
+  const rp = n =>
+    new Intl.NumberFormat(
+      "id-ID",
+      {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+      }
+    ).format(Number(n) || 0);
+
+
+  const uid = () =>
+    Date.now().toString(36) +
+    Math.random()
+      .toString(36)
+      .slice(2, 7);
+
+
+  const esc = s =>
+    String(s ?? "").replace(
+      /[&<>"']/g,
+      c => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[c])
+    );
+
+
+  /* =========================
+     API
+  ========================== */
+
+  async function api(
+    url,
+    opt = {}
+  ) {
+
+    const method =
+      (opt.method || "GET")
+        .toUpperCase();
+
+    /*
+     * PERUBAHAN OPTIMASI:
+     *
+     * Tidak ada retry otomatis.
+     *
+     * Sebelumnya GET dapat dicoba sampai
+     * 3 kali. Jika JSONBin sedang lambat,
+     * hal tersebut justru menghasilkan
+     * request tambahan.
+     *
+     * Sekarang jika GET gagal,
+     * aplikasi langsung menampilkan error
+     * dan pengguna dapat menggunakan
+     * tombol "Coba Lagi".
+     */
+    const maxRetries = 0;
+
+    const timeoutMs = 15000;
+
+
+    opt.headers = {
+
+      ...(opt.headers || {}),
+
+      "Content-Type":
+        "application/json",
+
+      ...(token
+        ? {
+            "Authorization":
+              "Bearer " + token
+          }
+        : {})
+    };
+
+
+    for (
+      let attempt = 0;
+      attempt <= maxRetries;
+      attempt++
+    ) {
+
+      const controller =
+        new AbortController();
+
+      const timeout =
+        setTimeout(() => {
+
+          controller.abort();
+
+        }, timeoutMs);
 
 
       try {
 
-        await api(
-          "/api/data",
-          {
-            method: "PUT",
+        const requestOptions = {
 
-            body: JSON.stringify(
-              nextState
-            )
-          }
-        );
+          ...opt,
 
+          signal:
+            controller.signal,
 
-        /*
-         * STATE BARU HANYA DITERAPKAN
-         * SETELAH SERVER BERHASIL.
-         */
-
-        state =
-          nextState;
+          cache:
+            method === "GET"
+              ? "no-store"
+              : opt.cache
+        };
 
 
-        refresh();
+        const response =
+          await fetch(
+            url,
+            requestOptions
+          );
 
 
-        if (msg) {
+        clearTimeout(timeout);
 
-          const el =
-            document.getElementById(
-              msg
+
+        const data =
+          await response
+            .json()
+            .catch(() => ({}));
+
+
+        if (!response.ok) {
+
+          const error =
+            new Error(
+              data.error ||
+              "Gagal menghubungi server."
             );
 
-          el.className =
-            "ok";
+          error.status =
+            response.status;
 
-          el.textContent =
-            " ✓ Tersimpan";
+          error.code =
+            data.code ||
+            "API_ERROR";
+
+          throw error;
         }
 
-      } finally {
 
-        saving = false;
+        return data;
+
+
+      } catch (error) {
+
+        clearTimeout(timeout);
+
+
+        const isTimeout =
+          error?.name ===
+          "AbortError";
+
+
+        const networkError =
+          !error?.status &&
+          !error?.code;
+
+
+        if (isTimeout) {
+
+          throw new Error(
+            "Server terlalu lama merespons. " +
+            "Silakan coba lagi."
+          );
+        }
+
+
+        if (networkError) {
+
+          throw new Error(
+            "Tidak dapat terhubung ke server. " +
+            "Periksa koneksi internet lalu coba lagi."
+          );
+        }
+
+
+        throw error;
       }
     }
 
 
-  /* =========================
-   TAMBAH WARGA
-   DENGAN VALIDASI DUPLIKAT
-========================= */
-
-async function addWarga() {
-
-  try {
-
-    const nama =
-      wNama.value.trim();
-
-
-    /* =========================
-       VALIDASI NAMA
-    ========================= */
-
-    if (!nama) {
-
-      return alert(
-        "Nama warga wajib diisi."
-      );
-    }
-
-
-    /*
-     * Normalisasi nama untuk pemeriksaan duplikat.
-     *
-     * Contoh:
-     * "Budi"
-     * " budi "
-     * "BUDI"
-     *
-     * semuanya dianggap sama.
-     */
-
-    const namaNormal =
-      nama.toLowerCase();
-
-
-    /* =========================
-       CEGAH DATA WARGA GANDA
-    ========================= */
-
-    const sudahAda =
-      state.warga.some(item => {
-
-        const namaLama =
-          String(
-            item.nama || ""
-          )
-            .trim()
-            .toLowerCase();
-
-        return (
-          namaLama ===
-          namaNormal
-        );
-
-      });
-
-
-    if (sudahAda) {
-
-      return alert(
-        "Data warga sudah terdaftar.\n\n" +
-        `Nama: ${nama}\n\n` +
-        "Gunakan nama warga yang berbeda."
-      );
-    }
-
-
-    /* =========================
-       BUAT DATA WARGA BARU
-    ========================= */
-
-    const newWarga = {
-
-      id:
-        uid(),
-
-      nama:
-
-        nama,
-
-      blok:
-
-        wBlok.value.trim(),
-
-      hp:
-
-        wHp.value.trim(),
-
-      status:
-
-        wStatus.value
-
-    };
-
-
-    /* =========================
-       STATE BERIKUTNYA
-    ========================= */
-
-    const nextState = {
-
-      ...state,
-
-      warga: [
-        ...state.warga,
-        newWarga
-      ]
-
-    };
-
-
-    /* =========================
-       SIMPAN
-    ========================= */
-
-    await save(
-      nextState,
-      "wMsg"
+    throw new Error(
+      "Data belum berhasil dimuat."
     );
-
-
-    /*
-     * FORM HANYA DIKOSONGKAN
-     * SETELAH SAVE BERHASIL.
-     */
-
-    wNama.value = "";
-
-    wBlok.value = "";
-
-    wHp.value = "";
-
-
-  } catch (e) {
-
-    wMsg.className =
-      "err";
-
-    wMsg.textContent =
-      " Gagal: " +
-      e.message;
   }
-}
 
 
   /* =========================
-   HAPUS WARGA
-   DILINDUNGI DARI PENGHAPUSAN
-   JIKA SUDAH MEMILIKI RIWAYAT KAS
-========================= */
+     LOGIN
+  ========================== */
 
-async function delWarga(i) {
+  async function login() {
 
-  const warga =
-    state.warga[i];
-
-
-  /*
-   * Pastikan data warga ditemukan.
-   */
-
-  if (!warga) {
-
-    return alert(
-      "Data warga tidak ditemukan."
-    );
-  }
-
-
-  const namaWarga =
-    String(
-      warga.nama || ""
-    ).trim();
-
-
-  /*
-   * Periksa apakah warga ini
-   * memiliki riwayat pembayaran kas.
-   */
-
-  const memilikiTransaksi =
-    state.kas.some(item => {
-
-      const namaTransaksi =
-        String(
-          item.nama || ""
-        ).trim()
-        .toLowerCase();
-
-      return (
-        namaTransaksi ===
-        namaWarga.toLowerCase()
+    const loginButton =
+      document.querySelector(
+        '#loginView button[onclick="login()"]'
       );
 
-    });
 
+    try {
 
-  /*
-   * Jika sudah memiliki transaksi,
-   * warga tidak boleh dihapus.
-   */
+      if (loginButton) {
 
-  if (memilikiTransaksi) {
+        loginButton.disabled =
+          true;
 
-    return alert(
-      "Warga tidak dapat dihapus.\n\n" +
-      `Nama: ${namaWarga}\n\n` +
-      "Warga ini memiliki riwayat " +
-      "pembayaran kas.\n\n" +
-      "Jika warga sudah tidak tinggal " +
-      "di RT, ubah Status menjadi " +
-      "\"Tidak Aktif\"."
-    );
-  }
+        loginButton.style.background =
+          "#0b2f70";
 
+        loginButton.style.cursor =
+          "wait";
 
-  /*
-   * Konfirmasi sebelum menghapus.
-   */
+        loginButton.textContent =
+          "Sabar ya....";
+      }
 
-  const yakin =
-    confirm(
-      `Hapus data warga "${namaWarga}"?`
-    );
 
+      const d =
+        await api(
+          "/api/login",
+          {
+            method: "POST",
 
-  if (!yakin) {
+            body: JSON.stringify({
+              email:
+                email.value,
 
-    return;
-  }
-
-
-  /*
-   * Buat state baru.
-   */
-
-  const nextWarga =
-    state.warga.filter(
-      (_, index) =>
-        index !== i
-    );
-
-
-  const nextState = {
-
-    ...state,
-
-    warga:
-      nextWarga
-
-  };
-
-
-  /*
-   * Simpan hanya jika proses
-   * penghapusan memang diperbolehkan.
-   */
-
-  try {
-
-    await save(
-      nextState
-    );
-
-  } catch (e) {
-
-    alert(
-      "Gagal menghapus warga: " +
-      e.message
-    );
-  }
-}
-
-
-              /* =========================
-   HAPUS PEMBAYARAN KAS
-========================= */
-
-async function delKas(id) {
-  const transaksi =
-    state.kas.find(
-      item => item.id === id
-    );
-
-  if (!transaksi) {
-    return alert(
-      "Transaksi pembayaran kas tidak ditemukan."
-    );
-  }
-
-  const yakin = confirm(
-    "Hapus pembayaran kas ini?\n\n" +
-    `${transaksi.nama} — ${rp(transaksi.total)}\n` +
-    `Periode: ${transaksi.periode || "-"}\n\n` +
-    "Data yang dihapus tidak dapat dikembalikan."
-  );
-
-  if (!yakin) {
-    return;
-  }
-
-  const nextState = {
-    ...state,
-
-    kas: state.kas.filter(
-      item => item.id !== id
-    )
-  };
-
-  try {
-    await save(nextState);
-  } catch (e) {
-    alert(
-      "Gagal menghapus pembayaran kas: " +
-      e.message
-    );
-  }
-}
-
-
-/* =========================
-   HAPUS PENGELUARAN
-========================= */
-
-async function delPengeluaran(id) {
-  const transaksi =
-    state.pengeluaran.find(
-      item => item.id === id
-    );
-
-  if (!transaksi) {
-    return alert(
-      "Data pengeluaran tidak ditemukan."
-    );
-  }
-
-  const yakin = confirm(
-    "Hapus pengeluaran ini?\n\n" +
-    `${transaksi.kategori} — ${rp(transaksi.jumlah)}\n` +
-    `Tanggal: ${transaksi.tanggal}\n\n` +
-    "Data yang dihapus tidak dapat dikembalikan."
-  );
-
-  if (!yakin) {
-    return;
-  }
-
-  const nextState = {
-    ...state,
-
-    pengeluaran: state.pengeluaran.filter(
-      item => item.id !== id
-    )
-  };
-
-  try {
-    await save(nextState);
-  } catch (e) {
-    alert(
-      "Gagal menghapus pengeluaran: " +
-      e.message
-    );
-  }
-}
-
-
-/* =========================
-   TAMBAH PEMBAYARAN KAS
-   DENGAN PENCEGAHAN DUPLIKAT
-========================= */
-
-async function addKas() {
-
-  try {
-
-    const kas =
-      Number(kKas.value) || 0;
-
-    const denda =
-      Number(kDenda.value) || 0;
-
-
-    /* =========================
-       VALIDASI DASAR
-    ========================= */
-
-    if (!kNama.value) {
-
-      return alert(
-        "Tambahkan warga dulu."
-      );
-    }
-
-
-    if (kas <= 0) {
-
-      return alert(
-        "Nominal kas harus lebih dari 0."
-      );
-    }
-
-
-    if (!kPeriode.value) {
-
-      return alert(
-        "Pilih periode pembayaran."
-      );
-    }
-
-
-    /*
-     * Normalisasi nilai agar perbandingan
-     * tidak terganggu oleh spasi.
-     */
-
-    const nama =
-      String(kNama.value).trim();
-
-    const periode =
-      String(kPeriode.value).trim();
-
-
-    /* =========================
-       CEGAH PEMBAYARAN GANDA
-    ========================= */
-
-    const sudahAda =
-      state.kas.some(item => {
-
-        const namaLama =
-          String(item.nama || "").trim();
-
-        const periodeLama =
-          String(item.periode || "").trim();
-
-        return (
-          namaLama === nama &&
-          periodeLama === periode
-        );
-
-      });
-
-
-    if (sudahAda) {
-
-      return alert(
-        "Pembayaran kas sudah tercatat.\n\n" +
-        `Nama: ${nama}\n` +
-        `Periode: ${periode}\n\n` +
-        "Pembayaran untuk warga dan periode " +
-        "tersebut tidak dapat dicatat dua kali."
-      );
-    }
-
-
-    /* =========================
-       BUAT TRANSAKSI BARU
-    ========================= */
-
-    const newKas = {
-
-      id:
-        uid(),
-
-      tanggal:
-        kTanggal.value ||
-        new Date()
-          .toISOString()
-          .slice(0, 10),
-
-      nama:
-
-        nama,
-
-      periode:
-
-        periode,
-
-      kas:
-
-        kas,
-
-      denda:
-
-        denda,
-
-      total:
-
-        kas + denda,
-
-      metode:
-
-        kMetode.value,
-
-      keterangan:
-
-        kKet.value.trim()
-
-    };
-
-
-    /* =========================
-       STATE BERIKUTNYA
-    ========================= */
-
-    const nextState = {
-
-      ...state,
-
-      kas: [
-        ...state.kas,
-        newKas
-      ]
-
-    };
-
-
-    /* =========================
-       SIMPAN
-    ========================= */
-
-    await save(
-      nextState,
-      "kMsg"
-    );
-
-
-    /*
-     * Reset form hanya setelah
-     * penyimpanan berhasil.
-     */
-
-    kPeriode.value = "";
-
-    kKet.value = "";
-
-    kDenda.value = "0";
-
-
-  } catch (e) {
-
-    kMsg.className =
-      "err";
-
-    kMsg.textContent =
-      " Gagal: " +
-      e.message;
-  }
-}
-
-
-/* =========================
-   TAMBAH PENGELUARAN
-========================= */
-
-async function addPengeluaran() {
-  try {
-    const jumlah =
-      getNominalValue(
-        pJumlah.value
-      );
-
-    if (jumlah <= 0) {
-      return alert(
-        "Jumlah pengeluaran harus lebih dari 0."
-      );
-    }
-
-    const newPengeluaran = {
-      id: uid(),
-
-      tanggal:
-        pTanggal.value ||
-        new Date()
-          .toISOString()
-          .slice(0, 10),
-
-      kategori:
-        pKategori.value.trim(),
-
-      jumlah,
-
-      oleh:
-        pOleh.value.trim(),
-
-      keterangan:
-        pKet.value.trim()
-    };
-
-    const nextState = {
-      ...state,
-
-      pengeluaran: [
-        ...state.pengeluaran,
-        newPengeluaran
-      ]
-    };
-
-    await save(
-      nextState,
-      "pMsg"
-    );
-
-    /*
-     * Simpan nama terakhir
-     * setelah SAVE berhasil.
-     */
-
-    saveLastInputBy(
-      pOleh.value
-    );
-
-    /*
-     * Reset form
-     * setelah SAVE berhasil.
-     */
-
-    pKategori.value = "";
-    pJumlah.value = "";
-    pKet.value = "";
-
-    /*
-     * Input Oleh sengaja
-     * tidak dikosongkan.
-     */
-
-    pOleh.value =
-      loadLastInputBy();
-
-  } catch (e) {
-    pMsg.className = "err";
-
-    pMsg.textContent =
-      " Gagal: " +
-      e.message;
-  }
-}
-
-
-/* =========================
-           PERIODE PEMBAYARAN KAS
-        ========================= */
-        
-        function setupPeriodeKas() {
-          const periode =
-            document.getElementById(
-              "kPeriode"
-            );
-        
-          if (!periode) {
-            return;
+              password:
+                password.value
+            })
           }
-        
-          const tahun =
-            new Date().getFullYear();
-        
-          const bulan = [
-            "Januari",
-            "Februari",
-            "Maret",
-            "April",
-            "Mei",
-            "Juni",
-            "Juli",
-            "Agustus",
-            "September",
-            "Oktober",
-            "November",
-            "Desember"
-          ];
-        
-          periode.innerHTML = `
-            <option value="">
-              Pilih periode
-            </option>
-        
-            ${bulan
-              .map(
-                (namaBulan, index) => {
-                  const nomorBulan =
-                    String(index + 1)
-                      .padStart(2, "0");
-        
-                  return `
-                    <option
-                      value="${tahun}-${nomorBulan}"
-                    >
-                      ${namaBulan} ${tahun}
-                    </option>
-                  `;
-                }
-              )
-              .join("")}
-          `;
-        }
+        );
+
+
+      token =
+        d.token;
+
+
+      sessionStorage.setItem(
+        "rt_token",
+        token
+      );
+
+
+      updateLastActivity();
+
+      show();
+
+      setupAutoLogout();
+
+      await load();
+
+
+    } catch (e) {
+
+      loginMsg.className =
+        "err";
+
+      loginMsg.textContent =
+        e.message;
+
+
+    } finally {
+
+      if (loginButton) {
+
+        loginButton.disabled =
+          false;
+
+        loginButton.style.background =
+          "";
+
+        loginButton.style.cursor =
+          "";
+
+        loginButton.textContent =
+          "Masuk";
+      }
+    }
+  }
+
+
+  /* =========================
+     LOGOUT
+  ========================== */
+
+  function logout() {
+
+    /*
+     * Hentikan timer auto logout
+     * agar tidak tertinggal ketika logout.
+     */
+    if (activityCheckTimer) {
+
+      clearInterval(
+        activityCheckTimer
+      );
+
+      activityCheckTimer = null;
+    }
+
+
+    if (activityWriteTimer) {
+
+      clearTimeout(
+        activityWriteTimer
+      );
+
+      activityWriteTimer = null;
+    }
+
+
+    sessionStorage.clear();
+
+    location.reload();
+  }
+
+
+  /* =========================
+     TAMPILKAN APLIKASI
+  ========================== */
+
+  function show() {
+
+    loginView.style.display =
+      "none";
+
+    appView.style.display =
+      "block";
+  }
+
+
+  /* =========================
+     LOAD DATA
+  ========================== */
+
+  async function load() {
+
+    /*
+     * PERUBAHAN OPTIMASI:
+     *
+     * Jangan membuat request kedua jika
+     * request pertama masih berjalan.
+     */
+    if (loadingData) {
+
+      return;
+    }
+
+
+    loadingData = true;
+
+
+    try {
+
+      const data =
+        await api(
+          "/api/data"
+        );
+
+
+      state =
+        data;
+
+
+      refresh();
+
+
+    } finally {
+
+      loadingData = false;
+    }
+  }
+
+
+  /* =========================
+     REFRESH DASHBOARD
+  ========================== */
+
+  function refresh() {
+
+    const pemasukan =
+      state.kas.reduce(
+        (total, item) =>
+          total +
+          Number(
+            item.total || 0
+          ),
+        0
+      );
+
+
+    const pengeluaran =
+      state.pengeluaran.reduce(
+        (total, item) =>
+          total +
+          Number(
+            item.jumlah || 0
+          ),
+        0
+      );
+
+
+    saldo.textContent =
+      rp(
+        pemasukan -
+        pengeluaran
+      );
+
+
+    masuk.textContent =
+      rp(pemasukan);
+
+
+    keluar.textContent =
+      rp(pengeluaran);
+
+
+    jmlWarga.textContent =
+      state.warga.length;
+
+
     /* =========================
-       PENCARIAN PEMBAYARAN
+       TABEL WARGA
     ========================== */
 
-    function renderSearch() {
+    wTable.innerHTML =
+      state.warga
+        .map(
+          (x, i) => `
+            <tr>
+              <td>${esc(x.nama)}</td>
+              <td>${esc(x.blok)}</td>
+              <td>${esc(x.hp)}</td>
+              <td>${esc(x.status)}</td>
+
+              <td>
+                <button
+                  class="danger"
+                  onclick="delWarga(${i})"
+                >
+                  Hapus
+                </button>
+              </td>
+            </tr>
+          `
+        )
+        .join("");
+
+
+    /* =========================
+       PILIHAN WARGA
+    ========================== */
+
+    kNama.innerHTML =
+      state.warga
+        .map(
+          x =>
+            `<option>${esc(
+              x.nama
+            )}</option>`
+        )
+        .join("");
+
+
+    renderSearch();
+
+    renderRekap();
+  }
+
+
+  /* =========================================================
+     DATA LOADING STATE
+  ========================================================= */
+
+  function showDataLoading() {
+
+    let overlay =
+      document.getElementById(
+        "dataLoadingOverlay"
+      );
+
+
+    if (overlay) {
+      return;
+    }
+
+
+    overlay =
+      document.createElement(
+        "div"
+      );
+
+
+    overlay.id =
+      "dataLoadingOverlay";
+
+
+    overlay.className =
+      "data-loading-overlay";
+
+
+    overlay.innerHTML = `
+      <div class="data-loading-box">
+
+        <div class="data-loading-spinner"></div>
+
+        <h3 class="data-loading-title">
+          Memuat data...
+        </h3>
+
+        <p class="data-loading-text">
+          Mengambil data terbaru dari server.<br>
+          Mohon tunggu sebentar.
+        </p>
+
+      </div>
+    `;
+
+
+    document.body.appendChild(
+      overlay
+    );
+  }
+
+
+  function hideDataLoading() {
+
+    const overlay =
+      document.getElementById(
+        "dataLoadingOverlay"
+      );
+
+
+    if (overlay) {
+
+      overlay.remove();
+    }
+  }
+
+
+  function showDataLoadingError(
+    error
+  ) {
+
+    let overlay =
+      document.getElementById(
+        "dataLoadingOverlay"
+      );
+
+
+    if (!overlay) {
+
+      showDataLoading();
+
+      overlay =
+        document.getElementById(
+          "dataLoadingOverlay"
+        );
+    }
+
+
+    const box =
+      overlay.querySelector(
+        ".data-loading-box"
+      );
+
+
+    if (!box) {
+      return;
+    }
+
+
+    box.innerHTML = `
+      <h3 class="data-loading-title">
+        Data belum dapat dimuat
+      </h3>
+
+      <p class="data-loading-text">
+        Data dari server belum berhasil diambil.
+        Login tetap dipertahankan.
+      </p>
+
+      <div class="data-loading-error">
+        ${
+          error?.message ||
+          "Terjadi gangguan saat mengambil data."
+        }
+      </div>
+
+      <button
+        type="button"
+        class="data-loading-retry"
+        onclick="retryLoadData()"
+      >
+        Coba Lagi
+      </button>
+    `;
+  }
+
+
+  async function retryLoadData() {
+
+    showDataLoading();
+
+
+    try {
+
+      await load();
+
+      hideDataLoading();
+
+
+    } catch (error) {
+
+      console.error(
+        "Retry load data gagal:",
+        error
+      );
+
+      showDataLoadingError(
+        error
+      );
+    }
+  }
+
+
+  /* =========================
+     SIMPAN DATA
+     TRANSACTIONAL STATE UPDATE
+  ========================== */
+
+  async function save(
+    nextState,
+    msg
+  ) {
+
+    if (saving) {
+
+      throw Error(
+        "Penyimpanan sedang berlangsung. Tunggu sebentar lalu coba lagi."
+      );
+    }
+
+
+    saving = true;
+
+
+    try {
+
+      await api(
+        "/api/data",
+        {
+          method: "PUT",
+
+          body:
+            JSON.stringify(
+              nextState
+            )
+        }
+      );
+
+
+      /*
+       * STATE BARU HANYA DITERAPKAN
+       * SETELAH SERVER BERHASIL.
+       */
+
+      state =
+        nextState;
+
+
+      refresh();
+
+
+      if (msg) {
+
+        const el =
+          document.getElementById(
+            msg
+          );
+
+        el.className =
+          "ok";
+
+        el.textContent =
+          " ✓ Tersimpan";
+      }
+
+
+    } finally {
+
+      saving = false;
+    }
+  }
+
+
+  /* =========================
+     TAMBAH WARGA
+     DENGAN VALIDASI DUPLIKAT
+  ========================== */
+
+  async function addWarga() {
+
+    try {
 
       const nama =
-        sNama.value.toLowerCase();
-
-      const blok =
-        sBlok.value.toLowerCase();
-
-      const metode =
-        sMetode.value;
-
-      const tanggal =
-        sTanggal.value;
-
-      const min =
-        Number(
-          sMin.value
-        ) || 0;
-
-      const max =
-        Number(
-          sMax.value
-        ) || Infinity;
+        wNama.value.trim();
 
 
-      const rows =
+      if (!nama) {
+
+        return alert(
+          "Nama warga wajib diisi."
+        );
+      }
+
+
+      const namaNormal =
+        nama.toLowerCase();
+
+
+      const sudahAda =
+        state.warga.some(
+          item => {
+
+            const namaLama =
+              String(
+                item.nama || ""
+              )
+                .trim()
+                .toLowerCase();
+
+            return (
+              namaLama ===
+              namaNormal
+            );
+          }
+        );
+
+
+      if (sudahAda) {
+
+        return alert(
+          "Data warga sudah terdaftar.\n\n" +
+          `Nama: ${nama}\n\n` +
+          "Gunakan nama warga yang berbeda."
+        );
+      }
+
+
+      const newWarga = {
+
+        id:
+          uid(),
+
+        nama:
+          nama,
+
+        blok:
+          wBlok.value.trim(),
+
+        hp:
+          wHp.value.trim(),
+
+        status:
+          wStatus.value
+      };
+
+
+      const nextState = {
+
+        ...state,
+
+        warga: [
+          ...state.warga,
+          newWarga
+        ]
+      };
+
+
+      await save(
+        nextState,
+        "wMsg"
+      );
+
+
+      wNama.value = "";
+
+      wBlok.value = "";
+
+      wHp.value = "";
+
+
+    } catch (e) {
+
+      wMsg.className =
+        "err";
+
+      wMsg.textContent =
+        " Gagal: " +
+        e.message;
+    }
+  }
+
+
+  /* =========================
+     HAPUS WARGA
+  ========================== */
+
+  async function delWarga(i) {
+
+    const warga =
+      state.warga[i];
+
+
+    if (!warga) {
+
+      return alert(
+        "Data warga tidak ditemukan."
+      );
+    }
+
+
+    const namaWarga =
+      String(
+        warga.nama || ""
+      ).trim();
+
+
+    const memilikiTransaksi =
+      state.kas.some(
+        item => {
+
+          const namaTransaksi =
+            String(
+              item.nama || ""
+            )
+              .trim()
+              .toLowerCase();
+
+          return (
+            namaTransaksi ===
+            namaWarga.toLowerCase()
+          );
+        }
+      );
+
+
+    if (memilikiTransaksi) {
+
+      return alert(
+        "Warga tidak dapat dihapus.\n\n" +
+        `Nama: ${namaWarga}\n\n` +
+        "Warga ini memiliki riwayat " +
+        "pembayaran kas.\n\n" +
+        "Jika warga sudah tidak tinggal " +
+        "di RT, ubah Status menjadi " +
+        "\"Tidak Aktif\"."
+      );
+    }
+
+
+    const yakin =
+      confirm(
+        `Hapus data warga "${namaWarga}"?`
+      );
+
+
+    if (!yakin) {
+      return;
+    }
+
+
+    const nextWarga =
+      state.warga.filter(
+        (_, index) =>
+          index !== i
+      );
+
+
+    const nextState = {
+
+      ...state,
+
+      warga:
+        nextWarga
+    };
+
+
+    try {
+
+      await save(
+        nextState
+      );
+
+    } catch (e) {
+
+      alert(
+        "Gagal menghapus warga: " +
+        e.message
+      );
+    }
+  }
+
+
+  /* =========================
+     HAPUS PEMBAYARAN KAS
+  ========================== */
+
+  async function delKas(id) {
+
+    const transaksi =
+      state.kas.find(
+        item => item.id === id
+      );
+
+
+    if (!transaksi) {
+
+      return alert(
+        "Transaksi pembayaran kas tidak ditemukan."
+      );
+    }
+
+
+    const yakin =
+      confirm(
+        "Hapus pembayaran kas ini?\n\n" +
+        `${transaksi.nama} — ${rp(transaksi.total)}\n` +
+        `Periode: ${transaksi.periode || "-"}\n\n` +
+        "Data yang dihapus tidak dapat dikembalikan."
+      );
+
+
+    if (!yakin) {
+      return;
+    }
+
+
+    const nextState = {
+
+      ...state,
+
+      kas:
         state.kas.filter(
+          item =>
+            item.id !== id
+        )
+    };
+
+
+    try {
+
+      await save(
+        nextState
+      );
+
+    } catch (e) {
+
+      alert(
+        "Gagal menghapus pembayaran kas: " +
+        e.message
+      );
+    }
+  }
+
+
+  /* =========================
+     HAPUS PENGELUARAN
+  ========================== */
+
+  async function delPengeluaran(
+    id
+  ) {
+
+    const transaksi =
+      state.pengeluaran.find(
+        item => item.id === id
+      );
+
+
+    if (!transaksi) {
+
+      return alert(
+        "Data pengeluaran tidak ditemukan."
+      );
+    }
+
+
+    const yakin =
+      confirm(
+        "Hapus pengeluaran ini?\n\n" +
+        `${transaksi.kategori} — ${rp(transaksi.jumlah)}\n` +
+        `Tanggal: ${transaksi.tanggal}\n\n` +
+        "Data yang dihapus tidak dapat dikembalikan."
+      );
+
+
+    if (!yakin) {
+      return;
+    }
+
+
+    const nextState = {
+
+      ...state,
+
+      pengeluaran:
+        state.pengeluaran.filter(
+          item =>
+            item.id !== id
+        )
+    };
+
+
+    try {
+
+      await save(
+        nextState
+      );
+
+    } catch (e) {
+
+      alert(
+        "Gagal menghapus pengeluaran: " +
+        e.message
+      );
+    }
+  }
+
+
+  /* =========================
+     TAMBAH PEMBAYARAN KAS
+     DENGAN PENCEGAHAN DUPLIKAT
+  ========================== */
+
+  async function addKas() {
+
+    try {
+
+      const kas =
+        Number(kKas.value) || 0;
+
+      const denda =
+        Number(kDenda.value) || 0;
+
+
+      if (!kNama.value) {
+
+        return alert(
+          "Tambahkan warga dulu."
+        );
+      }
+
+
+      if (kas <= 0) {
+
+        return alert(
+          "Nominal kas harus lebih dari 0."
+        );
+      }
+
+
+      if (!kPeriode.value) {
+
+        return alert(
+          "Pilih periode pembayaran."
+        );
+      }
+
+
+      const nama =
+        String(
+          kNama.value
+        ).trim();
+
+
+      const periode =
+        String(
+          kPeriode.value
+        ).trim();
+
+
+      const sudahAda =
+        state.kas.some(
+          item => {
+
+            const namaLama =
+              String(
+                item.nama || ""
+              ).trim();
+
+            const periodeLama =
+              String(
+                item.periode || ""
+              ).trim();
+
+            return (
+              namaLama === nama &&
+              periodeLama === periode
+            );
+          }
+        );
+
+
+      if (sudahAda) {
+
+        return alert(
+          "Pembayaran kas sudah tercatat.\n\n" +
+          `Nama: ${nama}\n` +
+          `Periode: ${periode}\n\n` +
+          "Pembayaran untuk warga dan periode " +
+          "tersebut tidak dapat dicatat dua kali."
+        );
+      }
+
+
+      const newKas = {
+
+        id:
+          uid(),
+
+        tanggal:
+          kTanggal.value ||
+          new Date()
+            .toISOString()
+            .slice(0, 10),
+
+        nama:
+          nama,
+
+        periode:
+          periode,
+
+        kas:
+          kas,
+
+        denda:
+          denda,
+
+        total:
+          kas + denda,
+
+        metode:
+          kMetode.value,
+
+        keterangan:
+          kKet.value.trim()
+      };
+
+
+      const nextState = {
+
+        ...state,
+
+        kas: [
+          ...state.kas,
+          newKas
+        ]
+      };
+
+
+      await save(
+        nextState,
+        "kMsg"
+      );
+
+
+      kPeriode.value = "";
+
+      kKet.value = "";
+
+      kDenda.value = "0";
+
+
+    } catch (e) {
+
+      kMsg.className =
+        "err";
+
+      kMsg.textContent =
+        " Gagal: " +
+        e.message;
+    }
+  }
+
+
+  /* =========================
+     TAMBAH PENGELUARAN
+  ========================== */
+
+  async function addPengeluaran() {
+
+    try {
+
+      const jumlah =
+        getNominalValue(
+          pJumlah.value
+        );
+
+
+      if (jumlah <= 0) {
+
+        return alert(
+          "Jumlah pengeluaran harus lebih dari 0."
+        );
+      }
+
+
+      const newPengeluaran = {
+
+        id:
+          uid(),
+
+        tanggal:
+          pTanggal.value ||
+          new Date()
+            .toISOString()
+            .slice(0, 10),
+
+        kategori:
+          pKategori.value.trim(),
+
+        jumlah,
+
+        oleh:
+          pOleh.value.trim(),
+
+        keterangan:
+          pKet.value.trim()
+      };
+
+
+      const nextState = {
+
+        ...state,
+
+        pengeluaran: [
+          ...state.pengeluaran,
+          newPengeluaran
+        ]
+      };
+
+
+      await save(
+        nextState,
+        "pMsg"
+      );
+
+
+      saveLastInputBy(
+        pOleh.value
+      );
+
+
+      pKategori.value = "";
+
+      pJumlah.value = "";
+
+      pKet.value = "";
+
+
+      pOleh.value =
+        loadLastInputBy();
+
+
+    } catch (e) {
+
+      pMsg.className =
+        "err";
+
+      pMsg.textContent =
+        " Gagal: " +
+        e.message;
+    }
+  }
+
+
+  /* =========================
+     PERIODE PEMBAYARAN KAS
+  ========================== */
+
+  function setupPeriodeKas() {
+
+    const periode =
+      document.getElementById(
+        "kPeriode"
+      );
+
+
+    if (!periode) {
+      return;
+    }
+
+
+    const tahun =
+      new Date().getFullYear();
+
+
+    const bulan = [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember"
+    ];
+
+
+    periode.innerHTML = `
+
+      <option value="">
+        Pilih periode
+      </option>
+
+      ${bulan
+        .map(
+          (
+            namaBulan,
+            index
+          ) => {
+
+            const nomorBulan =
+              String(
+                index + 1
+              )
+                .padStart(
+                  2,
+                  "0"
+                );
+
+
+            return `
+              <option
+                value="${tahun}-${nomorBulan}"
+              >
+                ${namaBulan} ${tahun}
+              </option>
+            `;
+          }
+        )
+        .join("")}
+    `;
+  }
+
+
+  /* =========================
+     PENCARIAN PEMBAYARAN
+  ========================== */
+
+  function renderSearch() {
+
+    const nama =
+      sNama.value.toLowerCase();
+
+
+    const blok =
+      sBlok.value.toLowerCase();
+
+
+    const metode =
+      sMetode.value;
+
+
+    const tanggal =
+      sTanggal.value;
+
+
+    const min =
+      Number(
+        sMin.value
+      ) || 0;
+
+
+    const max =
+      Number(
+        sMax.value
+      ) || Infinity;
+
+
+    const rows =
+      state.kas.filter(
+        x => {
+
+          const warga =
+            state.warga.find(
+              y =>
+                y.nama ===
+                x.nama
+            ) || {};
+
+
+          return (
+
+            x.nama
+              .toLowerCase()
+              .includes(nama)
+
+            &&
+
+            String(
+              warga.blok || ""
+            )
+              .toLowerCase()
+              .includes(blok)
+
+            &&
+
+            (
+              !metode ||
+              x.metode ===
+              metode
+            )
+
+            &&
+
+            (
+              !tanggal ||
+              x.tanggal ===
+              tanggal
+            )
+
+            &&
+
+            x.total >= min
+
+            &&
+
+            x.total <= max
+          );
+        }
+      );
+
+
+    sTable.innerHTML =
+      rows
+        .map(
           x => {
 
             const warga =
@@ -2613,280 +2775,246 @@ async function addPengeluaran() {
               ) || {};
 
 
-            return (
+            return `
+              <tr>
 
-              x.nama
-                .toLowerCase()
-                .includes(nama)
+                <td>
+                  ${formatTanggal(x.tanggal)}
+                </td>
 
-              &&
+                <td>
+                  ${esc(x.nama)}
+                </td>
 
-              String(
-                warga.blok || ""
-              )
-                .toLowerCase()
-                .includes(blok)
+                <td>
+                  ${esc(warga.blok)}
+                </td>
 
-              &&
+                <td>
+                  ${rp(x.kas)}
+                </td>
 
-              (
-                !metode ||
-                x.metode ===
-                metode
-              )
+                <td>
+                  ${rp(x.denda)}
+                </td>
 
-              &&
+                <td>
+                  ${rp(x.total)}
+                </td>
 
-              (
-                !tanggal ||
-                x.tanggal ===
-                tanggal
-              )
+                <td>
+                  ${esc(x.metode)}
+                </td>
 
-              &&
+                <td>
 
-              x.total >= min
+                  <button
+                    type="button"
+                    class="danger"
+                    onclick="delKas('${esc(x.id)}')"
+                  >
+                    Hapus
+                  </button>
 
-              &&
+                </td>
 
-              x.total <= max
-            );
+              </tr>
+            `;
           }
-        );
+        )
+        .join("");
+  }
 
 
-      sTable.innerHTML =
-        rows
-          .map(
-            x => {
+  /* =========================
+     REKAP TRANSAKSI
+  ========================== */
 
-              const warga =
-                state.warga.find(
-                  y =>
-                    y.nama ===
-                    x.nama
-                ) || {};
+  function renderRekap() {
+
+    const totalPemasukan =
+      state.kas.reduce(
+        (total, item) =>
+          total +
+          Number(
+            item.total || 0
+          ),
+        0
+      );
 
 
-              return `
-                <tr>
-                  <td>
-                   ${formatTanggal(x.tanggal)}
-                  </td>
+    const totalPengeluaran =
+      state.pengeluaran.reduce(
+        (total, item) =>
+          total +
+          Number(
+            item.jumlah || 0
+          ),
+        0
+      );
 
-                  <td>
-                    ${esc(x.nama)}
-                  </td>
 
-                  <td>
-                    ${esc(warga.blok)}
-                  </td>
+    const sisaKas =
+      totalPemasukan -
+      totalPengeluaran;
 
-                  <td>
-                    ${rp(x.kas)}
-                  </td>
 
-                  <td>
-                    ${rp(x.denda)}
-                  </td>
+    const rekapPemasukan =
+      document.getElementById(
+        "rekapPemasukan"
+      );
 
-                  <td>
-                    ${rp(x.total)}
-                  </td>
 
-                  <td>
-                    ${esc(x.metode)}
-                  </td>
+    const rekapPengeluaran =
+      document.getElementById(
+        "rekapPengeluaran"
+      );
 
-                  <td>
-                    <button
-                      type="button"
-                      class="danger"
-                      onclick="delKas('${esc(x.id)}')"
-                    >
-                      Hapus
-                    </button>
-                  </td>
-                </tr>
-              `;
-            }
-          )
-          .join("");
+
+    const rekapSaldo =
+      document.getElementById(
+        "rekapSaldo"
+      );
+
+
+    if (rekapPemasukan) {
+
+      rekapPemasukan.textContent =
+        rp(totalPemasukan);
     }
 
 
-       /* =========================
-         REKAP TRANSAKSI
-      ========================= */
-      
-      function renderRekap() {
-        /*
-         * TOTAL PEMASUKAN
-         */
-        const totalPemasukan =
-          state.kas.reduce(
-            (total, item) =>
-              total +
-              Number(item.total || 0),
-            0
-          );
-      
-        /*
-         * TOTAL PENGELUARAN
-         */
-        const totalPengeluaran =
-          state.pengeluaran.reduce(
-            (total, item) =>
-              total +
-              Number(item.jumlah || 0),
-            0
-          );
-      
-        /*
-         * SISA KAS
-         */
-        const sisaKas =
-          totalPemasukan -
-          totalPengeluaran;
-      
-        /*
-         * TAMPILKAN TOTAL
-         */
-        const rekapPemasukan =
-          document.getElementById(
-            "rekapPemasukan"
-          );
-      
-        const rekapPengeluaran =
-          document.getElementById(
-            "rekapPengeluaran"
-          );
-      
-        const rekapSaldo =
-          document.getElementById(
-            "rekapSaldo"
-          );
-      
-        if (rekapPemasukan) {
-          rekapPemasukan.textContent =
-            rp(totalPemasukan);
-        }
-      
-        if (rekapPengeluaran) {
-          rekapPengeluaran.textContent =
-            rp(totalPengeluaran);
-        }
-      
-        if (rekapSaldo) {
-          rekapSaldo.textContent =
-            rp(sisaKas);
-        }
-      
-        /*
-         * TABEL REKAP
-         */
-        const rekap = [
-          ...state.kas.map(
-            x => ({
-              id:
-                x.id,
+    if (rekapPengeluaran) {
 
-              tanggal:
-                x.tanggal,
-      
-              jenis:
-                "Kas",
-      
-              nama:
-                x.nama,
-      
-              jumlah:
-                x.total,
-      
-              ket:
-                x.keterangan
-            })
-          ),
-      
-          ...state.pengeluaran.map(
-            x => ({
-              id:
-                x.id,
-
-              tanggal:
-                x.tanggal,
-      
-              jenis:
-                "Pengeluaran",
-      
-              nama:
-                x.kategori,
-      
-              jumlah:
-                x.jumlah,
-      
-              ket:
-                x.keterangan
-            })
-          )
-      
-        ].sort(
-          (a, b) =>
-            b.tanggal.localeCompare(
-              a.tanggal
-            )
-        );
-      
-        rTable.innerHTML =
-          rekap
-            .map(
-              x => `
-                <tr>
-                  <td>
-                    ${formatTanggal(x.tanggal)}
-                  </td>
-      
-                  <td>
-                    ${x.jenis}
-                  </td>
-      
-                  <td>
-                    ${esc(x.nama)}
-                  </td>
-      
-                  <td>
-                    ${rp(x.jumlah)}
-                  </td>
-      
-                  <td>
-                    ${esc(x.ket)}
-                  </td>
-
-                  <td>
-                    <button
-                      type="button"
-                      class="danger"
-                      onclick="${x.jenis === "Kas" ? `delKas('${esc(x.id)}')` : `delPengeluaran('${esc(x.id)}')`}"
-                    >
-                      Hapus
-                    </button>
-                  </td>
-                </tr>
-              `
-            )
-            .join("");
-      }
+      rekapPengeluaran.textContent =
+        rp(totalPengeluaran);
+    }
 
 
-    /* =========================
-       NAVIGASI TAB
-    ========================== */
+    if (rekapSaldo) {
 
-    document
-      .querySelectorAll(
-        "nav button"
+      rekapSaldo.textContent =
+        rp(sisaKas);
+    }
+
+
+    const rekap = [
+
+      ...state.kas.map(
+        x => ({
+
+          id:
+            x.id,
+
+          tanggal:
+            x.tanggal,
+
+          jenis:
+            "Kas",
+
+          nama:
+            x.nama,
+
+          jumlah:
+            x.total,
+
+          ket:
+            x.keterangan
+        })
+      ),
+
+
+      ...state.pengeluaran.map(
+        x => ({
+
+          id:
+            x.id,
+
+          tanggal:
+            x.tanggal,
+
+          jenis:
+            "Pengeluaran",
+
+          nama:
+            x.kategori,
+
+          jumlah:
+            x.jumlah,
+
+          ket:
+            x.keterangan
+        })
       )
-      .forEach(button => {
+
+    ].sort(
+      (a, b) =>
+        b.tanggal.localeCompare(
+          a.tanggal
+        )
+    );
+
+
+    rTable.innerHTML =
+      rekap
+        .map(
+          x => `
+
+            <tr>
+
+              <td>
+                ${formatTanggal(x.tanggal)}
+              </td>
+
+              <td>
+                ${x.jenis}
+              </td>
+
+              <td>
+                ${esc(x.nama)}
+              </td>
+
+              <td>
+                ${rp(x.jumlah)}
+              </td>
+
+              <td>
+                ${esc(x.ket)}
+              </td>
+
+              <td>
+
+                <button
+                  type="button"
+                  class="danger"
+                  onclick="${
+                    x.jenis === "Kas"
+                      ? `delKas('${esc(x.id)}')`
+                      : `delPengeluaran('${esc(x.id)}')`
+                  }"
+                >
+                  Hapus
+                </button>
+
+              </td>
+
+            </tr>
+          `
+        )
+        .join("");
+  }
+
+
+  /* =========================
+     NAVIGASI TAB
+  ========================== */
+
+  document
+    .querySelectorAll(
+      "nav button"
+    )
+    .forEach(
+      button => {
 
         button.onclick = () => {
 
@@ -2927,120 +3055,109 @@ async function addPengeluaran() {
               "active"
             );
         };
-      });
+      }
+    );
 
 
-   /* =========================
-   INISIALISASI
-========================= */
+  /* =========================
+     INISIALISASI
+  ========================== */
 
-/*
- * Tanggal default hari ini.
- */
-
-const today =
-  new Date()
-    .toISOString()
-    .slice(0, 10);
-
-kTanggal.value = today;
-pTanggal.value = today;
+  const today =
+    new Date()
+      .toISOString()
+      .slice(0, 10);
 
 
-/*
- * Format nominal pengeluaran
- * ketika pengguna mengetik.
- *
- * Contoh:
- * 2500000
- * menjadi
- * 2.500.000
- */
-
-pJumlah.addEventListener(
-  "input",
-  () => {
-    pJumlah.value =
-      formatNominalInput(
-        pJumlah.value
-      );
-  }
-);
+  kTanggal.value =
+    today;
 
 
-/*
- * Isi nama Input Oleh
- * dari nama terakhir.
- */
-
-setupLastInputBy();
+  pTanggal.value =
+    today;
 
 
-/*
- * Isi dropdown periode
- * Januari - Desember tahun berjalan.
- */
+  pJumlah.addEventListener(
+    "input",
+    () => {
 
-setupPeriodeKas();
+      pJumlah.value =
+        formatNominalInput(
+          pJumlah.value
+        );
+    }
+  );
 
 
-/*
- * Jika token login masih ada,
- * tampilkan aplikasi dan ambil data.
- */
+  setupLastInputBy();
 
-if (token) {
+
+  setupPeriodeKas();
+
 
   /*
-   * Periksa terlebih dahulu apakah sesi
-   * sudah tidak aktif selama 2 jam.
+   * Jika token login masih ada,
+   * tampilkan aplikasi dan ambil data.
    */
-  const lastActivity =
-    getLastActivity();
 
-  const inactiveFor =
-    Date.now() - lastActivity;
+  if (token) {
+
+    const lastActivity =
+      getLastActivity();
 
 
-  if (
-    inactiveFor >=
-    AUTO_LOGOUT_MS
-  ) {
+    const inactiveFor =
+      Date.now() -
+      lastActivity;
 
-    logout();
+
+    if (
+      inactiveFor >=
+      AUTO_LOGOUT_MS
+    ) {
+
+      logout();
+
+    } else {
+
+      show();
+
+      setupAutoLogout();
+
+      showDataLoading();
+
+
+      load()
+        .then(() => {
+
+          hideDataLoading();
+
+        })
+        .catch(
+          error => {
+
+            console.error(
+              "Gagal memuat data:",
+              error
+            );
+
+
+            showDataLoadingError(
+              error
+            );
+          }
+        );
+    }
 
   } else {
 
-    show();
-
-    setupAutoLogout();
-
-    showDataLoading();
-
-    load()
-      .then(() => {
-        hideDataLoading();
-      })
-      .catch((error) => {
-        console.error(
-          "Gagal memuat data:",
-          error
-        );
-
-        showDataLoadingError(
-          error
-        );
-      });
+    /*
+     * Belum login.
+     * Tidak perlu menjalankan timer auto logout.
+     */
   }
 
-} else {
-
-  /*
-   * Belum login.
-   * Tidak perlu menjalankan timer auto logout.
-   */
-}
-  </script>
+</script>
 
 </body>
 
