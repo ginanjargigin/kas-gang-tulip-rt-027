@@ -158,36 +158,236 @@
 
     <!-- HOME -->
 
-    <section
-      id="home"
-      class="section active"
-    >
+  <!-- HOME / DASHBOARD -->
 
-      <div class="grid">
+<section
+  id="home"
+  class="section active"
+>
 
-        <div class="card stat saldo-card">
-          Saldo
-          <b id="saldo">Rp 0</b>
-        </div>
+  <!-- =========================
+       KPI UTAMA
+  ========================== -->
 
-        <div class="card stat pemasukan-card">
-          Pemasukan
-          <b id="masuk">Rp 0</b>
-        </div>
+  <div class="dashboard-kpi-grid">
 
-        <div class="card stat pengeluaran-card">
-          Pengeluaran
-          <b id="keluar">Rp 0</b>
-        </div>
+    <div class="card dashboard-kpi saldo-card">
 
-        <div class="card stat">
-          Warga
-          <b id="jmlWarga">0</b>
-        </div>
+      <div class="dashboard-kpi-label">
+        Saldo Kas
+      </div>
+
+      <div
+        id="saldo"
+        class="dashboard-kpi-value"
+      >
+        Rp 0
+      </div>
+
+      <div class="dashboard-kpi-caption">
+        Saldo saat ini
+      </div>
+
+    </div>
+
+
+    <div class="card dashboard-kpi pemasukan-card">
+
+      <div class="dashboard-kpi-label">
+        Pemasukan
+      </div>
+
+      <div
+        id="masuk"
+        class="dashboard-kpi-value"
+      >
+        Rp 0
+      </div>
+
+      <div class="dashboard-kpi-caption">
+        Total pemasukan
+      </div>
+
+    </div>
+
+
+    <div class="card dashboard-kpi pengeluaran-card">
+
+      <div class="dashboard-kpi-label">
+        Pengeluaran
+      </div>
+
+      <div
+        id="keluar"
+        class="dashboard-kpi-value"
+      >
+        Rp 0
+      </div>
+
+      <div class="dashboard-kpi-caption">
+        Total pengeluaran
+      </div>
+
+    </div>
+
+
+    <div class="card dashboard-kpi warga-card">
+
+      <div class="dashboard-kpi-label">
+        Warga
+      </div>
+
+      <div
+        id="jmlWarga"
+        class="dashboard-kpi-value"
+      >
+        0
+      </div>
+
+      <div class="dashboard-kpi-caption">
+        Total warga terdaftar
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       CASH FLOW
+  ========================== -->
+
+  <div class="card dashboard-panel dashboard-chart-panel">
+
+    <div class="dashboard-panel-header">
+
+      <div>
+
+        <h3>
+          Trend Kas
+        </h3>
+
+        <p>
+          Perkembangan pemasukan dan pengeluaran
+        </p>
 
       </div>
 
-    </section>
+      <span class="dashboard-panel-badge">
+        Cash Flow
+      </span>
+
+    </div>
+
+
+    <div
+      id="dashboardCashFlow"
+      class="dashboard-chart-placeholder"
+    >
+
+      <div class="dashboard-placeholder-icon">
+        📈
+      </div>
+
+      <strong>
+        Grafik cash flow
+      </strong>
+
+      <span>
+        Grafik akan ditampilkan setelah data
+        agregasi dashboard selesai.
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       AKTIVITAS TERBARU
+  ========================== -->
+
+  <div class="dashboard-two-column">
+
+
+    <!-- PEMBAYARAN TERBARU -->
+
+    <div class="card dashboard-panel">
+
+      <div class="dashboard-panel-header">
+
+        <div>
+
+          <h3>
+            Pembayaran Terbaru
+          </h3>
+
+          <p>
+            Aktivitas kas terbaru
+          </p>
+
+        </div>
+
+        <span class="dashboard-panel-badge">
+          Kas
+        </span>
+
+      </div>
+
+
+      <div
+        id="dashboardRecentKas"
+        class="dashboard-activity-placeholder"
+      >
+
+        Data pembayaran terbaru akan
+        ditampilkan di sini.
+
+      </div>
+
+    </div>
+
+
+    <!-- PENGELUARAN TERBARU -->
+
+    <div class="card dashboard-panel">
+
+      <div class="dashboard-panel-header">
+
+        <div>
+
+          <h3>
+            Pengeluaran Terbaru
+          </h3>
+
+          <p>
+            Aktivitas pengeluaran terbaru
+          </p>
+
+        </div>
+
+        <span class="dashboard-panel-badge dashboard-badge-danger">
+          Pengeluaran
+        </span>
+
+      </div>
+
+
+      <div
+        id="dashboardRecentPengeluaran"
+        class="dashboard-activity-placeholder"
+      >
+
+        Data pengeluaran terbaru akan
+        ditampilkan di sini.
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
 
     <!-- DATA WARGA -->
