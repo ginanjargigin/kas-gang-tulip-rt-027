@@ -623,11 +623,18 @@ nav button.active {
 
   text-align: center;
 }
+.dashboard-activity-list {
+  width: 100%;
+}
+
+
 .dashboard-activity-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 15px;
+  width: 100%;
+  box-sizing: border-box;
   padding: 11px 0;
   border-bottom: 1px solid #e2e8f0;
 }
