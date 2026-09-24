@@ -16,24 +16,25 @@ const empty = {
 ========================= */
 
 async function jb(method, body) {
-
   const path =
     method === "GET"
       ? "/latest"
       : "";
 
-  const controller =
-    new AbortController();
+  const maxAttempts = 3;
+  const timeoutMs = 15000;
 
-  const timeout =
-    setTimeout(() => {
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const controller = new AbortController();
+
+    const timeout = setTimeout(() => {
       controller.abort();
-    }, 12000);
+    }, timeoutMs);
 
-  try {
-
-    const r =
-      await fetch(
+    try {
+      const r = await fetch(
         URL +
           process.env.JSONBIN_BIN_ID +
           path,
@@ -60,71 +61,109 @@ async function jb(method, body) {
         }
       );
 
+      const text =
+        await r.text();
 
-    const text =
-      await r.text();
+      let data = {};
 
+      try {
+        data =
+          JSON.parse(text);
+      } catch (e) {
+        data = {};
+      }
 
-    let data = {};
+      if (!r.ok) {
+        const error =
+          new Error(
+            data.message ||
+            `JSONBin error (${r.status})`
+          );
 
-    try {
+        error.status =
+          r.status;
 
-      data =
-        JSON.parse(text);
+        /*
+         * Jangan retry error client/auth.
+         * Contoh:
+         * 400, 401, 403, 404
+         */
+        if (
+          r.status >= 400 &&
+          r.status < 500
+        ) {
+          throw error;
+        }
+
+        /*
+         * Error 5xx boleh dicoba ulang.
+         */
+        lastError = error;
+
+      } else {
+        return data;
+      }
 
     } catch (e) {
+      lastError = e;
 
-      data = {};
+      /*
+       * Timeout.
+       */
+      if (
+        e?.name ===
+        "AbortError"
+      ) {
+        lastError =
+          new Error(
+            `JSONBin timeout pada percobaan ${attempt}/${maxAttempts}.`
+          );
 
+        lastError.code =
+          "JSONBIN_TIMEOUT";
+      }
+
+      /*
+       * Jangan retry error 4xx.
+       */
+      if (
+        e?.status &&
+        e.status >= 400 &&
+        e.status < 500
+      ) {
+        throw e;
+      }
+    } finally {
+      clearTimeout(timeout);
     }
 
-
-    if (!r.ok) {
-
-      const error =
-        new Error(
-          data.message ||
-          `JSONBin error (${r.status})`
-        );
-
-      error.status =
-        r.status;
-
-      throw error;
-
-    }
-
-
-    return data;
-
-
-  } catch (e) {
-
+    /*
+     * Masih ada percobaan berikutnya.
+     */
     if (
-      e?.name ===
-      "AbortError"
+      attempt < maxAttempts
     ) {
+      const delay =
+        attempt * 1000;
 
-      const error =
-        new Error(
-          "JSONBin terlalu lama merespons."
-        );
+      console.warn(
+        `JSONBin gagal. Retry ${attempt + 1}/${maxAttempts} dalam ${delay} ms...`
+      );
 
-      error.code =
-        "JSONBIN_TIMEOUT";
-
-      throw error;
-
+      await new Promise(
+        (resolve) =>
+          setTimeout(
+            resolve,
+            delay
+          )
+      );
     }
-
-    throw e;
-
-  } finally {
-
-    clearTimeout(timeout);
-
   }
 
+  throw lastError ||
+    new Error(
+      "JSONBin tidak dapat dihubungi."
+    );
 }
 /* =========================
    VALIDASI DATA
