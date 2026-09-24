@@ -623,7 +623,51 @@ nav button.active {
 
   text-align: center;
 }
+.dashboard-activity-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 11px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
 
+.dashboard-activity-item:last-child {
+  border-bottom: 0;
+}
+
+.dashboard-activity-item > div {
+  min-width: 0;
+}
+
+.dashboard-activity-item strong {
+  display: block;
+  font-size: 13px;
+  color: #172033;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dashboard-activity-item span {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.dashboard-activity-item b {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: #17315e;
+}
+
+.dashboard-empty {
+  padding: 30px 15px;
+  text-align: center;
+  color: #64748b;
+  font-size: 13px;
+}
 /* =========================================================
    FORM
    ========================================================= */
