@@ -137,21 +137,24 @@ function renderDashboardRecentKas() {
     return;
   }
 
-  el.innerHTML = data
-    .map((item) => {
-      return `
-        <div class="dashboard-activity-item">
-          <div>
-            <strong>${esc(item.nama || "-")}</strong>
-            <span>${formatTanggal(item.tanggal)}</span>
-          </div>
+ el.innerHTML = `
+  <div class="dashboard-activity-list">
+    ${data
+      .map((item) => {
+        return `
+          <div class="dashboard-activity-item">
+            <div>
+              <strong>${esc(item.nama || "-")}</strong>
+              <span>${formatTanggal(item.tanggal)}</span>
+            </div>
 
-          <b>${rp(Number(item.total || 0))}</b>
-        </div>
-      `;
-    })
-    .join("");
-}
+            <b>${rp(Number(item.total || 0))}</b>
+          </div>
+        `;
+      })
+      .join("")}
+  </div>
+`;
 
 
 /**
@@ -175,21 +178,24 @@ function renderDashboardRecentPengeluaran() {
     return;
   }
 
-  el.innerHTML = data
-    .map((item) => {
-      return `
-        <div class="dashboard-activity-item">
-          <div>
-            <strong>${esc(item.kategori || "-")}</strong>
-            <span>${formatTanggal(item.tanggal)}</span>
-          </div>
+ el.innerHTML = `
+  <div class="dashboard-activity-list">
+    ${data
+      .map((item) => {
+        return `
+          <div class="dashboard-activity-item">
+            <div>
+              <strong>${esc(item.kategori || "-")}</strong>
+              <span>${formatTanggal(item.tanggal)}</span>
+            </div>
 
-          <b>${rp(Number(item.jumlah || 0))}</b>
-        </div>
-      `;
-    })
-    .join("");
-}
+            <b>${rp(Number(item.jumlah || 0))}</b>
+          </div>
+        `;
+      })
+      .join("")}
+  </div>
+`;
 
 
 /**
