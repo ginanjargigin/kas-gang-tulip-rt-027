@@ -214,6 +214,8 @@ function refresh() {
   renderSearch();
 
   renderRekap();
+
+  renderDashboard();
 }
 
 
